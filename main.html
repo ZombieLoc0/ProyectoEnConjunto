@@ -44,8 +44,8 @@
                             switch (type) {
                                 case "Router": return "images/router.png";
                                 case "Switch": return "images/switch.png";
-                                case "PC": return "images/pc.png";
-                                default: return "default.png";  // Imagen por defecto
+                                //case "PC": return "images/pc.png";
+                                //default: return "default.png";  // Imagen por defecto
                             }
                         })),
                     $(go.TextBlock, { margin: 8 }, new go.Binding("text", "key"))  // También dentro del Panel Vertical, se define un objeto go.TextBlock que se utiliza para mostrar el texto (la clave del nodo).
@@ -76,7 +76,6 @@
                     .catch(error => {
                         console.error('Error fetching the JSON data from API:', error);
                     });
-        
             
                /*  //Cargar la topología de red desde un archivo JSON
                 fetch('data.json')

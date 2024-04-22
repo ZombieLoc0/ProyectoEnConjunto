@@ -2,16 +2,10 @@
     "nodes": [
         { "key": "Router1", "type": "Router" },
         { "key": "Switch1", "type": "Switch" },
-        { "key": "Switch2", "type": "Switch" },
-        { "key": "Computer1", "type": "PC" },
-        { "key": "Computer2", "type": "PC" },
-        { "key": "Computer3", "type": "PC" }
+        { "key": "Switch2", "type": "Switch" }
     ],
     "links": [
         { "from": "Router1", "to": "Switch1" },
-        { "from": "Switch2", "to": "Computer1" },
-        { "from": "Switch1", "to": "Switch2" },
-        { "from": "Switch2", "to": "Computer2" },
-        { "from": "Switch2", "to": "Computer3" }
+        { "from": "Switch1", "to": "Switch2" }
     ]
 }
