@@ -1,0 +1,170 @@
+@import url("https://fonts.googleapis.com/css2?family=Jersey+10&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Poppins", sans-serif;
+}
+
+body {
+    display: flex;
+    justify-content: space-between;
+    min-height: 100vh;
+    background: url("../images/bck2.jpg");
+    background-size: cover;
+    background-position: center;
+}
+
+.header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    padding: 20px 100px;
+    background: transparent;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 100;
+}
+
+.logo {
+    font-size: 32px;
+    color: white;
+    text-decoration: none;
+    font-weight: 700;
+}
+
+.navbar a {
+    position: relative;
+    font-size: 18px;
+    color: white;
+    font-weight: 500;
+    text-decoration: none;
+    margin-left: 40px;
+}
+
+.navbar a::before {
+    content: '';
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: #fff;
+    transition: .3s;
+}
+
+.navbar a:hover::before {
+    width: 100%;
+}
+
+.main-content {
+    width: 70%;
+    padding: 20px;
+    box-sizing: border-box;
+    position: relative;
+    overflow: hidden; 
+    margin-top: 60px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.sidebar {
+    width: 30%;
+    padding: 20px;
+    box-sizing: border-box;
+    margin-top: 60px;
+    display: flex;
+    flex-direction: column;
+}
+
+.configuration-section {
+    margin-bottom: 20px;
+    background-color: transparent;
+    border-radius: 5px;
+    border: 5px solid rgb(255, 255, 255, .5);
+    padding: 20px;
+    transition: border-color 1s ease; 
+    color: white;
+}
+
+.configuration-section:hover {
+    border-color: rgba(155, 175, 180); 
+}
+
+.configurations {
+    max-height: 300px;
+    overflow-y: auto;
+}
+
+.dropdown {
+    width: 100%;
+    margin-bottom: 20px;
+}
+
+.input-field {
+    width: 100%;
+}
+
+.map-container {
+    width: 100%;
+    height: 600px;
+    background-color: transparent;
+    backdrop-filter: blur(10px);
+    position: relative; 
+    overflow: hidden;
+    margin-top: 70px;
+    border-radius: 5px;
+    border: 5px solid rgb(255, 255, 255, .5);
+    transition: border-color 1s ease; 
+}
+
+.map-container:hover {
+    border-color: rgba(155, 175, 180); 
+}
+
+.map-container img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    -webkit-user-drag: none;
+    user-select: none; 
+}
+
+
+.configurations-dropdown {
+    margin-bottom: 330px;
+}
+
+.configurations-dropdown select {
+    width: 100%;
+}
+
+.device-info {
+    background-color: transparent;
+    border-radius: 5px;
+    border: 5px solid rgb(255, 255, 255, .5);
+    padding: 20px;
+    margin-bottom: 20px;
+    transition: border-color 1s ease; 
+    color: white;
+}
+
+.device-info:hover {
+    border-color: rgba(155, 175, 180); 
+}
+
+.device-info-list {
+    list-style: none;
+    padding: 0;
+}
+
+.device-info-list li {
+    margin-bottom: 100px;
+}
+
+.device-info-list li strong {
+    font-weight: bold;
+}
