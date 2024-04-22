@@ -11,7 +11,7 @@ body {
     display: flex;
     justify-content: space-between;
     min-height: 100vh;
-    background: url("../images/bck2.jpg");
+    background: url("../images/bck.jpg");
     background-size: cover;
     background-position: center;
 }
@@ -21,8 +21,8 @@ body {
     top: 0;
     left: 0;
     width: 100%;
-    padding: 20px 100px;
-    background: transparent;
+    padding: 10px 40px;
+    background: #66339C;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -67,7 +67,7 @@ body {
     position: relative;
     overflow: hidden; 
     margin-top: 60px;
-    margin-left: auto;
+    margin-left: 20px;
     margin-right: auto;
 }
 
@@ -83,15 +83,17 @@ body {
 .configuration-section {
     margin-bottom: 20px;
     background-color: transparent;
-    border-radius: 5px;
-    border: 5px solid rgb(255, 255, 255, .5);
+    border-radius: 20px;
+    border: 5px solid rgba(0, 0, 0, 0.250);
+    backdrop-filter: blur(5px);
     padding: 20px;
     transition: border-color 1s ease; 
-    color: white;
+    color:#66339C;
+    text-align: center;
 }
 
 .configuration-section:hover {
-    border-color: rgba(155, 175, 180); 
+    border-color:#66339C; 
 }
 
 .configurations {
@@ -111,17 +113,17 @@ body {
 .map-container {
     width: 100%;
     height: 600px;
-    background-color:#FAF8E2;
+    background-color:#ffffeb;
     position: relative; 
     overflow: hidden;
     margin-top: 70px;
-    border-radius: 5px;
-    border: 5px solid rgb(255, 255, 255, .5);
+    border-radius: 20px;
+    border: 5px solid rgba(0, 0, 0, 0.250);
     transition: border-color 1s ease; 
 }
 
 .map-container:hover {
-    border-color: rgba(155, 175, 180); 
+    border-color:#66339C; 
 }
 
 .map-container img {
@@ -138,21 +140,46 @@ body {
 }
 
 .configurations-dropdown select {
-    width: 100%;
+    width: 300px;
+    font-size: 16px;
+    font-weight: 600;
+    color: white;
+    cursor: pointer;
+    margin: 5px;
+    height: 30px;
+    text-align:center;
+    border: none;
+    background-size: 300% 100%;
+    border-radius: 20px;
+    transition: all .4s ease-in-out;
+    background-image: linear-gradient(to right, #66339c, #7a3bbe, #8f41e2, #9244e6);
+    box-shadow: 0 2px 15px 0 rgba(121, 38, 146, 0.75);
 }
+
+.configurations-dropdown select:hover {
+    background-position: 100% 0;
+}
+
+.configurations-dropdown select:focus {
+    outline: none;
+}
+
 
 .device-info {
     background-color: transparent;
-    border-radius: 5px;
-    border: 5px solid rgb(255, 255, 255, .5);
+    border-radius: 20px;
+    border: 5px solid rgba(0, 0, 0, 0.250);
     padding: 20px;
     margin-bottom: 20px;
     transition: border-color 1s ease; 
     color: white;
+    color: #66339C;
+    backdrop-filter: blur(5px);
+    text-align: center;
 }
 
 .device-info:hover {
-    border-color: rgba(155, 175, 180); 
+    border-color:#66339C; 
 }
 
 .device-info-list {
