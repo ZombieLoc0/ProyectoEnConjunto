@@ -22,7 +22,7 @@ body {
     left: 0;
     width: 100%;
     padding: 10px 40px;
-    background: #66339C;
+    background: #0c0338;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -53,7 +53,7 @@ body {
     width: 0;
     height: 2px;
     background: #fff;
-    transition: .3s;
+    transition: .7s;
 }
 
 .navbar a:hover::before {
@@ -88,12 +88,12 @@ body {
     backdrop-filter: blur(5px);
     padding: 20px;
     transition: border-color 1s ease; 
-    color:#66339C;
+    color:#0c0338;
     text-align: center;
 }
 
 .configuration-section:hover {
-    border-color:#66339C; 
+    border-color: #0c0338; 
 }
 
 .configurations {
@@ -123,7 +123,7 @@ body {
 }
 
 .map-container:hover {
-    border-color:#66339C; 
+    border-color:#0c0338; 
 }
 
 .map-container img {
@@ -152,12 +152,13 @@ body {
     background-size: 300% 100%;
     border-radius: 20px;
     transition: all .4s ease-in-out;
-    background-image: linear-gradient(to right, #66339c, #7a3bbe, #8f41e2, #9244e6);
-    box-shadow: 0 2px 15px 0 rgba(121, 38, 146, 0.75);
+    background-image: linear-gradient(to right, #23146b, #22099c, #330fe8, #2956ec);
+    box-shadow: 0 2px 15px 0 rgba(26, 96, 119, 0.75);
 }
 
 .configurations-dropdown select:hover {
     background-position: 100% 0;
+    color: #0c0338;
 }
 
 .configurations-dropdown select:focus {
@@ -173,13 +174,13 @@ body {
     margin-bottom: 20px;
     transition: border-color 1s ease; 
     color: white;
-    color: #66339C;
+    color: #0c0338;
     backdrop-filter: blur(5px);
     text-align: center;
 }
 
 .device-info:hover {
-    border-color:#66339C; 
+    border-color:#0c0338; 
 }
 
 .device-info-list {
