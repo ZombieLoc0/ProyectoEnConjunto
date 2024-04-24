@@ -1,6 +1,5 @@
 
 from re import finditer
-import netmiko as nm
 
 def cdp_get_ips(output):
     a = [m.start() for m in finditer('IP', output)]
@@ -57,20 +56,3 @@ def active_interfaces(output):
 
     print(lines)
 
-
-router = {
-    'device_type': 'cisco_ios',
-    'ip': '10.10.69.1',
-    'username': 'test',
-    'password': 'test',
-    'secret': 'test',
-    'port': 22,
-    }
-
-conn = nm.ConnectHandler(**router)
-
-intb = conn.send_command('show ip int brief')
-
-
-active_interfaces(intb)
-#print(intb)
