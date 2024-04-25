@@ -40,3 +40,20 @@ function setPosition(x, y) {
     mapImage.style.top = y + 'px';
 }
 
+function openTab(evt, tabName) {
+    // Obtener todos los elementos con la clase "tabcontent" y ocultarlos
+    var tabcontent = document.getElementsByClassName("tabcontent");
+    for (var i = 0; i < tabcontent.length; i++) {
+        tabcontent[i].style.display = "none";
+    }
+
+    // Obtener todos los elementos con la clase "tablinks" y quitar la clase "active"
+    var tablinks = document.getElementsByClassName("tablinks");
+    for (var i = 0; i < tablinks.length; i++) {
+        tablinks[i].classList.remove("active");
+    }
+
+    // Mostrar el contenido de la pestaña actual y agregar la clase "active" al botón de la pestaña
+    document.getElementById(tabName).style.display = "block";
+    evt.currentTarget.classList.add("active");
+}

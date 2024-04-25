@@ -89,42 +89,33 @@
             </script>
         </div>
     </div>
-    <div class="sidebar">
+<div class="sidebar">
+    <div class="tab">
+        <button class="tablinks" onclick="openTab(event, 'deviceInfo')">Información del dispositivo</button>
+        <button class="tablinks" onclick="openTab(event, 'configurationSection')">Secciones de configuración</button>
+    </div>
+
+    <div id="deviceInfo" class="tabcontent">
         <div class="device-info">
             <h2>Información del dispositivo</h2>
             <ul class="device-info-list">
                 <li class="info"><strong>Dirección IP:</strong> </li>
             </ul>
         </div>
+    </div>
+
+    <div id="configurationSection" class="tabcontent">
         <div class="configuration-section">
             <h2>Secciones de configuración</h2>
             <div class="configurations-dropdown">
                 <select class="dropdown">
                     <option value="config1">Configuración 1</option>
-                    <option value="config2">Configuración 2</option>
-                    <option value="config2">Configuración 3</option>
-                    <option value="config2">Configuración 4</option>
-                    <option value="config2">Configuración 5</option>
-                    <option value="config2">Configuración 6</option>
-                    <option value="config2">Configuración 7</option>
-                    <option value="config2">Configuración 8</option>
-                    <option value="config2">Configuración 9</option>
-                    <option value="config2">Configuración 10</option>
-                    <option value="config2">Configuración 11</option>
-                    <option value="config2">Configuración 12</option>
-                    <option value="config2">Configuración 13</option>
-                    <option value="config2">Configuración 14</option>
-                    <option value="config2">Configuración 15</option>
-                    <option value="config2">Configuración 16</option>
-                    <option value="config2">Configuración 17</option>
-                    <option value="config2">Configuración 18</option>
-                    <option value="config2">Configuración 19</option>
-                    <option value="config2">Configuración 20</option>
-
+                    <!-- Otras opciones de configuración -->
                 </select>
             </div>
         </div>
-    </div>    
+    </div>
+</div>
 
     <script src="scripts/javas.js"></script>
 </body>

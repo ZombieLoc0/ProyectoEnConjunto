@@ -150,7 +150,7 @@ body {
     text-align:center;
     border: none;
     background-size: 300% 100%;
-    border-radius: 20px;
+    border-radius: 10px;
     transition: all .4s ease-in-out;
     background-image: linear-gradient(to right, #23146b, #1e4ccb, #6595de, #d1d9f2);
     box-shadow: 0 2px 15px 0 rgba(17, 17, 93, 0.75);
@@ -199,4 +199,35 @@ body {
 .info {
     margin-top: 20px;
     text-align: left;
+}
+
+.tab {
+    overflow: hidden;
+    border: 1px solid #ccc;
+    background-color: #f1f1f1;
+}
+
+.tab button {
+    background-color: inherit;
+    float: left;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    padding: 14px 117px;
+    transition: background-color 0.3s ease;
+}
+
+.tab button:hover {
+    background-color: #ddd;
+}
+
+.tab button.active {
+    background-color: #ccc;
+}
+
+.tabcontent {
+    display: none;
+    padding: 6px 12px;
+    border: 1px solid #ccc;
+    border-top: none;
 }
