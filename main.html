@@ -106,8 +106,8 @@
                     <strong>Puerto de Conmutación Físico:</strong> Serial 0/0/1 <br><br>
                     <strong>Uso de CPU:</strong> 10%<br><br>
                     <strong>Porcentaje de Memoria Disponible:</strong> 80%<br><br>
-                    <strong>Porcentaje de Almacenamiento:</strong> 50%<br><br>
-                </li>
+                    <strong>Interfaces conecatadas: </strong> Gi0/1: 192.168.10.3<br><br>
+                 </li>
             </ul>
         </div>
     </div>
@@ -120,8 +120,16 @@
                     <option value="basics">Básicas</option>
                     <option value="security">Seguridad</option>
                     <option value="routing">DHCP</option>
-                    <option value="shows">Shows</option>
                 </select>
+            </div>
+            <div id="basicConfig">
+                <form id="bsConfig">
+                    <label for="basics"> Hostname:</label>
+                    <input type="text" id="basics" name="basics"><br><br>
+                    <label for="basics"> Mensaje del Día:</label>
+                    <input type="text" id="basics" name="basics"><br><br>
+                </form>
+            
             </div>
             <div id="routingConfig" style="display: none;">
                 <form id="dhcpForm">
@@ -137,17 +145,11 @@
                     <label for="poolName">Nombre del pool DHCP:</label>
                     <input type="text" id="poolName" name="poolName"><br><br>
             
-                    <label for="excludedIP">IP Excluida:</label> <!-- Nuevo campo para la IP excluida -->
-                    <input type="text" id="excludedIP" name="excludedIP"><br><br> <!-- Nuevo campo para la IP excluida -->
+                    <label for="excludedIP">IP Excluida:</label>
+                    <input type="text" id="excludedIP" name="excludedIP"><br><br>
             
                     <button type="button" onclick="applyDHCPConfiguration()">Aplicar configuración DHCP</button>
                 </form>
-            </div>
-            <div id="showConfig" style="display: none;">
-                <button type="button" class="src" onclick="showRunningConfig()">Show running-config</button><br><br>
-                <button type="button" class="sib" onclick="showInterfaceBrief()">Show interface brief</button><br><br>
-                <button type="button" class="svb" onclick="showVlanBrief()">Show vlan brief</button><br><br>
-                <button type="button" class="sdb" onclick="showDhcpBinding()">Show DHCP binding</button>
             </div>
         </div>
     </div>    

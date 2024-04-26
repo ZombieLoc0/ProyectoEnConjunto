@@ -90,18 +90,22 @@ function applyDHCPConfiguration() {
     alert("Comando DHCP generado:\n" + dhcpCommand);
 }
 
-function showRunningConfig() {
-    alert("Comando para mostrar la configuración actual:\nshow running-config");
-}
+function applyBasicConf() {
+    var poolName = document.getElementById("poolName").value;
+    var dhcpRange = document.getElementById("dhcpRange").value;
+    var subnetMask = document.getElementById("subnetMask").value;
+    var gateway = document.getElementById("gateway").value;
+    var excludedIP = document.getElementById("excludedIP").value; // Nueva línea para obtener la IP excluida
 
-function showInterfaceBrief() {
-    alert("Comando para mostrar interfaces:\nshow ip interface brief");
-}
+    var dhcpCommand = "configure terminal\n" + 
+                      "no ip dhcp pool\n" + 
+                      "ip dhcp pool " + poolName + "\n" + 
+                      "network " + dhcpRange + " " + subnetMask + "\n" + 
+                      "default-router " + gateway + "\n";
+    if (excludedIP) {
+        dhcpCommand += "exclude-address " + excludedIP + "\n"; // Agregar la IP excluida al comando DHCP si se proporciona
+    }
+    dhcpCommand += "exit"; 
 
-function showVlanBrief() {
-    alert("Comando para mostrar VLANs:\nshow vlan brief");
-}
-
-function showDhcpBinding() {
-    alert("Comando para mostrar asignaciones DHCP:\nshow ip dhcp binding");
+    alert("Comando DHCP generado:\n" + dhcpCommand);
 }
