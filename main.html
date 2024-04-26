@@ -127,24 +127,27 @@
                 <form id="dhcpForm">
                     <label for="dhcpRange">Rango DHCP:</label>
                     <input type="text" id="dhcpRange" name="dhcpRange"><br><br>
-    
+            
                     <label for="subnetMask">Máscara de subred:</label>
                     <input type="text" id="subnetMask" name="subnetMask"><br><br>
-    
+            
                     <label for="gateway">Puerta de enlace predeterminada:</label>
                     <input type="text" id="gateway" name="gateway"><br><br>
-    
+            
                     <label for="poolName">Nombre del pool DHCP:</label>
                     <input type="text" id="poolName" name="poolName"><br><br>
-    
+            
+                    <label for="excludedIP">IP Excluida:</label> <!-- Nuevo campo para la IP excluida -->
+                    <input type="text" id="excludedIP" name="excludedIP"><br><br> <!-- Nuevo campo para la IP excluida -->
+            
                     <button type="button" onclick="applyDHCPConfiguration()">Aplicar configuración DHCP</button>
                 </form>
             </div>
             <div id="showConfig" style="display: none;">
-                <button type="button" onclick="showRunningConfig()">Mostrar configuración actual</button><br>
-                <button type="button" onclick="showInterfaceBrief()">Mostrar interfaces</button><br>
-                <button type="button" onclick="showVlanBrief()">Mostrar VLANs</button><br>
-                <button type="button" onclick="showDhcpBinding()">Mostrar asignaciones DHCP</button>
+                <button type="button" class="src" onclick="showRunningConfig()">Show running-config</button><br><br>
+                <button type="button" class="sib" onclick="showInterfaceBrief()">Show interface brief</button><br><br>
+                <button type="button" class="svb" onclick="showVlanBrief()">Show vlan brief</button><br><br>
+                <button type="button" class="sdb" onclick="showDhcpBinding()">Show DHCP binding</button>
             </div>
         </div>
     </div>    
