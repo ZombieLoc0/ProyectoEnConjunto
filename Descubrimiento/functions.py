@@ -1,11 +1,8 @@
-
 from re import finditer
 
 def cdp_get_ips(output):
     a = [m.start() for m in finditer('IP', output)]
     ips = []
-    
-    
 
     for i in range(0, len(a), 2):
         temp = output[a[i]:-1]
@@ -37,22 +34,3 @@ def cdp_get_neighbour_inter(output):
         ints.append(temp)
     
     return ints
-
-def active_interfaces(output):
-    #faltan cosas
-    #get interface
-    temp = output[output.find('\n'):]
-    print(temp)
-    interfaces = [m.start() for m in finditer('\n', temp)]
-
-    lines = list()
-    int_dict = dict()
-
-    ips = []
-    intf = []
-
-    for i in range(len(lines)):
-        pass
-
-    print(lines)
-
