@@ -116,16 +116,38 @@
         <div class="configuration-section">
             <h2>Secciones de configuración</h2>
             <div class="configurations-dropdown">
-                <select class="dropdown">
-                    <option value="config1">Básicas</option>
-                    <option value="config1">Seguridad</option>
-                    <option value="config1">Ruteo</option>
-                    <option value="config1">Shows</option>
+                <select class="dropdown" onchange="selectConfiguration(this.value)">
+                    <option value="basics">Básicas</option>
+                    <option value="security">Seguridad</option>
+                    <option value="routing">DHCP</option>
+                    <option value="shows">Shows</option>
                 </select>
             </div>
+            <div id="routingConfig" style="display: none;">
+                <form id="dhcpForm">
+                    <label for="dhcpRange">Rango DHCP:</label>
+                    <input type="text" id="dhcpRange" name="dhcpRange"><br><br>
+    
+                    <label for="subnetMask">Máscara de subred:</label>
+                    <input type="text" id="subnetMask" name="subnetMask"><br><br>
+    
+                    <label for="gateway">Puerta de enlace predeterminada:</label>
+                    <input type="text" id="gateway" name="gateway"><br><br>
+    
+                    <label for="poolName">Nombre del pool DHCP:</label>
+                    <input type="text" id="poolName" name="poolName"><br><br>
+    
+                    <button type="button" onclick="applyDHCPConfiguration()">Aplicar configuración DHCP</button>
+                </form>
+            </div>
+            <div id="showConfig" style="display: none;">
+                <button type="button" onclick="showRunningConfig()">Mostrar configuración actual</button><br>
+                <button type="button" onclick="showInterfaceBrief()">Mostrar interfaces</button><br>
+                <button type="button" onclick="showVlanBrief()">Mostrar VLANs</button><br>
+                <button type="button" onclick="showDhcpBinding()">Mostrar asignaciones DHCP</button>
+            </div>
         </div>
-    </div>
-</div>
+    </div>    
 
     <script src="scripts/javas.js"></script>
 </body>

@@ -141,8 +141,9 @@ body {
     font-weight: 600;
     color: white;
     cursor: pointer;
-    margin: 5px;
+    margin: 10px;
     height: 30px;
+    margin-top: 20px;
     text-align:center;
     border: none;
     background-size: 300% 100%;
@@ -241,7 +242,6 @@ body {
     }
 }
 
-/* Agregar una animación a la pestaña */
 @keyframes slideIn {
     from {
         transform: translateY(-50px);
@@ -253,7 +253,6 @@ body {
     }
 }
 
-/* Agregar una animación al contenido de la pestaña */
 @keyframes fadeIn {
     from {
         opacity: 0;
@@ -263,4 +262,7 @@ body {
     }
 }
 
-
+#dhcpForm {
+    margin-top: 20px;
+    text-align: left;
+}

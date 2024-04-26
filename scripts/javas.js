@@ -57,3 +57,56 @@ function openTab(evt, tabName) {
     document.getElementById(tabName).style.display = "block";
     evt.currentTarget.classList.add("active");
 }
+
+function selectConfiguration(option) {
+    var routingConfig = document.getElementById("routingConfig");
+    var showConfig = document.getElementById("showConfig");
+    if (option === "routing") {
+        routingConfig.style.display = "block";
+        showConfig.style.display = "none";
+    } else if (option === "shows") {
+        routingConfig.style.display = "none";
+        showConfig.style.display = "block";
+    } else {
+        routingConfig.style.display = "none";
+        showConfig.style.display = "none";
+    }
+}
+
+function applyDHCPConfiguration() {
+    var poolName = document.getElementById("poolName").value;
+    var dhcpRange = document.getElementById("dhcpRange").value;
+    var subnetMask = document.getElementById("subnetMask").value;
+    var gateway = document.getElementById("gateway").value;
+
+    // Construir el comando DHCP con el nombre del pool y los parámetros ingresados
+    var dhcpCommand = "configure terminal\n" + // Entrar al modo de configuración
+                      "no ip dhcp pool\n" + // Eliminar el pool DHCP existente (si lo hay)
+                      "ip dhcp pool " + poolName + "\n" + // Crear un nuevo pool DHCP con el nombre especificado
+                      "network " + dhcpRange + " " + subnetMask + "\n" + // Establecer el rango de direcciones DHCP
+                      "default-router " + gateway + "\n" + // Establecer la puerta de enlace predeterminada
+                      "exit"; // Salir del modo de configuración
+
+    // Mostrar el comando generado al usuario
+    alert("Comando DHCP generado:\n" + dhcpCommand);
+}
+
+function showRunningConfig() {
+    // Simplemente mostrar un mensaje con el comando "show running-config"
+    alert("Comando para mostrar la configuración actual:\nshow running-config");
+}
+
+function showInterfaceBrief() {
+    // Simplemente mostrar un mensaje con el comando "show ip interface brief"
+    alert("Comando para mostrar interfaces:\nshow ip interface brief");
+}
+
+function showVlanBrief() {
+    // Simplemente mostrar un mensaje con el comando "show vlan brief"
+    alert("Comando para mostrar VLANs:\nshow vlan brief");
+}
+
+function showDhcpBinding() {
+    // Simplemente mostrar un mensaje con el comando "show ip dhcp binding"
+    alert("Comando para mostrar asignaciones DHCP:\nshow ip dhcp binding");
+}
