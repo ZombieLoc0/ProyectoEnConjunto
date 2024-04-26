@@ -7,7 +7,7 @@
     <script src="https://unpkg.com/gojs/release/go.js"></script> <!-- Incluye la biblioteca GoJS -->
     <link rel="stylesheet" href="css/mainstyle.css">
 </head>
-<body>
+<body onload="init()">
     <header class="header">
         <a href="main.html" class="logo">NET-TEC</a>
 
@@ -87,7 +87,6 @@
                     { segmentOffset: new go.Point(50, 10), textAlign: "center" },
                     new go.Binding("text", "t2"))
                 );
-            
             
             // Cargar datos del diagrama desde la API
             fetch('http://localhost:3000/data') // Cambia la URL según sea necesario
