@@ -135,12 +135,6 @@ body {
     user-select: none; 
 }
 
-/*
-.configurations-dropdown {
-    margin-bottom: 100px;
-}
-*/
-
 .configurations-dropdown select {
     width: 300px;
     font-size: 16px;
@@ -217,17 +211,56 @@ body {
     cursor: pointer;
     padding: 5px 117px;
     color: white;
-    animation: Gradient 4s ease infinite;
+    transition: background-color 0.3s ease;
+    animation: Gradient 4s ease infinite, slideIn 0.5s ease forwards; /* Agregar la animación de despliegue */
 }
 
-.tab:hover {
-    border-color:#0c0338; 
+.tab button:hover {
+    background-color: #23146b;
 }
 
 .tab button.active {
     background-image: linear-gradient(to right, #23146b, #1e4ccb, #6595de, #d1d9f2);
+    transition: background-image 0.3s ease;
 }
 
 .tabcontent {
     display: none;
+    animation: fadeIn 0.5s ease forwards;
 }
+
+@keyframes Gradient {
+    0% {
+        background-position: 0% 50%
+    }
+    50% {
+        background-position: 100% 50%
+    }
+    100% {
+        background-position: 0% 50%
+    }
+}
+
+/* Agregar una animación a la pestaña */
+@keyframes slideIn {
+    from {
+        transform: translateY(-50px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+/* Agregar una animación al contenido de la pestaña */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+
