@@ -1,8 +1,8 @@
 from textfsm import TextFSM
 import netmiko as nm
 
-cdp_template = TextFSM(open("Descubrimiento/templates/cisco_ios_show_cdp_neighbors_detail.textfsm"))
-int_brief_template = TextFSM(open("Descubrimiento/templates/cisco_ios_show_ip_interface_brief.textfsm"))
+cdp_template = TextFSM(open("templates/cisco_ios_show_cdp_neighbors_detail.textfsm"))
+int_brief_template = TextFSM(open("templates/cisco_ios_show_ip_interface_brief.textfsm"))
 
 def parse_cdp(conn):
     cdp_res = ''
@@ -25,7 +25,5 @@ router = {
 conn = nm.ConnectHandler(**router)
 
 print(conn.send_command('show cdp neighbor description', use_textfsm=True))
-
-
 
 
