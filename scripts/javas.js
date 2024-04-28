@@ -90,22 +90,12 @@ function applyDHCPConfiguration() {
     alert("Comando DHCP generado:\n" + dhcpCommand);
 }
 
-function applyBasicConf() {
-    var poolName = document.getElementById("poolName").value;
-    var dhcpRange = document.getElementById("dhcpRange").value;
-    var subnetMask = document.getElementById("subnetMask").value;
-    var gateway = document.getElementById("gateway").value;
-    var excludedIP = document.getElementById("excludedIP").value; // Nueva línea para obtener la IP excluida
+function applyHostname() {
+    var Hostname = document.getElementById("hostname").value;
 
-    var dhcpCommand = "configure terminal\n" + 
-                      "no ip dhcp pool\n" + 
-                      "ip dhcp pool " + poolName + "\n" + 
-                      "network " + dhcpRange + " " + subnetMask + "\n" + 
-                      "default-router " + gateway + "\n";
-    if (excludedIP) {
-        dhcpCommand += "exclude-address " + excludedIP + "\n"; // Agregar la IP excluida al comando DHCP si se proporciona
-    }
-    dhcpCommand += "exit"; 
+    var HostnameCommand = "configure terminal\n" + 
+                      "hostname\n" + hostname;
+    Hostname += "exit"; 
 
-    alert("Comando DHCP generado:\n" + dhcpCommand);
+    alert("Comando Hostname generado:\n" + HostnameCommand);
 }
