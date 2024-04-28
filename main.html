@@ -122,16 +122,24 @@
                     <option value="routing">DHCP</option>
                 </select>
             </div>
-            <div id="basicConfig">
-                <form id="bsConfig">
-                    <label for="hostname"> Hostname:</label>
-                    <input type="text" id="hostname" name="hostname"><br><br>
-                    <label for="MOTD"> Mensaje del Día:</label>
-                    <input type="text" id="MOTD" name="MOTD"><br><br>
-                    <button type="button" onclick="applyHostname()">Aplicar configuración de Hostname</button>
-                </form>
+            <div id="basicConfig" style="display: none;">
+                <form id="basicForm">
+                    <label for="interface">Interfaz:</label>
+                    <input type="text" id="interface" name="interface"><br><br>
             
+                    <label for="trunk">Hacer troncal:</label>
+                    <input type="checkbox" id="trunk" name="trunk"><br><br>
+            
+                    <label for="motd">Banner MOTD:</label>
+                    <textarea id="motd" name="motd"></textarea><br><br>
+            
+                    <label for="hostname">Hostname:</label>
+                    <input type="text" id="hostname" name="hostname"><br><br>
+            
+                    <button type="button" onclick="applyBasicConfiguration()">Aplicar configuraciones básicas</button>
+                </form>
             </div>
+            
             <div id="routingConfig" style="display: none;">
                 <form id="dhcpForm">
                     <label for="dhcpRange">Rango DHCP:</label>

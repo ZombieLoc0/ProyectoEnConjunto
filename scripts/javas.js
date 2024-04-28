@@ -1,4 +1,5 @@
 document.addEventListener("DOMContentLoaded", function() {
+    selectConfiguration("basics"); // Mostrar configuraciones básicas por defecto al cargar la página
     document.getElementById("loginForm").addEventListener("submit", function(event) {
         event.preventDefault();
 
@@ -9,6 +10,7 @@ document.addEventListener("DOMContentLoaded", function() {
         window.location.href = "main.html";
     });
 });
+
 
 const mapContainer = document.querySelector('.map-container');
 const mapImage = document.getElementById('mapImage');
@@ -56,19 +58,45 @@ function openTab(evt, tabName) {
 }
 
 function selectConfiguration(option) {
+    var basicConfig = document.getElementById("basicConfig");
     var routingConfig = document.getElementById("routingConfig");
     var showConfig = document.getElementById("showConfig");
-    if (option === "routing") {
+
+    if (option === "basics") {
+        basicConfig.style.display = "block";
+        routingConfig.style.display = "none";
+        showConfig.style.display = "none";
+    } else if (option === "routing") {
+        basicConfig.style.display = "none";
         routingConfig.style.display = "block";
         showConfig.style.display = "none";
     } else if (option === "shows") {
+        basicConfig.style.display = "none";
         routingConfig.style.display = "none";
         showConfig.style.display = "block";
     } else {
+        basicConfig.style.display = "none";
         routingConfig.style.display = "none";
         showConfig.style.display = "none";
     }
 }
+
+function applyBasicConfiguration() {
+    var interface = document.getElementById("interface").value;
+    var isTrunk = document.getElementById("trunk").checked ? "yes" : "no";
+    var motd = document.getElementById("motd").value;
+    var hostname = document.getElementById("hostname").value;
+
+    var basicConfigCommand = "configure terminal\n" +
+                             "interface " + interface + "\n" +
+                             "switchport mode trunk\n" +
+                             "banner motd #" + motd + "\n" +
+                             "hostname " + hostname;
+
+    alert("Comandos generados:\n" + basicConfigCommand);
+}
+
+
 
 function applyDHCPConfiguration() {
     var poolName = document.getElementById("poolName").value;
@@ -90,12 +118,26 @@ function applyDHCPConfiguration() {
     alert("Comando DHCP generado:\n" + dhcpCommand);
 }
 
-function applyHostname() {
-    var Hostname = document.getElementById("hostname").value;
+function selectConfiguration(option) {
+    var basicConfig = document.getElementById("basicConfig");
+    var routingConfig = document.getElementById("routingConfig");
+    var showConfig = document.getElementById("showConfig");
 
-    var HostnameCommand = "configure terminal\n" + 
-                      "hostname\n" + hostname;
-    Hostname += "exit"; 
-
-    alert("Comando Hostname generado:\n" + HostnameCommand);
+    if (option === "basics") {
+        basicConfig.style.display = "block";
+        routingConfig.style.display = "none";
+        showConfig.style.display = "none";
+    } else if (option === "routing") {
+        basicConfig.style.display = "none";
+        routingConfig.style.display = "block";
+        showConfig.style.display = "none";
+    } else if (option === "shows") {
+        basicConfig.style.display = "none";
+        routingConfig.style.display = "none";
+        showConfig.style.display = "block";
+    } else {
+        basicConfig.style.display = "none";
+        routingConfig.style.display = "none";
+        showConfig.style.display = "none";
+    }
 }
