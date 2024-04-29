@@ -99,7 +99,7 @@ function applyDHCPConfiguration() {
     var dhcpRange = document.getElementById("dhcpRange").value;
     var subnetMask = document.getElementById("subnetMask").value;
     var gateway = document.getElementById("gateway").value;
-    var excludedIP = document.getElementById("excludedIP").value; // Nueva línea para obtener la IP excluida
+    var excludedIP = document.getElementById("excludedIP").value;
 
     var dhcpCommand = "configure terminal\n" + 
                       "no ip dhcp pool\n" + 
@@ -107,7 +107,7 @@ function applyDHCPConfiguration() {
                       "network " + dhcpRange + " " + subnetMask + "\n" + 
                       "default-router " + gateway + "\n";
     if (excludedIP) {
-        dhcpCommand += "exclude-address " + excludedIP + "\n"; // Agregar la IP excluida al comando DHCP si se proporciona
+        dhcpCommand += "exclude-address " + excludedIP + "\n";
     }
     dhcpCommand += "exit"; 
 
