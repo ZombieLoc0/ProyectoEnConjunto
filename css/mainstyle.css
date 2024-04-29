@@ -210,8 +210,9 @@ body {
     border: none;
     outline: none;
     cursor: pointer;
-    padding: 5px 117px;
+    padding: 5px 140px;
     color: white;
+    text-align: center;
     transition: background-color 0.3s ease;
     animation: Gradient 4s ease infinite, slideIn 0.5s ease forwards; /* Agregar la animación de despliegue */
 }
@@ -289,4 +290,7 @@ body {
 .sdb {
     border-radius: 4px;
     min-width: 200px;
+}
+#info-devices {
+    text-align: left;
 }

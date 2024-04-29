@@ -82,14 +82,10 @@ function selectConfiguration(option) {
 }
 
 function applyBasicConfiguration() {
-    var interface = document.getElementById("interface").value;
-    var isTrunk = document.getElementById("trunk").checked ? "yes" : "no";
     var motd = document.getElementById("motd").value;
     var hostname = document.getElementById("hostname").value;
 
     var basicConfigCommand = "configure terminal\n" +
-                             "interface " + interface + "\n" +
-                             "switchport mode trunk\n" +
                              "banner motd #" + motd + "\n" +
                              "hostname " + hostname;
 
