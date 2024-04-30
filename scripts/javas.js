@@ -1,6 +1,7 @@
-var request = require('request');
+document.addEventListener("DOMContentLoaded", function() {
+    document.getElementById("loginForm").addEventListener("submit", function(event) {
+        event.preventDefault();
 
-document.getElementById("loginForm").addEventListener("submit", function(event) {
         var ip = document.getElementById("ipInput").value;
         var username = document.getElementById("usernameInput").value;
         var password = document.getElementById("passwordInput").value;
@@ -11,20 +12,29 @@ document.getElementById("loginForm").addEventListener("submit", function(event) 
             'password': password
         };
 
-        request({
-            url: "http://localhost:5000/set-connection",
+        fetch("http://localhost:5000/set-connection", {
             method: "POST",
-            json: true,
-            body: myJSONObject
-        }, function (error, response, body) {
-            if (error) {
-                console.error("Error en la solicitud:", error);
-            } else {
-                console.log("Respuesta del servidor:", response.body);
-                window.location.href = "main.html";
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(myJSONObject)
+        })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Error en la solicitud:', response.statusText);
             }
+            return response.json();
+        })
+        .then(data => {
+            console.log("Respuesta del servidor:", data);
+            window.location.href = "main.html";
+        })
+        .catch(error => {
+            console.error("Error en la solicitud:", error.message);
         });
     });
+});
+
 
 
 const mapContainer = document.querySelector('.map-container');
