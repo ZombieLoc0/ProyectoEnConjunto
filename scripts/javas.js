@@ -57,83 +57,14 @@ function openTab(evt, tabName) {
     evt.currentTarget.classList.add("active");
 }
 
-function selectConfiguration(option) {
-    var basicConfig = document.getElementById("basicConfig");
-    var routingConfig = document.getElementById("routingConfig");
-    var showConfig = document.getElementById("showConfig");
+var request = require('request');
 
-    if (option === "basics") {
-        basicConfig.style.display = "block";
-        routingConfig.style.display = "none";
-        showConfig.style.display = "none";
-    } else if (option === "routing") {
-        basicConfig.style.display = "none";
-        routingConfig.style.display = "block";
-        showConfig.style.display = "none";
-    } else if (option === "shows") {
-        basicConfig.style.display = "none";
-        routingConfig.style.display = "none";
-        showConfig.style.display = "block";
-    } else {
-        basicConfig.style.display = "none";
-        routingConfig.style.display = "none";
-        showConfig.style.display = "none";
-    }
-}
-
-function applyBasicConfiguration() {
-    var motd = document.getElementById("motd").value;
-    var hostname = document.getElementById("hostname").value;
-
-    var basicConfigCommand = "configure terminal\n" +
-                             "banner motd #" + motd + "\n" +
-                             "hostname " + hostname;
-
-    alert("Comandos generados:\n" + basicConfigCommand);
-}
-
-
-
-function applyDHCPConfiguration() {
-    var poolName = document.getElementById("poolName").value;
-    var dhcpRange = document.getElementById("dhcpRange").value;
-    var subnetMask = document.getElementById("subnetMask").value;
-    var gateway = document.getElementById("gateway").value;
-    var excludedIP = document.getElementById("excludedIP").value;
-
-    var dhcpCommand = "configure terminal\n" + 
-                      "no ip dhcp pool\n" + 
-                      "ip dhcp pool " + poolName + "\n" + 
-                      "network " + dhcpRange + " " + subnetMask + "\n" + 
-                      "default-router " + gateway + "\n";
-    if (excludedIP) {
-        dhcpCommand += "exclude-address " + excludedIP + "\n";
-    }
-    dhcpCommand += "exit"; 
-
-    alert("Comando DHCP generado:\n" + dhcpCommand);
-}
-
-function selectConfiguration(option) {
-    var basicConfig = document.getElementById("basicConfig");
-    var routingConfig = document.getElementById("routingConfig");
-    var showConfig = document.getElementById("showConfig");
-
-    if (option === "basics") {
-        basicConfig.style.display = "block";
-        routingConfig.style.display = "none";
-        showConfig.style.display = "none";
-    } else if (option === "routing") {
-        basicConfig.style.display = "none";
-        routingConfig.style.display = "block";
-        showConfig.style.display = "none";
-    } else if (option === "shows") {
-        basicConfig.style.display = "none";
-        routingConfig.style.display = "none";
-        showConfig.style.display = "block";
-    } else {
-        basicConfig.style.display = "none";
-        routingConfig.style.display = "none";
-        showConfig.style.display = "none";
-    }
-}
+var myJSONObject = {...};
+request({
+    url: "http://joshiahchoi.com/myjson",
+    method: "POST",
+    json: true,
+    body: myJSONObject
+    }, function (error, response, body{
+        console.log(response);
+});

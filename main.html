@@ -21,10 +21,9 @@
         <div id="diagramDiv" class="map-container">
         </div>
     </div>
-<div class="sidebar" style="display: none;">
+<div class="sidebar">
     <div class="tab">
         <button class="tablinks" onclick="openTab(event, 'deviceInfo')">Información del dispositivo</button>
-        <button class="tablinks" onclick="openTab(event, 'configurationSection')">Secciones de configuración</button>
     </div>
 
     <div id="deviceInfo" class="tabcontent">
@@ -34,51 +33,6 @@
             <div id="routerInfo" class="router-info"></div>
         </div>
     </div>
-
-    <div id="configurationSection" class="tabcontent">
-        <div class="configuration-section">
-            <h2>Secciones de configuración</h2>
-            <div class="configurations-dropdown">
-                <select class="dropdown" onchange="selectConfiguration(this.value)">
-                    <option value="basics">Básicas</option>
-                    <option value="security">Seguridad</option>
-                    <option value="routing">DHCP</option>
-                </select>
-            </div>
-            <div id="basicConfig" style="display: none;">
-                <form id="basicForm">
-                    <label for="motd">Banner MOTD:</label><br>
-                    <textarea id="motd" name="motd"></textarea><br><br>
-            
-                    <label for="hostname">Hostname:</label>
-                    <input type="text" id="hostname" name="hostname"><br><br>
-            
-                    <button type="button" onclick="applyBasicConfiguration()">Aplicar configuraciones básicas</button>
-                </form>
-            </div>
-            
-            <div id="routingConfig" style="display: none;">
-                <form id="dhcpForm">
-                    <label for="dhcpRange">Rango DHCP:</label>
-                    <input type="text" id="dhcpRange" name="dhcpRange"><br><br>
-            
-                    <label for="subnetMask">Máscara de subred:</label>
-                    <input type="text" id="subnetMask" name="subnetMask"><br><br>
-            
-                    <label for="gateway">Puerta de enlace predeterminada:</label>
-                    <input type="text" id="gateway" name="gateway"><br><br>
-            
-                    <label for="poolName">Nombre del pool DHCP:</label>
-                    <input type="text" id="poolName" name="poolName"><br><br>
-            
-                    <label for="excludedIP">IP Excluida:</label>
-                    <input type="text" id="excludedIP" name="excludedIP"><br><br>
-            
-                    <button type="button" onclick="applyDHCPConfiguration()">Aplicar configuración DHCP</button>
-                </form>
-            </div>
-        </div>
-    </div>    
 
     <script src="scripts/nodec.js"></script>
     <script src="scripts/javas.js"></script>
