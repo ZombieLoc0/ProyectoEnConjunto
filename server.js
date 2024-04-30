@@ -107,8 +107,8 @@ app.listen(port, () => {
 const twilio = require('twilio');
 
 // Credenciales de autenticación de Twilio
-const accountSid = 'AC197950e7e248ff96d25f214b519939f0'; // Account SID
-const authToken = 'b992c9a07521c87727fc84b3474c7142';     // Auth Token
+const accountSid = ''; // Account SID
+const authToken = '';     // Auth Token
 
 // Inicializa el cliente de Twilio con las credenciales proporcionadas
 const client = twilio(accountSid, authToken);
@@ -119,7 +119,7 @@ client.messages
     // Cuerpo del mensaje SMS
     body: 'The fucking best team enviado desde Twilio.',
     // Número de teléfono desde el cual se enviará el mensaje (tu número de Twilio)
-    from: '+14015194259',
+    from: '',
     // Número de teléfono al cual se enviará el mensaje (el destinatario)
     to: '+523334707958'
   })
