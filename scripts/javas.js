@@ -1,5 +1,4 @@
 document.addEventListener("DOMContentLoaded", function() {
-    selectConfiguration("basics"); // Mostrar configuraciones básicas por defecto al cargar la página
     document.getElementById("loginForm").addEventListener("submit", function(event) {
         event.preventDefault();
 
@@ -7,9 +6,35 @@ document.addEventListener("DOMContentLoaded", function() {
         var username = document.getElementById("usernameInput").value;
         var password = document.getElementById("passwordInput").value;
 
-        window.location.href = "main.html";
+        var formData = {
+            ip: ip,
+            username: username,
+            password: password
+        };
+
+        fetch('http://127.0.0.1:5000/set-connection', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(formData)
+        })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Error en la petición HTTP');
+            }
+            return response.json();
+        })
+        .then(data => {
+            console.log('Respuesta del servidor:', data);
+            window.location.href = "main.html";
+        })
+        .catch(error => {
+            console.error('Error al procesar la petición:', error);
+        });
     });
 });
+
 
 
 const mapContainer = document.querySelector('.map-container');
@@ -57,7 +82,7 @@ function openTab(evt, tabName) {
     evt.currentTarget.classList.add("active");
 }
 
-var request = require('request');
+/*var request = require('request');
 
 var myJSONObject = {...};
 request({
@@ -97,6 +122,8 @@ def set_configuration():
 if __name__ == "__main__":
     server.run(debug=True)
 
+    
+    
     import requests
     import json
     
@@ -104,6 +131,7 @@ if __name__ == "__main__":
     
     commands = {'ip':'10.10.69.1','commands':"hostname Router1,ip domain name test.mx, int f0/0, ip add 10.10.69.19"}
     
-    #print(requests.post("http://127.0.0.1:5000/set-connection",json= json.dumps(caca)))
+    print(requests.post("http://127.0.0.1:5000/set-connection",json= json.dumps(caca)))
     
     print(requests.post("http://127.0.0.1:5000/send-config",json= commands))
+    */
