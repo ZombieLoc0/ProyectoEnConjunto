@@ -2,7 +2,6 @@ function submitForm() {
     var ip = document.getElementById("ipInput").value;
     var username = document.getElementById("usernameInput").value;
     var password = document.getElementById("passwordInput").value;
-<<<<<<< Updated upstream
 
     // Validar si los campos están llenos
     if (ip.trim() === '' || username.trim() === '' || password.trim() === '') {
@@ -36,26 +35,6 @@ function submitForm() {
     .catch(error => {
         console.error("Error en la solicitud:", error.message);
     });
-}
-=======
->>>>>>> Stashed changes
-
-    var formData = {
-        ip: ip,
-        username: username,
-        password: password
-    };
-
-    fetch('http://127.0.0.1:5000/set-connection', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(formData)
-    })
-    .then(response => response.text())
-    .then(data => console.log(data))
-    .catch(error => console.error('Error:', error));
 }
 
 const mapContainer = document.querySelector('.map-container');
