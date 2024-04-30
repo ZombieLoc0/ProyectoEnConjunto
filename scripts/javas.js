@@ -15,6 +15,10 @@ function submitForm() {
         'password': password
     };
 
+    var loader = document.createElement('div');
+    loader.className = 'loader';
+    document.body.appendChild(loader);
+
     fetch("http://localhost:5000/set-connection", {
         method: "POST",
         headers: {
@@ -30,12 +34,15 @@ function submitForm() {
     })
     .then(data => {
         console.log("Respuesta del servidor:", data);
-        window.location.href = "main.html"; 
+        setTimeout(function() {
+            window.location.href = "main.html"; 
+        }, 10000); // Redirige después de 10 segundos
     })
     .catch(error => {
         console.error("Error en la solicitud:", error.message);
     });
 }
+
 
 const mapContainer = document.querySelector('.map-container');
 const mapImage = document.getElementById('mapImage');
