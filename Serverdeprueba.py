@@ -1,6 +1,6 @@
 from flask import request, Flask, jsonify
 from json import loads
-from ConexionTopologia import device_configuration, discover
+#from ConexionTopologia import device_configuration, discover
 
 server = Flask(__name__)
 
@@ -8,8 +8,7 @@ server = Flask(__name__)
 def query_and_discovery():
     conn = request.get_json()
     print(conn)
-
-    discover.create_conection(loads(conn))
+    #discover.create_conection(loads(conn))
 
     return "Recibido", 201
 
@@ -17,7 +16,7 @@ def query_and_discovery():
 def set_configuration():
     newConfig = request.get_json()
     
-    device_configuration.send_configuration(newConfig['ip'], newConfig['commands'])
+    #device_configuration.send_configuration(newConfig['ip'], newConfig['commands'])
 
     print(newConfig)
 
