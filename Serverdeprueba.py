@@ -16,10 +16,7 @@ def query_and_discovery():
 def set_configuration():
     newConfig = request.get_json()
     print(newConfig)  # Imprimir los datos JSON en la consola del servidor
-    # Realizar cualquier operación necesaria con la nueva configuración recibida
-    # Devolver una respuesta en formato JSON indicando que la configuración se recibió correctamente
     return jsonify({"message": "Configuración recibida correctamente"}), 200
 
-# Iniciar el servidor Flask si este archivo se ejecuta directamente
 if __name__ == "__main__":
     server.run(debug=True)
