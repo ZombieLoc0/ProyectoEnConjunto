@@ -72,8 +72,11 @@ function removeDuplicateLinks(links) {
 function normalizeLink(link) {
     const from = link.from;
     const to = link.to;
-    // Ordenar los nodos en la dirección del enlace y concatenarlos
-    return from < to ? `${from}-${to}` : `${to}-${from}`;
+    const t1 = link.t1;
+    const t2 = link.t2;
+
+    // Ordenar los nodos y los valores de t1 y t2 en la dirección del enlace y concatenarlos
+    return from < to ? `${from}-${to}-${t1}-${t2}` : `${to}-${from}-${t1}-${t2}`;
 }
 
 // Iniciar el servidor
