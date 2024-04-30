@@ -1,3 +1,5 @@
+var request = require('request');
+
 document.addEventListener("DOMContentLoaded", function() {
     document.getElementById("loginForm").addEventListener("submit", function(event) {
         event.preventDefault();
@@ -6,35 +8,27 @@ document.addEventListener("DOMContentLoaded", function() {
         var username = document.getElementById("usernameInput").value;
         var password = document.getElementById("passwordInput").value;
 
-        var formData = {
+        var myJSONObject = {
             ip: ip,
             username: username,
             password: password
         };
 
-        fetch('http://127.0.0.1:5000/set-connection', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(formData)
-        })
-        .then(response => {
-            if (!response.ok) {
-                throw new Error('Error en la petición HTTP');
+        request({
+            url: "http://localhost:5000/set-connection",
+            method: "POST",
+            json: true,
+            body: myJSONObject
+        }, function (error, response, body) {
+            if (error) {
+                console.error("Error en la solicitud:", error);
+            } else {
+                console.log("Respuesta del servidor:", response.body);
+                window.location.href = "main.html"; // Redirigir a la página principal
             }
-            return response.json();
-        })
-        .then(data => {
-            console.log('Respuesta del servidor:', data);
-            window.location.href = "main.html";
-        })
-        .catch(error => {
-            console.error('Error al procesar la petición:', error);
         });
     });
 });
-
 
 
 const mapContainer = document.querySelector('.map-container');
