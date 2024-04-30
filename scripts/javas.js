@@ -15,8 +15,9 @@ function submitForm() {
         'password': password
     };
 
-    var loader = document.createElement('div');
-    loader.className = 'loader';
+    var loader = document.createElement('iframe');
+    loader.src = "loader.html";
+    loader.className = 'loader-frame';
     document.body.appendChild(loader);
 
     fetch("http://localhost:5000/set-connection", {
@@ -36,13 +37,12 @@ function submitForm() {
         console.log("Respuesta del servidor:", data);
         setTimeout(function() {
             window.location.href = "main.html"; 
-        }, 10000); // Redirige después de 10 segundos
+        }, 5000); // Redirige después de 5 segundos
     })
     .catch(error => {
         console.error("Error en la solicitud:", error.message);
     });
 }
-
 
 const mapContainer = document.querySelector('.map-container');
 const mapImage = document.getElementById('mapImage');

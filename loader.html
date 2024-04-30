@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NET-TEC</title>
+    <title>Loading...</title>
     <style>
         .loader {
             width: 124px;
@@ -15,8 +15,12 @@
             -webkit-mask-repeat: repeat-x;
             background: linear-gradient(#2525b0 0 0) left/0% 100% no-repeat #ddd;
             animation: l13 2s infinite linear;
-            margin-left: 750px;
-            margin-top: 400px;
+            margin: auto;
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            right: 0;
         }
 
         @keyframes l13 {
@@ -26,11 +30,5 @@
 </head>
 <body>
     <div class="loader"></div>
-
-    <script>
-        setTimeout(function() {
-            window.location.href = "index.html";
-        }, 10000);
-    </script>
 </body>
 </html>
