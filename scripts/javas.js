@@ -1,17 +1,14 @@
 var request = require('request');
 
-document.addEventListener("DOMContentLoaded", function() {
-    document.getElementById("loginForm").addEventListener("submit", function(event) {
-        event.preventDefault();
-
+document.getElementById("loginForm").addEventListener("submit", function(event) {
         var ip = document.getElementById("ipInput").value;
         var username = document.getElementById("usernameInput").value;
         var password = document.getElementById("passwordInput").value;
 
         var myJSONObject = {
-            ip: ip,
-            username: username,
-            password: password
+            'ip': ip,
+            'username': username,
+            'password': password
         };
 
         request({
@@ -24,11 +21,10 @@ document.addEventListener("DOMContentLoaded", function() {
                 console.error("Error en la solicitud:", error);
             } else {
                 console.log("Respuesta del servidor:", response.body);
-                window.location.href = "main.html"; // Redirigir a la página principal
+                window.location.href = "main.html";
             }
         });
     });
-});
 
 
 const mapContainer = document.querySelector('.map-container');
