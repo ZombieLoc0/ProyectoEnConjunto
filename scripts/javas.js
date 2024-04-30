@@ -1,39 +1,41 @@
-document.addEventListener("DOMContentLoaded", function() {
-    document.getElementById("loginForm").addEventListener("submit", function(event) {
-        event.preventDefault();
+function submitForm() {
+    var ip = document.getElementById("ipInput").value;
+    var username = document.getElementById("usernameInput").value;
+    var password = document.getElementById("passwordInput").value;
 
-        var ip = document.getElementById("ipInput").value;
-        var username = document.getElementById("usernameInput").value;
-        var password = document.getElementById("passwordInput").value;
+    // Validar si los campos están llenos
+    if (ip.trim() === '' || username.trim() === '' || password.trim() === '') {
+        alert('Por favor, complete todos los campos.');
+        return;
+    }
 
-        var myJSONObject = {
-            'ip': ip,
-            'username': username,
-            'password': password
-        };
+    var myJSONObject = {
+        'ip': ip,
+        'username': username,
+        'password': password
+    };
 
-        fetch("http://localhost:5000/set-connection", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify(myJSONObject)
-        })
-        .then(response => {
-            if (!response.ok) {
-                throw new Error('Error en la solicitud:', response.statusText);
-            }
-            return response.json();
-        })
-        .then(data => {
-            console.log("Respuesta del servidor:", data);
-            window.location.href = "main.html";
-        })
-        .catch(error => {
-            console.error("Error en la solicitud:", error.message);
-        });
+    fetch("http://localhost:5000/set-connection", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(myJSONObject)
+    })
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('Error en la solicitud:', response.statusText);
+        }
+        return response.json();
+    })
+    .then(data => {
+        console.log("Respuesta del servidor:", data);
+        window.location.href = "main.html"; 
+    })
+    .catch(error => {
+        console.error("Error en la solicitud:", error.message);
     });
-});
+}
 
 
 

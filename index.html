@@ -7,7 +7,6 @@
     <title>NET-TEC</title>
     <link rel="stylesheet" href="css/style.css">
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
-    <script src="scripts/javas.js" defer></script>
 </head>
 
 <body>
@@ -16,20 +15,21 @@
             <h1>NET-TEC</h1>
             <p>Accede a la topología mediante ssh ingresando los datos requeridos</p>
             <div class="input-box">
-                <input id="ipInput" type="text" placeholder="IP">
+                <input id="ipInput" type="text" placeholder="IP" required>
                 <i class='bx bx-network-chart'></i>
             </div>
             <div class="input-box">
-                <input id="usernameInput" type="text" placeholder="Username">
+                <input id="usernameInput" type="text" placeholder="Username" required>
                 <i class='bx bxs-user'></i>
             </div>
             <div class="input-box">
-                <input id="passwordInput" type="password" placeholder="Password">
+                <input id="passwordInput" type="password" placeholder="Password" required>
                 <i class='bx bxs-lock-alt'></i>
             </div>
-            <button type="submit" class="btn">Login</button>
+            <button type="button" class="btn" onclick="submitForm()">Login</button>
         </form>
     </div>
+    <script src="scripts/javas.js" defer></script>
 </body>
 
 </html>
