@@ -39,12 +39,6 @@ app.get('/info-data', (req, res) => {
         const dataPath = path.join(__dirname, 'test_info.json');
         const jsonData = JSON.parse(fs.readFileSync(dataPath, 'utf8'));
 
-        // Eliminar enlaces duplicados
-        const uniqueLinks = removeDuplicateLinks(jsonData.links);
-
-        // Actualizar el JSON con los enlaces únicos
-        jsonData.links = uniqueLinks;
-
         res.json(jsonData);
     } catch (error) {
         console.error('Error reading data.json:', error);
