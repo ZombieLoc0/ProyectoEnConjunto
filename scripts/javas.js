@@ -9,16 +9,14 @@ function submitForm() {
         return;
     }
 
+    var loader = document.getElementById("loader-wrapper");
+    loader.style.display = "flex"; 
+
     var myJSONObject = {
         'ip': ip,
         'username': username,
         'password': password
     };
-
-    var loader = document.createElement('iframe');
-    loader.src = "loader.html";
-    loader.className = 'loader-frame';
-    document.body.appendChild(loader);
 
     fetch("http://localhost:5000/set-connection", {
         method: "POST",
@@ -36,11 +34,12 @@ function submitForm() {
     .then(data => {
         console.log("Respuesta del servidor:", data);
         setTimeout(function() {
-            window.location.href = "main.html"; 
-        }, 5000); // Redirige después de 5 segundos
+            window.location.href = "main.html"; // Redirige después de 5 segundos
+        }, 5000);
     })
     .catch(error => {
         console.error("Error en la solicitud:", error.message);
+        loader.style.display = "none"; // Ocultar el loader en caso de error
     });
 }
 
