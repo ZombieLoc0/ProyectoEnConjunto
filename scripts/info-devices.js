@@ -1,28 +1,34 @@
-// Evento de clic en un nodo
-diagram.addDiagramListener("ObjectSingleClicked", function(e) {
-    var clickedPart = e.subject.part;
-    // Verificar si el clic fue en un nodo
-    if (clickedPart instanceof go.Node) {
-        var data = clickedPart.data;
-        // Mostrar la información del nodo
-        showNodeInfo(data);
-    }
-});
+// info-devices.js
 
-document.getElementById("nodeInfo").innerHTML = `
+// Función para mostrar la información del dispositivo
+function showDeviceInfo(deviceKey) {
+    // Buscar el dispositivo en el JSON por su clave
+    const device = jsonData.devices.find(d => d.key === deviceKey);
+    
+    // Mostrar la información del dispositivo en el div correspondiente
+    const nodeInfoDiv = document.getElementById("nodeInfo");
+    nodeInfoDiv.innerHTML = `
         <h2>Información del Dispositivo</h2>
-        <ul id="info-devices">
-            <strong>Marca:</strong> ${nodeData.brand}<br><br>
-            <strong>Modelo:</strong> ${nodeData.model}<br><br>
-            <strong>Dirección IP:</strong> ${ipAddress}<br><br>
-            <strong>Interfaces Conectadas:</strong> ${interfaces.join(', ')}<br><br>
-            <strong>Uso de CPU:</strong> ${cpuUsage}%<br><br>
-            <strong>Porcentaje de Memoria Disponible:</strong> ${memoryUsage}%</li>
-        </ul>
+        <p>Marca: ${device.marca}</p>
+        <p>Modelo: ${device.modelo}</p>
+        <p>CPU Usada: ${device.cpu_usada}</p>
+        <p>Estado del Contrato: ${device.estado_contrato}</p>
+        <p>Versión: ${device.version}</p>
+        <p>Elegibilidad Activa: ${device.elegibilidad_act}</p>
+        <p>Puertos Disponibles: ${device.puertos_disponibles}</p>
     `;
+}
 
-
-
+// Función para inicializar el evento de clic en los nodos del diagrama
+function initNodeClickEvent(diagram) {
+    diagram.addDiagramListener("ObjectSingleClicked", function(e) {
+        const part = e.subject.part;
+        if (part instanceof go.Node) {
+            const deviceKey = part.data.key; // Obtener la clave del dispositivo
+            showDeviceInfo(deviceKey); // Mostrar la información del dispositivo
+        }
+    });
+}
 
 /*function showNodeInfo(nodeData) {
     // Generar información dinámica (cambia esto con la lógica de tu aplicación)
