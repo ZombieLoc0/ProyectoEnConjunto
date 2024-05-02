@@ -24,12 +24,28 @@
 <div class="sidebar">
     <div class="tab">
         <button class="tablinks" onclick="openTab(event, 'deviceInfo')">Información del dispositivo</button>
+        <button class="tablinks" onclick="openTab(event, 'deviceConfig')">Configuraciones del dispositivo</button>
     </div>
 
     <div id="deviceInfo" class="tabcontent">
         <div class="device-info">
             <div id="nodeInfo" class="node-info"></div>
             <div id="routerInfo" class="router-info"></div>
+        </div>
+    </div>
+
+    <div id="deviceConfig" class="tabcontent" style="display: none;">
+        <div class="device-config">
+            <input type="text" id="hostnameInput" class="input-field" placeholder="Hostname">
+            <input type="text" id="motdInput" class="input-field" placeholder="Mensaje de bienvenida">
+            <input type="text" id="natInput" class="input-field" placeholder="Configuración NAT">
+            <input type="text" id="routeInput" class="input-field" placeholder="Ruta">
+            <input type="text" id="poolNameInput" class="input-field" placeholder="Nombre del Pool DHCP">
+            <input type="text" id="dhcpRangeInput" class="input-field" placeholder="Rango DHCP">
+            <input type="text" id="excludedIPsInput" class="input-field" placeholder="IPs excluidas">
+            <input type="text" id="gatewayInput" class="input-field" placeholder="Puerta de enlace">
+            <input type="text" id="dnsServersInput" class="input-field" placeholder="Servidores DNS">
+            <button onclick="submitForm()">Enviar Configuración</button>
         </div>
     </div>
 
