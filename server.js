@@ -33,6 +33,19 @@ app.get('/data', (req, res) => {
     }
 });
 
+// Ruta para servir el archivo test_info.json
+app.get('/info-data', (req, res) => {
+    try {
+        const dataPath = path.join(__dirname, 'test_info.json');
+        const jsonData = JSON.parse(fs.readFileSync(dataPath, 'utf8'));
+
+        res.json(jsonData);
+    } catch (error) {
+        console.error('Error reading data.json:', error);
+        res.status(500).json({ error: 'Internal Server Error' });
+    }
+});
+
 
 // Ruta para recibir un JSON mediante POST y enviarlo por GET
 app.post('/update-data', (req, res) => {
@@ -53,17 +66,17 @@ app.post('/update-data', (req, res) => {
 });
 
 // Ruta para recibir un JSON mediante POST y enviarlo por GET
-app.post('/info-data', (req, res) => {
+app.post('/update-info', (req, res) => {
     try {
         var receivedData = req.body; // Datos recibidos en el cuerpo de la solicitud POST
         console.log('Datos recibidos:', receivedData);
 
         // Escribir los datos recibidos en el archivo data.json
-        const dataPath = path.join(__dirname, '/data.json');
+        const dataPath = path.join(__dirname, '/test_info.json');
         fs.writeFileSync(dataPath, JSON.stringify(receivedData, null, 4));
 
         // Envía los datos recibidos como respuesta a través de la ruta GET /data
-        res.redirect(303, '/data');
+        res.redirect(303, '/info-data');
     } catch (error) {
         console.error('Error al escribir en data.json:', error);
         res.status(400).json({ error: 'Error al escribir en data.json' });
