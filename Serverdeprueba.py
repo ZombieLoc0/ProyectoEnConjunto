@@ -13,24 +13,6 @@ def generate_commands(config_data):
         commands.append(f"hostname {config_data['hostname']}")
     if 'motd' in config_data:
         commands.append(f"banner motd {config_data['motd']}")
-    if 'nat' in config_data:
-        commands.append(f"ip nat inside source {config_data['nat']}")
-    if 'route' in config_data:
-        # Aquí debes definir cómo deseas manejar la configuración de rutas
-        # commands.append(f"ip route {config_data['route']}")
-        pass
-    if 'poolName' in config_data and 'dhcpRange' in config_data and 'excludedIPs' in config_data:
-        commands.append(f"ip dhcp pool {config_data['poolName']}")
-        commands.append(f"network {config_data['dhcpRange']}")
-        # Aquí podrías agregar la lógica para excluir direcciones IP estáticas
-        # commands.append(f"ip dhcp excluded-address {config_data['excludedIPs']}")
-        pass
-    if 'gateway' in config_data:
-        # commands.append(f"ip default-gateway {config_data['gateway']}")
-        pass
-    if 'dnsServers' in config_data:
-        # commands.append(f"ip name-server {config_data['dnsServers']}")
-        pass
 
     return commands
 
