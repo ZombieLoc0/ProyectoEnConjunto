@@ -52,6 +52,24 @@ app.post('/update-data', (req, res) => {
     }
 });
 
+// Ruta para recibir un JSON mediante POST y enviarlo por GET
+app.post('/info-data', (req, res) => {
+    try {
+        var receivedData = req.body; // Datos recibidos en el cuerpo de la solicitud POST
+        console.log('Datos recibidos:', receivedData);
+
+        // Escribir los datos recibidos en el archivo data.json
+        const dataPath = path.join(__dirname, '/data.json');
+        fs.writeFileSync(dataPath, JSON.stringify(receivedData, null, 4));
+
+        // Envía los datos recibidos como respuesta a través de la ruta GET /data
+        res.redirect(303, '/data');
+    } catch (error) {
+        console.error('Error al escribir en data.json:', error);
+        res.status(400).json({ error: 'Error al escribir en data.json' });
+    }
+});
+
 
 
 // Función para eliminar enlaces duplicados

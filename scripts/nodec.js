@@ -27,7 +27,7 @@ function init() {
                             case "Switch": return "images/switch.png";
                             case "Multicapa": return "images/multicapa.png";
                             //case "PC": return "images/pc.png";
-                            //default: return "default.png";  // Imagen por defecto
+                            default: return ".png";  // Imagen por defecto
                         }
                     })),
                 $(go.TextBlock, { margin: 8 }, new go.Binding("text"))  // , "key" También dentro del Panel Vertical, se define un objeto go.TextBlock que se utiliza para mostrar el texto (la clave del nodo).

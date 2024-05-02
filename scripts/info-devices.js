@@ -20,7 +20,6 @@ document.getElementById("nodeInfo").innerHTML = `
             <strong>Porcentaje de Memoria Disponible:</strong> ${memoryUsage}%</li>
         </ul>
     `;
-}
 
 
 
