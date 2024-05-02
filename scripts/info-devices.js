@@ -9,16 +9,7 @@ diagram.addDiagramListener("ObjectSingleClicked", function(e) {
     }
 });
 
-// Función para mostrar la información del nodo
-function showNodeInfo(nodeData) {
-    // Generar información dinámica (cambia esto con la lógica de tu aplicación)
-    var ipAddress = generateRandomIP();
-    var interfaces = generateRandomInterfaces(); // Generar interfaces aleatorias
-    var cpuUsage = Math.floor(Math.random() * 101); // Generar uso de CPU aleatorio (0-100%)
-    var memoryUsage = Math.floor(Math.random() * 101); // Generar porcentaje de memoria aleatorio (0-100%)
-
-    // Mostrar la información en el elemento HTML
-    document.getElementById("nodeInfo").innerHTML = `
+document.getElementById("nodeInfo").innerHTML = `
         <h2>Información del Dispositivo</h2>
         <ul id="info-devices">
             <strong>Marca:</strong> ${nodeData.brand}<br><br>
