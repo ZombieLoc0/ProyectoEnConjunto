@@ -5,7 +5,6 @@ def create_commands_lists(commands_string):
     return commands
 
 def send_configuration(ip, commands):
-
     myConn = {
         'device_type': 'cisco_ios',
         'ip': ip,

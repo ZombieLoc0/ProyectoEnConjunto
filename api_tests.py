@@ -1,10 +1,26 @@
 import requests
 import json
 
-caca = {'ip':'10.10.69.1', 'username': 'test', 'password': 'test'}
+device = [{'key':'10.10.69.1', 'type': 'Router'}, {'key':'10.10.69.2', 'type': 'Router'}]
 
-commands = {'ip':'10.10.69.1','commands':"hostname Router1,ip domain name test.mx, int f0/0, ip add 10.10.69.19"}
+links = [{'from':'10.10.69.1','to':"10.10.69.2", "t1":"g0/0","t2":"g0/1"}]
 
-#print(requests.post("http://127.0.0.1:5000/set-connection",json= json.dumps(caca)))
+sendData = {"nodes": [
+      { "key": "192.168.10.2", "type": "Router" },
+      { "key": "192.168.10.3", "type": "Switch" },
+      { "key": "192.168.10.4", "type": "Switch" },
+      { "key": "192.168.10.4", "type": "R" }
+    ],
+    "links": [
+      { "from": "192.168.10.2", "to": "192.168.10.3","t1":"G0/0","t2":"G0/0" },
+      { "from": "192.168.10.3", "to": "192.168.10.2","t1":"G0/0","t2":"G0/0" },
+      { "from": "192.168.10.3", "to": "192.168.10.4","t1":"G/0/1","t2":"G0/1"  },
+      { "from": "192.168.10.4", "to": "192.168.10.2","t1":"G0/0/0","t2":"G0/2"  },
+      { "from": "192.168.10.2", "to": "192.168.10.4","t1":"G0/1","t2":"G0/3"  }
+    ]
+}
 
-print(requests.post("http://127.0.0.1:5000/send-config",json= commands))
+file = {'nodes':device,'links':links}
+print(file)
+
+print(requests.post("http://127.0.0.1:3000/update-data",json= sendData ))
