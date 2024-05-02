@@ -31,24 +31,6 @@ function showNodeInfo(nodeData) {
     `;
 }
 
-// Generar una dirección IP aleatoria (solo como ejemplo)
-function generateRandomIP() {
-    var ip = [];
-    for (var i = 0; i < 4; i++) {
-        ip.push(Math.floor(Math.random() * 256));
-    }
-    return ip.join('.');
-}
-
-// Generar interfaces aleatorias
-function generateRandomInterfaces() {
-    var numInterfaces = Math.floor(Math.random() * 5) + 1; // Generar un número aleatorio de interfaces (1-5)
-    var interfaces = [];
-    for (var i = 0; i < numInterfaces; i++) {
-        interfaces.push("Serial " + (i + 1));
-    }
-    return interfaces;
-}
 
 
 
