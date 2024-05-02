@@ -4,17 +4,16 @@ from flask_cors import CORS
 server = Flask(__name__)
 CORS(server)
 
-# Función para generar los comandos de configuración de dispositivos
 def generate_commands(config_data):
     commands = []
 
-    # Verificar qué configuraciones se desean realizar y generar los comandos correspondientes
     if 'hostname' in config_data:
-        commands.append(f"hostname {config_data['hostname']}")
+        commands.append("enable\nconfigure terminal\n" + f"hostname {config_data['hostname']}\nexit")
     if 'motd' in config_data:
-        commands.append(f"banner motd {config_data['motd']}")
+        commands.append("enable\nconfigure terminal\n" + f"banner motd {config_data['motd']}\nexit")
 
     return commands
+
 
 @server.route("/set-connection", methods=["POST"])
 def query_and_discovery():
