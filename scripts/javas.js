@@ -3,7 +3,6 @@ function submitForm() {
     var username = document.getElementById("usernameInput").value;
     var password = document.getElementById("passwordInput").value;
 
-    // Validar si los campos están llenos
     if (ip.trim() === '' || username.trim() === '' || password.trim() === '') {
         alert('Por favor, complete todos los campos.');
         return;
