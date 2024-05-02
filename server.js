@@ -1,19 +1,30 @@
+//server.js
+
+//API para recibir,modificar y enviar json
 const express = require('express');
 const cors = require('cors');
-const fs = require('fs');
 const path = require('path');
+var fs = require('fs');
 
 const app = express();
 const port = 3000;
 
 // Middleware
 app.use(cors());
+app.use(express.json()); // Middleware para analizar el cuerpo de la solicitud como JSON
+
 
 // Ruta para servir el archivo data.json
 app.get('/data', (req, res) => {
     try {
         const dataPath = path.join(__dirname, 'data.json');
         const jsonData = JSON.parse(fs.readFileSync(dataPath, 'utf8'));
+
+        // Eliminar enlaces duplicados
+        const uniqueLinks = removeDuplicateLinks(jsonData.links);
+
+        // Actualizar el JSON con los enlaces únicos
+        jsonData.links = uniqueLinks;
 
         res.json(jsonData);
     } catch (error) {
@@ -22,76 +33,56 @@ app.get('/data', (req, res) => {
     }
 });
 
+
+// Ruta para recibir un JSON mediante POST y enviarlo por GET
+app.post('/update-data', (req, res) => {
+    try {
+        var receivedData = req.body; // Datos recibidos en el cuerpo de la solicitud POST
+        console.log('Datos recibidos:', receivedData);
+
+        // Escribir los datos recibidos en el archivo data.json
+        const dataPath = path.join(__dirname, '/data.json');
+        fs.writeFileSync(dataPath, JSON.stringify(receivedData, null, 4));
+
+        // Envía los datos recibidos como respuesta a través de la ruta GET /data
+        res.redirect(303, '/data');
+    } catch (error) {
+        console.error('Error al escribir en data.json:', error);
+        res.status(400).json({ error: 'Error al escribir en data.json' });
+    }
+});
+
+
+
+// Función para eliminar enlaces duplicados
+function removeDuplicateLinks(links) {
+    const uniqueLinks = [];
+    const addedLinks = new Set(); // Usar un conjunto para mantener un registro de enlaces agregados
+
+    links.forEach(link => {
+        // Convertir la dirección del enlace a un formato normalizado para comparación
+        const normalizedLink = normalizeLink(link);
+        // Verificar si el enlace ya ha sido agregado
+        if (!addedLinks.has(normalizedLink)) {
+            uniqueLinks.push(link);
+            addedLinks.add(normalizedLink);
+        }
+    });
+
+    return uniqueLinks;
+}
+// Función para normalizar la dirección de un enlace para comparación
+function normalizeLink(link) {
+    const from = link.from;
+    const to = link.to;
+    const t1 = link.t1;
+    const t2 = link.t2;
+
+    // Ordenar los nodos y los valores de t1 y t2 en la dirección del enlace y concatenarlos
+    return from < to ? `${from}-${to}-${t1}-${t2}` : `${to}-${from}-${t1}-${t2}`;
+}
+
 // Iniciar el servidor
 app.listen(port, () => {
     console.log(`Server running on http://localhost:${port}`);
 });
-
-/*
-const express = require('express');
-const bodyParser = require('body-parser');
-const twilio = require('twilio');
-
-const app = express();
-const port = 3000;
-
-// Middleware
-app.use(bodyParser.urlencoded({ extended: false }));
-
-// Ruta para enviar mensajes de WhatsApp
-app.post('/send-whatsapp', (req, res) => {
-    const { to, message } = req.body;
-
-    // Tu SID de cuenta y token de autenticación de Twilio
-    const accountSid = 'AC632cb7addee6e821cb1ac3f1879e9b7e';
-    const authToken = '2d7d23647bc1b522ca34b223e7386c26';
-
-    // Inicializar el cliente de Twilio
-    const client = twilio(accountSid, authToken);
-
-    // Enviar el mensaje de WhatsApp
-    client.messages
-        .create({
-            body: message,
-            from: 'whatsapp:+523338066738', // Número de WhatsApp Twilio
-            to: `whatsapp:${to}` // Número de destino
-        })
-        .then(message => {
-            console.log('Mensaje de WhatsApp enviado:', message.sid);
-            res.send('Mensaje de WhatsApp enviado correctamente.');
-        })
-        .catch(error => {
-            console.error('Error al enviar el mensaje de WhatsApp:', error);
-            res.status(500).send('Ocurrió un error al enviar el mensaje de WhatsApp.');
-        });
-});
-
-// Iniciar el servidor
-app.listen(port, () => {
-    console.log(`Servidor en funcionamiento en http://localhost:${port}`);
-});
-
-function enviarMensajeWhatsApp() {
-    const to = '523315347242'; // Número de destino
-    const message = 'Este es un mensaje de prueba desde mi página web.';
-
-    fetch('http://localhost:3000/send-whatsapp', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/x-www-form-urlencoded'
-        },
-        body: `to=${to}&message=${encodeURIComponent(message)}`
-    })
-    .then(response => {
-        if (response.ok) {
-            alert('Mensaje de WhatsApp enviado correctamente.');
-        } else {
-            throw new Error('Error al enviar el mensaje de WhatsApp.');
-        }
-    })
-    .catch(error => {
-        console.error(error);
-        alert('Ocurrió un error al enviar el mensaje de WhatsApp.');
-    });
-}
-*/
