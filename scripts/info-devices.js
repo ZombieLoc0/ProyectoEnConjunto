@@ -1,25 +1,4 @@
-// Evento de clic en un nodo
-diagram.addDiagramListener("ObjectSingleClicked", function(e) {
-    var clickedPart = e.subject.part;
-    // Verificar si el clic fue en un nodo
-    if (clickedPart instanceof go.Node) {
-        var data = clickedPart.data;
-        // Mostrar la información del nodo
-        showNodeInfo(data);
-    }
-});
 
-document.getElementById("nodeInfo").innerHTML = `
-        <h2>Información del Dispositivo</h2>
-        <ul id="info-devices">
-            <strong>Marca:</strong> ${nodeData.brand}<br><br>
-            <strong>Modelo:</strong> ${nodeData.model}<br><br>
-            <strong>Dirección IP:</strong> ${ipAddress}<br><br>
-            <strong>Interfaces Conectadas:</strong> ${interfaces.join(', ')}<br><br>
-            <strong>Uso de CPU:</strong> ${cpuUsage}%<br><br>
-            <strong>Porcentaje de Memoria Disponible:</strong> ${memoryUsage}%</li>
-        </ul>
-    `;
 
 
 
