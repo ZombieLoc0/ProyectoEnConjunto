@@ -308,8 +308,6 @@ body {
     100% { transform: rotate(360deg); }
   }
 
-  /* Estilos para las configuraciones */
-/* Estilos para las configuraciones */
 .device-config {
     background-color: #f9f9f9;
     border-radius: 10px;
@@ -323,7 +321,6 @@ body {
     text-align: center;
 }
 
-/* Borde dinámico al pasar el mouse */
 .device-config:hover {
     border-color: #0c0338; 
 }
@@ -339,7 +336,6 @@ body {
     box-sizing: border-box;
 }
 
-/* Botones de configuración */
 .device-config button {
     background-color: #1d0d6b;
     color: white;
@@ -361,7 +357,7 @@ body {
 .device-config form {
     display: flex;
     flex-wrap: wrap;
-    justify-content: left;
+    justify-content: center;
 }
 
 /* Alinear botones al centro en dispositivos móviles */

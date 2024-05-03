@@ -38,32 +38,20 @@
             <div class="device-config">
                 <form id="configForm">
                     <input type="text" id="hostnameInput" class="input-field" placeholder="Hostname">
-                    <button type="button" onclick="submitConfig('hostnameInput')">Configurar Hostname</button><br>
-                    <input type="text" id="motdInput" class="input-field" placeholder="Mensaje de bienvenida">
-                    <button type="button" onclick="submitConfig('motdInput')">Configurar Mensaje de Bienvenida</button><br>
-                    <button type="button" onclick="toggleNATFields()">Configurar NAT</button><br>
+                    <input type="text" id="ipDomainNameInput" class="input-field" placeholder="IP Domain Name">
+                    <input type="text" id="motdInput" class="input-field" placeholder="Mensaje del día">                                        
                     <div id="natFields" style="display: none;">
-                        <label for="natInput">Configuración NAT (ACL):</label><br>
+                        <p>Ejemplo de ACL: 192.168.1.0 0.0.0.255 any/</p>
                         <textarea id="natInput" class="input-field" placeholder="Ingrese la configuración NAT en formato ACL (Access Control List)"></textarea><br>
-                        <small>Ejemplo de ACL: <br> permit ip 192.168.1.0 0.0.0.255 any <br> Esta ACL permite que todas las direcciones IP de la subred 192.168.1.0/24 se traduzcan a cualquier dirección IP externa.</small><br>
-                        <button type="button" onclick="submitConfig('natInput')">Guardar Configuración NAT</button><br>
-                    </div>
-                    <button type="button" onclick="toggleDHCPFields()">Configurar DHCP</button><br>
+                    </div>                    
                     <div id="dhcpFields" style="display: none;">
+                        <input type="text" id="specificIPInput" class="input-field" placeholder="Excluir IP en DHCP">
                         <input type="text" id="poolNameInput" class="input-field" placeholder="Nombre del Pool DHCP">
-                        <button type="button" onclick="submitConfig('poolNameInput')">Guardar Nombre del Pool DHCP</button><br>
                         <input type="text" id="dhcpRangeInput" class="input-field" placeholder="Rango DHCP">
-                        <button type="button" onclick="submitConfig('dhcpRangeInput')">Guardar Rango DHCP</button><br>
-                        <input type="text" id="specificIPInput" class="input-field" placeholder="Excluir IP">
-                        <button type="button" onclick="submitConfig('specificIPInput')">Guardar IP excluída</button><br>
-                        <select id="ipRangeSelector" class="input-field">
-                            <option value="5">Primeras 5 IPs</option>
-                            <option value="10">Primeras 10 IPs</option>
-                            <option value="15">Primeras 15 IPs</option>
-                        </select>
-                        <button type="button" onclick="addExcludedIPs()">Agregar IPs excluidas</button><br>
-                        <div id="excludedIPs"></div>
                     </div>
+                    <button type="button" onclick="toggleNATFields()">Configurar NAT</button><br>
+                    <button type="button" onclick="toggleDHCPFields()">Configurar DHCP</button><br>
+                    <button type="button" onclick="applyAllConfigurations()">Aplicar todas las configuraciones</button><br>
                 </form>
             </div>
         </div>

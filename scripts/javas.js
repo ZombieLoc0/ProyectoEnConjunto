@@ -42,6 +42,63 @@ function submitForm() {
     });
 }
 
+function applyAllConfigurations() {
+    var hostname = document.getElementById("hostnameInput").value.trim();
+    var ipDomainName = document.getElementById("ipDomainNameInput").value.trim();
+    var motd = document.getElementById("motdInput").value.trim();
+    var natConfig = document.getElementById("natInput").value.trim();
+    var poolName = document.getElementById("poolNameInput").value.trim();
+    var dhcpRange = document.getElementById("dhcpRangeInput").value.trim();
+    var specificIP = document.getElementById("specificIPInput").value.trim();
+
+    // Construir el comando
+    var command = "";
+    if (hostname !== "") {
+        command += "hostname " + hostname + ", ";
+    }
+    if (ipDomainName !== "") {
+        command += "ip domain-name " + ipDomainName + ", ";
+    }
+    if (motd !== "") {
+        command += "banner motd #" + motd + "#, ";
+    }
+    if (natConfig !== "") {
+        command += "access-list 1 permit " + natConfig + ", ";
+    }
+    if (specificIP !== "") {
+        command += "ip dhcp excluded-address " + specificIP + ", ";
+    }
+    
+    if (poolName !== "" && dhcpRange !== "") {
+        command += "ip dhcp pool " + poolName + ", network " + dhcpRange + ", ";
+    }
+
+    // Eliminar la coma al final del comando si existe
+    if (command.endsWith(", ")) {
+        command = command.slice(0, -2);
+    }
+
+    var configData = {
+        ip: "ip-del-dispositivo",
+        command: command
+    };
+
+    fetch("http://localhost:5000/send-config", {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(configData)
+    })
+    .then(response => response.json())
+    .then(data => {
+        console.log(data.message);
+    })
+    .catch(error => {
+        console.error('Error al enviar la configuración:', error);
+    });
+}
+
 function toggleNATFields() {
     var natFields = document.getElementById('natFields');
     if (natFields.style.display === 'none') {
@@ -57,19 +114,6 @@ function toggleDHCPFields() {
         dhcpFields.style.display = 'block';
     } else {
         dhcpFields.style.display = 'none';
-    }
-}
-
-function addExcludedIPs() {
-    var numExcludedIPs = document.getElementById('ipRangeSelector').value;
-    var excludedIPsContainer = document.getElementById('excludedIPs');
-    excludedIPsContainer.innerHTML = '';
-    for (var i = 0; i < numExcludedIPs; i++) {
-        var input = document.createElement('input');
-        input.type = 'text';
-        input.className = 'input-field';
-        input.placeholder = 'IP excluida #' + (i + 1);
-        excludedIPsContainer.appendChild(input);
     }
 }
 
