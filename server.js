@@ -85,7 +85,7 @@ app.post('/update-info', (req, res) => {
 
 
 
-// Función para eliminar enlaces duplicados
+// Función para eliminar enlaces duplicados, considerando enlaces invertidos como duplicados
 function removeDuplicateLinks(links) {
     const uniqueLinks = [];
     const addedLinks = new Set(); // Usar un conjunto para mantener un registro de enlaces agregados
@@ -93,8 +93,8 @@ function removeDuplicateLinks(links) {
     links.forEach(link => {
         // Convertir la dirección del enlace a un formato normalizado para comparación
         const normalizedLink = normalizeLink(link);
-        // Verificar si el enlace ya ha sido agregado
-        if (!addedLinks.has(normalizedLink)) {
+        // Verificar si el enlace o su versión invertida ya ha sido agregado
+        if (!addedLinks.has(normalizedLink) && !addedLinks.has(normalizedLink.split("-").reverse().join("-"))) {
             uniqueLinks.push(link);
             addedLinks.add(normalizedLink);
         }
@@ -102,7 +102,7 @@ function removeDuplicateLinks(links) {
 
     return uniqueLinks;
 }
-// Función para normalizar la dirección de un enlace para comparación
+
 function normalizeLink(link) {
     const from = link.from;
     const to = link.to;
@@ -110,8 +110,14 @@ function normalizeLink(link) {
     const t2 = link.t2;
 
     // Ordenar los nodos y los valores de t1 y t2 en la dirección del enlace y concatenarlos
-    return from < to ? `${from}-${to}-${t1}-${t2}` : `${to}-${from}-${t1}-${t2}`;
+    const sortedNodes = [from, to].sort();
+    const sortedPorts = [t1, t2].sort();
+
+    return `${sortedNodes[0]}-${sortedNodes[1]}-${sortedPorts[0]}-${sortedPorts[1]}`;
 }
+
+
+
 
 // Iniciar el servidor
 app.listen(port, () => {
