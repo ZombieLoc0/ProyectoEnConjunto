@@ -4,13 +4,16 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Configuraciones</title>
-    <script src="https://unpkg.com/gojs/release/go.js"></script> 
     <link rel="stylesheet" href="css/mainstyle.css">
+    <script src="https://unpkg.com/gojs/release/go.js"></script>
+    <script src="scripts/nodec.js"></script>
+    <script src="scripts/javas.js"></script>
+    <script src="scripts/info-devices.js"></script>
+    <script src="server.js"></script>
 </head>
 <body onload="init()">
     <header class="header">
         <a href="main.html" class="logo">NET-TEC</a>
-
         <nav class="navbar">
             <a href="main.html">Inicio</a>
             <a href="info.html">¿Cómo funciona?</a>
@@ -18,45 +21,52 @@
         </nav>
     </header>
     <div class="main-content">
-        <div id="myDiagramDiv" class="map-container">
+        <div id="myDiagramDiv" class="map-container"></div>
+    </div>
+    <div class="sidebar">
+        <div class="tab">
+            <button class="tablinks" onclick="openTab(event, 'deviceInfo')">Información del dispositivo</button>
+            <button class="tablinks" onclick="openTab(event, 'deviceConfig')">Configuraciones del dispositivo</button>
+        </div>
+        <div id="deviceInfo" class="tabcontent">
+            <div class="device-info">
+                <div id="nodeInfo" class="node-info"></div>
+                <div id="routerInfo" class="router-info"></div>
+            </div>
+        </div>
+        <div id="deviceConfig" class="tabcontent" style="display: none;">
+            <div class="device-config">
+                <form id="configForm">
+                    <input type="text" id="hostnameInput" class="input-field" placeholder="Hostname">
+                    <button type="button" onclick="submitConfig('hostnameInput')">Configurar Hostname</button><br>
+                    <input type="text" id="motdInput" class="input-field" placeholder="Mensaje de bienvenida">
+                    <button type="button" onclick="submitConfig('motdInput')">Configurar Mensaje de Bienvenida</button><br>
+                    <button type="button" onclick="toggleNATFields()">Configurar NAT</button><br>
+                    <div id="natFields" style="display: none;">
+                        <label for="natInput">Configuración NAT (ACL):</label><br>
+                        <textarea id="natInput" class="input-field" placeholder="Ingrese la configuración NAT en formato ACL (Access Control List)"></textarea><br>
+                        <small>Ejemplo de ACL: <br> permit ip 192.168.1.0 0.0.0.255 any <br> Esta ACL permite que todas las direcciones IP de la subred 192.168.1.0/24 se traduzcan a cualquier dirección IP externa.</small><br>
+                        <button type="button" onclick="submitConfig('natInput')">Guardar Configuración NAT</button><br>
+                    </div>
+                    <button type="button" onclick="toggleDHCPFields()">Configurar DHCP</button><br>
+                    <div id="dhcpFields" style="display: none;">
+                        <input type="text" id="poolNameInput" class="input-field" placeholder="Nombre del Pool DHCP">
+                        <button type="button" onclick="submitConfig('poolNameInput')">Guardar Nombre del Pool DHCP</button><br>
+                        <input type="text" id="dhcpRangeInput" class="input-field" placeholder="Rango DHCP">
+                        <button type="button" onclick="submitConfig('dhcpRangeInput')">Guardar Rango DHCP</button><br>
+                        <input type="text" id="specificIPInput" class="input-field" placeholder="Excluir IP">
+                        <button type="button" onclick="submitConfig('specificIPInput')">Guardar IP excluída</button><br>
+                        <select id="ipRangeSelector" class="input-field">
+                            <option value="5">Primeras 5 IPs</option>
+                            <option value="10">Primeras 10 IPs</option>
+                            <option value="15">Primeras 15 IPs</option>
+                        </select>
+                        <button type="button" onclick="addExcludedIPs()">Agregar IPs excluidas</button><br>
+                        <div id="excludedIPs"></div>
+                    </div>
+                </form>
+            </div>
         </div>
     </div>
-<div class="sidebar">
-    <div class="tab">
-        <button class="tablinks" onclick="openTab(event, 'deviceInfo')">Información del dispositivo</button>
-        <button class="tablinks" onclick="openTab(event, 'deviceConfig')">Configuraciones del dispositivo</button>
-    </div>
-
-    <div id="deviceInfo" class="tabcontent">
-        <div class="device-info">
-            <div id="nodeInfo" class="node-info"></div>
-            <div id="routerInfo" class="router-info"></div>
-        </div>
-    </div>
-
-    <div id="deviceConfig" class="tabcontent" style="display: none;">
-        <div class="device-config">
-            <input type="text" id="hostnameInput" class="input-field" placeholder="Hostname">
-            <input type="text" id="motdInput" class="input-field" placeholder="Mensaje de bienvenida">
-            <input type="text" id="natInput" class="input-field" placeholder="Configuración NAT">
-            <input type="text" id="routeInput" class="input-field" placeholder="Ruta">
-            <input type="text" id="poolNameInput" class="input-field" placeholder="Nombre del Pool DHCP">
-            <input type="text" id="dhcpRangeInput" class="input-field" placeholder="Rango DHCP">
-            <input type="text" id="excludedIPsInput" class="input-field" placeholder="IPs excluidas">
-            <input type="text" id="gatewayInput" class="input-field" placeholder="Puerta de enlace">
-            <input type="text" id="dnsServersInput" class="input-field" placeholder="Servidores DNS">
-            <button onclick="submitConfigForm()">Enviar Configuración</button>
-        </div>
-    </div>
-
-    <script src="scripts/nodec.js"></script>
-    <script src="scripts/javas.js"></script>
-    <script src="scripts/info-devices.js"></script>
-    <script src="server.js"></script>
-
-    <script>
-        // Llamar a la función para inicializar el evento de clic en los nodos del diagrama
-        initNodeClickEvent(myDiagram);
-    </script>
 </body>
 </html>

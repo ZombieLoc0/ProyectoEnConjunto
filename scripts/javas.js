@@ -42,50 +42,36 @@ function submitForm() {
     });
 }
 
-function submitConfigForm() {
-    var hostname = document.getElementById("hostnameInput").value;
-    var motd = document.getElementById("motdInput").value;
-    var nat = document.getElementById("natInput").value;
-    var route = document.getElementById("routeInput").value;
-    var poolName = document.getElementById("poolNameInput").value;
-    var dhcpRange = document.getElementById("dhcpRangeInput").value;
-    var excludedIPs = document.getElementById("excludedIPsInput").value;
-    var gateway = document.getElementById("gatewayInput").value;
-    var dnsServers = document.getElementById("dnsServersInput").value;
-
-    var myJSONObject = {
-        'hostname': hostname,
-        'motd': motd,
-        'nat': nat,
-        'route': route,
-        'poolName': poolName,
-        'dhcpRange': dhcpRange,
-        'excludedIPs': excludedIPs,
-        'gateway': gateway,
-        'dnsServers': dnsServers
-    };
-
-    fetch("http://localhost:5000/send-config", {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json"
-        },
-        body: JSON.stringify(myJSONObject)
-    })
-    .then(response => {
-        if (!response.ok) {
-            throw new Error('Error en la solicitud:', response.statusText);
-        }
-        return response.json();
-    })
-    .then(data => {
-        console.log("Respuesta del servidor:", data);
-    })
-    .catch(error => {
-        console.error("Error en la solicitud:", error.message);
-    });
+function toggleNATFields() {
+    var natFields = document.getElementById('natFields');
+    if (natFields.style.display === 'none') {
+        natFields.style.display = 'block';
+    } else {
+        natFields.style.display = 'none';
+    }
 }
 
+function toggleDHCPFields() {
+    var dhcpFields = document.getElementById('dhcpFields');
+    if (dhcpFields.style.display === 'none') {
+        dhcpFields.style.display = 'block';
+    } else {
+        dhcpFields.style.display = 'none';
+    }
+}
+
+function addExcludedIPs() {
+    var numExcludedIPs = document.getElementById('ipRangeSelector').value;
+    var excludedIPsContainer = document.getElementById('excludedIPs');
+    excludedIPsContainer.innerHTML = '';
+    for (var i = 0; i < numExcludedIPs; i++) {
+        var input = document.createElement('input');
+        input.type = 'text';
+        input.className = 'input-field';
+        input.placeholder = 'IP excluida #' + (i + 1);
+        excludedIPsContainer.appendChild(input);
+    }
+}
 
 const mapContainer = document.querySelector('.map-container');
 const mapImage = document.getElementById('mapImage');

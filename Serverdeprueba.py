@@ -18,5 +18,5 @@ def set_configuration():
     print(newConfig)  # Imprimir los datos JSON en la consola del servidor
     return jsonify({"message": "Configuración recibida correctamente"}), 200
 
-if __name__ == "_main_":
+if __name__ == "__main__":
     server.run(debug=True)
