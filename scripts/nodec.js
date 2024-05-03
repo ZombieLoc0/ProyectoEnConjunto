@@ -12,7 +12,7 @@ function init() {
             // Definir las plantillas para los nodos y enlaces
             myDiagram.nodeTemplate =
         $(go.Node, "Auto", // Utiliza la función $ de GoJS para crear un nuevo objeto de nodo (go.Node)
-        { click: function(e, node) { handleClick(node); submitConfigForm(node) } }, // Agregar evento de clic al nodo, la e es el evento
+        { click: function(e, node) { handleClick(node); applyAllConfigurations(node) } }, // Agregar evento de clic al nodo, la e es el evento
             $(go.Panel, "Vertical",  // Usar un Panel Vertical para colocar la imagen y el texto uno debajo del otro
                 $(go.Picture,  // Usar Picture en lugar de Shape para mostrar imágenes
                     {
@@ -70,11 +70,14 @@ myDiagram.linkTemplate =
 );
 
 // Función para manejar el evento de clic en el nodo
+// Función para manejar el evento de clic en el nodo
 function handleClick(node) {
     var data = node.data; // Obtener los datos del nodo
     console.log("Clic en el nodo con ID:", data.key);
-// Realizar acciones adicionales según sea necesario
-// Obtener el elemento HTML donde se mostrará la información del nodo
+    // Restablecer el comando
+    var command = "";
+    // Realizar acciones adicionales según sea necesario
+    // Obtener el elemento HTML donde se mostrará la información del nodo
     var nodeInfoElement = document.getElementById('nodeInfo');
     // Crear una cadena con la información del nodo
     var nodeInfoHTML = `
@@ -91,9 +94,8 @@ function handleClick(node) {
     `;
     // Insertar la información del nodo en el elemento HTML
     nodeInfoElement.innerHTML = nodeInfoHTML;
-    }
-
-    
+}
+   
 
 // Cargar datos del diagrama desde la API
 fetch('http://localhost:3000/data') // Cambia la URL según sea necesario
@@ -102,5 +104,3 @@ fetch('http://localhost:3000/data') // Cambia la URL según sea necesario
         myDiagram.model = new go.GraphLinksModel(data.nodes, data.links);
     });
 }
-            
-

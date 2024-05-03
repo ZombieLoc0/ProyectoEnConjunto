@@ -42,7 +42,7 @@ function submitForm() {
     });
 }
 
-function applyAllConfigurations() {
+function applyAllConfigurations(node) {
     var hostname = document.getElementById("hostnameInput").value.trim();
     var ipDomainName = document.getElementById("ipDomainNameInput").value.trim();
     var motd = document.getElementById("motdInput").value.trim();
@@ -50,6 +50,7 @@ function applyAllConfigurations() {
     var poolName = document.getElementById("poolNameInput").value.trim();
     var dhcpRange = document.getElementById("dhcpRangeInput").value.trim();
     var specificIP = document.getElementById("specificIPInput").value.trim();
+    var datos = node.data;
 
     // Construir el comando
     var command = "";
@@ -79,7 +80,7 @@ function applyAllConfigurations() {
     }
 
     var configData = {
-        ip: "ip-del-dispositivo",
+        ip: datos.key,
         command: command
     };
 
