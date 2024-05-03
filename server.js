@@ -38,7 +38,7 @@ app.get('/info-data', (req, res) => {
     try {
         const dataPath = path.join(__dirname, 'test_info.json');
         const jsonData = JSON.parse(fs.readFileSync(dataPath, 'utf8'));
-
+    
         res.json(jsonData);
     } catch (error) {
         console.error('Error reading data.json:', error);

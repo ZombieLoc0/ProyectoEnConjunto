@@ -12,6 +12,7 @@ function init() {
             // Definir las plantillas para los nodos y enlaces
             myDiagram.nodeTemplate =
         $(go.Node, "Auto", // Utiliza la función $ de GoJS para crear un nuevo objeto de nodo (go.Node)
+        { click: function(e, node) { handleClick(node); submitConfigForm(node) } }, // Agregar evento de clic al nodo, la e es el evento
             $(go.Panel, "Vertical",  // Usar un Panel Vertical para colocar la imagen y el texto uno debajo del otro
                 $(go.Picture,  // Usar Picture en lugar de Shape para mostrar imágenes
                     {
@@ -27,7 +28,7 @@ function init() {
                             case "Switch": return "images/switch.png";
                             case "Multicapa": return "images/multicapa.png";
                             //case "PC": return "images/pc.png";
-                            default: return ".png";  // Imagen por defecto
+                            //default: return ".png";  // Imagen por defecto
                         }
                     })),
                 $(go.TextBlock, { margin: 8 }, new go.Binding("text"))  // , "key" También dentro del Panel Vertical, se define un objeto go.TextBlock que se utiliza para mostrar el texto (la clave del nodo).
@@ -67,6 +68,32 @@ myDiagram.linkTemplate =
     { segmentOffset: new go.Point(50, 10), textAlign: "center" },
     new go.Binding("text", "t2"))
 );
+
+// Función para manejar el evento de clic en el nodo
+function handleClick(node) {
+    var data = node.data; // Obtener los datos del nodo
+    console.log("Clic en el nodo con ID:", data.key);
+// Realizar acciones adicionales según sea necesario
+// Obtener el elemento HTML donde se mostrará la información del nodo
+    var nodeInfoElement = document.getElementById('nodeInfo');
+    // Crear una cadena con la información del nodo
+    var nodeInfoHTML = `
+        <h2>Información del Dispositivo</h2>
+        <ul>
+            <li><strong>ID:</strong> ${data.key}</li>
+            <li><strong>Versión:</strong> ${data.version}</li>
+            <li><strong>Tipo:</strong> ${data.type}</li>
+            <li><strong>Cpu Usada:</strong> ${data.cpu_usada}</li>
+            <li><strong>Modelo:</strong> ${data.modelo}</li>
+            <li><strong>elegibilidad_act:</strong> ${data.elegibilidad_act}</li>
+            <li><strong>Puertos disponibles:</strong> ${data.puertos_disponibles}</li>
+        </ul>
+    `;
+    // Insertar la información del nodo en el elemento HTML
+    nodeInfoElement.innerHTML = nodeInfoHTML;
+    }
+
+    
 
 // Cargar datos del diagrama desde la API
 fetch('http://localhost:3000/data') // Cambia la URL según sea necesario
