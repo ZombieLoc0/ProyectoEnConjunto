@@ -1,6 +1,5 @@
 import netmiko as nm
 from re import finditer
-from json import dumps
 from requests import post
 
 #Discover Functions
@@ -48,6 +47,9 @@ def get_device_type(output):
     else:
         return 'Router'
 
+def get_configuration(conn):
+
+    return
 
 #Connection Functions
 
@@ -77,7 +79,6 @@ def create_conection(connJson):
     change_links()
     post(url="http://127.0.0.1:3000/update-data", json={"nodes":nodes, "links": links})
     restart_variables()
-
     
 def set_next_connection(ip):
     visited_ips.append(ip)

@@ -1,31 +1,73 @@
 import netmiko as nm
-import json
-import discover
+from re import finditer
 
 router = {
     'device_type': 'cisco_ios',
-    'ip': '10.10.69.1',
-    'username': 'test',
-    'password': 'test',
-    'secret': 'test',
+    'ip': '192.168.1.1',
+    'username': 'gmedina',
+    'password': 'cisco',
+    'secret': 'cisco',
     'port': 22,
 }
 
-links = list()
 
-conn = nm.ConnectHandler(**router)
+def get_device_info(conn):
+    
+    output = (conn.send_command("show processes cpu", use_textfsm=True))
+    flash, ram = get_memory()
+    interfaces = conn.send_command("show ip interface brief", use_textfsm=True)
+    print(get_version)
 
-a = conn.send_command('show cdp n d')
-print(conn.host)
-myIp = '10.10.69.1'
-ips = discover.cdp_get_ips(a)
-myInt = discover.cdp_get_interfaces(a)
-nInts = discover.cdp_get_neighbour_inter(a)
+def get_memory(conn):
+    output = conn.send_command("show file system")
+    a = [m.start() for m in finditer('\n', output)]
+    lines = []
+    start = 0
+    for i in a:
+        lines.append(output[start:i])
+        start = i+1
 
+    flash = lines[8].split()  
+    ram = lines[9].split()
+    
+    flash_mem = {'size':flash[1], 'free':flash[2], 'used': str((int(flash[1])-int(flash[2])))}
+    ram_mem   = {'size':ram[0], 'free':ram[1], 'used':str((int(ram[0])-int(ram[1])))}
 
-for i in range(len(ips)):
-    links.append({'from':myIp, 'to': ips[i], 't1': myInt[i], 't2': nInts[i]})
+    return flash_mem, ram_mem
 
+def get_version(conn):
+    output = conn.send_command('show version')
+    line = output[:output.find('\n')]
+    a = [m.start() for m in finditer(',', line)]
 
-linksJS = json.dumps({'links':links})
-print((linksJS))
+    brand = line[:4]
+    model = line[line[a[0]]:line[a[1]]]
+    version = line[line[a[1]]:line[a[2]]]
+
+    return brand, model, version
+
+try:
+    conn = nm.ConnectHandler(**router)
+except:
+    print('No se pudo hacer la conexion')
+
+#------------- marca
+#------------- modelo
+#------------- uso cpu 
+#------------- uso memoria
+#------------- version
+
+if not conn.check_enable_mode():
+    conn.enable()
+
+try:
+    output = conn.send_command('show version')
+    line = output[:output.find('\n')]
+    a = [m.start() for m in finditer(',', line)]
+
+    brand = line[:5]
+    model = line[a[0]+1:a[1]-1]
+    version = line[a[1]+1:a[2]-1]
+    print(brand.strip(), model.strip(), version.strip())
+except:
+    print('Fallo al mandar el mensaje')
