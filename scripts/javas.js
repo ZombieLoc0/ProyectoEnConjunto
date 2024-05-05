@@ -118,6 +118,25 @@ function toggleDHCPFields() {
     }
 }
 
+function toggleDHCPv6Fields_se() {
+    var dhcpv6Fields_se = document.getElementById('dhcpv6Fields-se');
+    if (dhcpv6Fields_se.style.display === 'none') {
+        dhcpv6Fields_se.style.display = 'block';
+    } else {
+        dhcpv6Fields_se.style.display = 'none';
+    }
+}
+
+function toggleDHCPv6Fields() {
+    var dhcpv6Fields = document.getElementById('dhcpv6Fields');
+    if (dhcpv6Fields.style.display === 'none') {
+        dhcpv6Fields.style.display = 'block';
+    } else {
+        dhcpv6Fields.style.display = 'none';
+    }
+}
+
+
 const mapContainer = document.querySelector('.map-container');
 const mapImage = document.getElementById('mapImage');
 
