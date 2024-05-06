@@ -50,6 +50,14 @@ function applyAllConfigurations(node) {
     var poolName = document.getElementById("poolNameInput").value.trim();
     var dhcpRange = document.getElementById("dhcpRangeInput").value.trim();
     var specificIP = document.getElementById("specificIPInput").value.trim();
+    var vlanNumber = document.getElementById("vlanNumberInput").value.trim();
+    var vlanName = document.getElementById("vlanNameInput").value.trim();
+    var vlanInterface = document.getElementById("vlanInterfaceInput").value.trim();
+    var vlanAccess = document.getElementById("vlanAccessInput").value.trim();
+    var vlanAccessVlan = document.getElementById("vlanAccessVlanInput").value.trim();
+    var vlanTrunkAllowed = document.getElementById("vlanTrunkAllowedInput").value.trim();
+    var noVlan = document.getElementById("noVlanInput").value.trim();
+    var nativeVlan = document.getElementById("nativeVlanInput").value.trim();
     var datos = node.data;
 
     // Construir el comando
@@ -69,12 +77,26 @@ function applyAllConfigurations(node) {
     if (specificIP !== "") {
         command += "ip dhcp excluded-address " + specificIP + ", ";
     }
-    
     if (poolName !== "" && dhcpRange !== "") {
         command += "ip dhcp pool " + poolName + ", network " + dhcpRange + ", ";
     }
 
-    // Eliminar la coma al final del comando si existe
+    if (vlanNumber !== "") {
+        command += "vlan " + vlanNumber + ", ";
+    }
+    if (vlanName !== "") {
+        command += "name " + vlanName + ", ";
+    }
+    if (vlanInterface !== "" && vlanAccess !== "" && vlanAccessVlan !== "" && vlanTrunkAllowed !== "") {
+        command += "interface range " + vlanInterface + ", switchport mode " + vlanAccess + ", switchport access vlan " + vlanAccessVlan + ", switchport trunk allowed vlan " + vlanTrunkAllowed + ", ";
+    }
+    if (noVlan !== "") {
+        command += "no vlan " + noVlan + ", ";
+    }
+    if (nativeVlan !== "") {
+        command += "switchport trunk native vlan " + nativeVlan + ", ";
+    }
+
     if (command.endsWith(", ")) {
         command = command.slice(0, -2);
     }
@@ -98,6 +120,15 @@ function applyAllConfigurations(node) {
     .catch(error => {
         console.error('Error al enviar la configuración:', error);
     });
+}
+
+function toggleVLANFields() {
+    var vlanFields = document.getElementById('vlanFields');
+    if (vlanFields.style.display === 'none') {
+        vlanFields.style.display = 'block';
+    } else {
+        vlanFields.style.display = 'none';
+    }
 }
 
 function toggleNATFields() {
