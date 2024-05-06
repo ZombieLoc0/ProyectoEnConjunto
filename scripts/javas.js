@@ -41,7 +41,7 @@ function submitForm() {
         loader.style.display = "none"; // Ocultar el loader en caso de error
     });
 }
-
+var configData=null;
 function applyAllConfigurations(node) {
     var hostname = document.getElementById("hostnameInput").value.trim();
     var ipDomainName = document.getElementById("ipDomainNameInput").value.trim();
@@ -79,11 +79,16 @@ function applyAllConfigurations(node) {
         command = command.slice(0, -2);
     }
 
-    var configData = {
+    configData = {
         ip: datos.key,
         command: command
     };
-
+        // Muestra el botón de confirmación
+        document.getElementById("confirmConfigButton").style.display = "inline";
+    console.log(configData)
+    
+}
+function confirmConfig(){
     fetch("http://localhost:5000/send-config", {
         method: 'POST',
         headers: {
@@ -98,6 +103,9 @@ function applyAllConfigurations(node) {
     .catch(error => {
         console.error('Error al enviar la configuración:', error);
     });
+    // Oculta el botón de confirmación
+    document.getElementById("confirmConfigButton").style.display = "none";
+
 }
 
 function toggleNATFields() {
