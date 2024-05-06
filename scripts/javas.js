@@ -1,3 +1,5 @@
+var data = null;
+var key = null;
 function submitForm() {
     var ip = document.getElementById("ipInput").value;
     var username = document.getElementById("usernameInput").value;
@@ -41,8 +43,12 @@ function submitForm() {
         loader.style.display = "none"; // Ocultar el loader en caso de error
     });
 }
-var configData=null;
-function applyAllConfigurations(node) {
+function dimeNodo(nodo){
+    data=nodo.data;
+    key=data.key;
+}
+
+function applyAllConfigurations() {
     var hostname = document.getElementById("hostnameInput").value.trim();
     var ipDomainName = document.getElementById("ipDomainNameInput").value.trim();
     var motd = document.getElementById("motdInput").value.trim();
@@ -50,7 +56,14 @@ function applyAllConfigurations(node) {
     var poolName = document.getElementById("poolNameInput").value.trim();
     var dhcpRange = document.getElementById("dhcpRangeInput").value.trim();
     var specificIP = document.getElementById("specificIPInput").value.trim();
-    var datos = node.data;
+    var vlanNumber = document.getElementById("vlanNumberInput").value.trim();
+    var vlanName = document.getElementById("vlanNameInput").value.trim();
+    var vlanInterface = document.getElementById("vlanInterfaceInput").value.trim();
+    var vlanAccess = document.getElementById("vlanAccessInput").value.trim();
+    var vlanAccessVlan = document.getElementById("vlanAccessVlanInput").value.trim();
+    var vlanTrunkAllowed = document.getElementById("vlanTrunkAllowedInput").value.trim();
+    var noVlan = document.getElementById("noVlanInput").value.trim();
+    var nativeVlan = document.getElementById("nativeVlanInput").value.trim();
 
     // Construir el comando
     var command = "";
@@ -69,26 +82,35 @@ function applyAllConfigurations(node) {
     if (specificIP !== "") {
         command += "ip dhcp excluded-address " + specificIP + ", ";
     }
-    
     if (poolName !== "" && dhcpRange !== "") {
         command += "ip dhcp pool " + poolName + ", network " + dhcpRange + ", ";
     }
 
-    // Eliminar la coma al final del comando si existe
+    if (vlanNumber !== "") {
+        command += "vlan " + vlanNumber + ", ";
+    }
+    if (vlanName !== "") {
+        command += "name " + vlanName + ", ";
+    }
+    if (vlanInterface !== "" && vlanAccess !== "" && vlanAccessVlan !== "" && vlanTrunkAllowed !== "") {
+        command += "interface range " + vlanInterface + ", switchport mode " + vlanAccess + ", switchport access vlan " + vlanAccessVlan + ", switchport trunk allowed vlan " + vlanTrunkAllowed + ", ";
+    }
+    if (noVlan !== "") {
+        command += "no vlan " + noVlan + ", ";
+    }
+    if (nativeVlan !== "") {
+        command += "switchport trunk native vlan " + nativeVlan + ", ";
+    }
+
     if (command.endsWith(", ")) {
         command = command.slice(0, -2);
     }
 
-    configData = {
-        ip: datos.key,
+    var configData = {
+        ip: key,
         command: command
     };
-        // Muestra el botón de confirmación
-        document.getElementById("confirmConfigButton").style.display = "inline";
-    console.log(configData)
-    
-}
-function confirmConfig(){
+
     fetch("http://localhost:5000/send-config", {
         method: 'POST',
         headers: {
@@ -103,9 +125,15 @@ function confirmConfig(){
     .catch(error => {
         console.error('Error al enviar la configuración:', error);
     });
-    // Oculta el botón de confirmación
-    document.getElementById("confirmConfigButton").style.display = "none";
+}
 
+function toggleVLANFields() {
+    var vlanFields = document.getElementById('vlanFields');
+    if (vlanFields.style.display === 'none') {
+        vlanFields.style.display = 'block';
+    } else {
+        vlanFields.style.display = 'none';
+    }
 }
 
 function toggleNATFields() {
@@ -125,6 +153,25 @@ function toggleDHCPFields() {
         dhcpFields.style.display = 'none';
     }
 }
+
+function toggleDHCPv6Fields_se() {
+    var dhcpv6Fields_se = document.getElementById('dhcpv6Fields-se');
+    if (dhcpv6Fields_se.style.display === 'none') {
+        dhcpv6Fields_se.style.display = 'block';
+    } else {
+        dhcpv6Fields_se.style.display = 'none';
+    }
+}
+
+function toggleDHCPv6Fields() {
+    var dhcpv6Fields = document.getElementById('dhcpv6Fields');
+    if (dhcpv6Fields.style.display === 'none') {
+        dhcpv6Fields.style.display = 'block';
+    } else {
+        dhcpv6Fields.style.display = 'none';
+    }
+}
+
 
 const mapContainer = document.querySelector('.map-container');
 const mapImage = document.getElementById('mapImage');
@@ -170,59 +217,3 @@ function openTab(evt, tabName) {
     document.getElementById(tabName).style.display = "block";
     evt.currentTarget.classList.add("active");
 }
-
-
-
-/*var request = require('request');
-
-var myJSONObject = {...};
-request({
-    url: "http://joshiahchoi.com/myjson",
-    method: "POST",
-    json: true,
-    body: myJSONObject
-    }, function (error, response, body{
-        console.log(response);
-});
-
-from flask import request, Flask, jsonify
-from json import loads
-from ConexionTopologia import device_configuration, discover
-
-server = Flask(__name__)
-
-@server.route("/set-connection", methods=["POST"])
-def query_and_discovery():
-    conn = request.get_json()
-    print(conn)
-
-    discover.create_conection(loads(conn))
-
-    return "Recibido", 201
-
-@server.route("/send-config", methods=["POST"])
-def set_configuration():
-    newConfig = request.get_json()
-    
-    device_configuration.send_configuration(newConfig['ip'], newConfig['commands'])
-
-    print(newConfig)
-
-    return "Recibido", 201
-
-if __name__ == "__main__":
-    server.run(debug=True)
-
-    
-    
-    import requests
-    import json
-    
-    caca = {'ip':'10.10.69.1', 'username': 'test', 'password': 'test'}
-    
-    commands = {'ip':'10.10.69.1','commands':"hostname Router1,ip domain name test.mx, int f0/0, ip add 10.10.69.19"}
-    
-    print(requests.post("http://127.0.0.1:5000/set-connection",json= json.dumps(caca)))
-    
-    print(requests.post("http://127.0.0.1:5000/send-config",json= commands))
-    */

@@ -11,7 +11,7 @@
     <script src="scripts/info-devices.js"></script>
     <script src="server.js"></script>
 </head>
-<body onload="init()">
+<body onload="diagrama()">
     <header class="header">
         <a href="main.html" class="logo">NET-TEC</a>
         <nav class="navbar">
@@ -41,17 +41,48 @@
                     <input type="text" id="ipDomainNameInput" class="input-field" placeholder="IP Domain Name">
                     <input type="text" id="motdInput" class="input-field" placeholder="Mensaje del día">                                        
                     <div id="natFields" style="display: none;">
-                        <p>Ejemplo de ACL: 192.168.1.0 0.0.0.255 any/</p>
+                        <p>NAT</p>
+                        <small>Ejemplo de ACL: 192.168.1.0 0.0.0.255</small>
                         <textarea id="natInput" class="input-field" placeholder="Ingrese la configuración NAT en formato ACL (Access Control List)"></textarea><br>
                     </div>                    
                     <div id="dhcpFields" style="display: none;">
+                        <p>DHCPv4</p>
                         <input type="text" id="specificIPInput" class="input-field" placeholder="Excluir IP en DHCP">
                         <input type="text" id="poolNameInput" class="input-field" placeholder="Nombre del Pool DHCP">
                         <input type="text" id="dhcpRangeInput" class="input-field" placeholder="Rango DHCP">
                     </div>
+                    <div id="dhcpv6Fields-se" style="display: none;">
+                        <p>DHCPv6 sin estado</p>
+                        <input type="text" id="poolNamev6Input-se" class="input-field" placeholder="Nombre del Pool DHCPv6">
+                        <input type="text" id="prefixInput-se" class="input-field" placeholder="Dirección Prefix">
+                        <input type="text" id="serverDNSInput-se" class="input-field" placeholder="DNS server">
+                        <input type="text" id="domainNAMEInput-se" class="input-field" placeholder="Nombre del dominio">
+                    </div>
+                    <div id="dhcpv6Fields" style="display: none;">
+                        <p>DHCPv6 con estado</p>
+                        <input type="text" id="poolNamev6Input" class="input-field" placeholder="Nombre del Pool DHCPv6">
+                        <input type="text" id="prefixInput" class="input-field" placeholder="Dirección Prefix">
+                        <input type="text" id="serverDNSInput" class="input-field" placeholder="DNS server">
+                        <input type="text" id="domainNAMEInput" class="input-field" placeholder="Nombre del dominio">
+                        <input type="text" id="rangeInput" class="input-field" placeholder="Rango DHCPv6">
+                    </div>
+                    <div id="vlanFields" style="display: none;">
+                        <p>VLAN</p>
+                        <input type="text" id="vlanNumberInput" class="input-field" placeholder="Número de VLAN">
+                        <input type="text" id="vlanNameInput" class="input-field" placeholder="Nombre de VLAN">
+                        <input type="text" id="vlanInterfaceInput" class="input-field" placeholder="Rango de interfaces">
+                        <input type="text" id="vlanAccessInput" class="input-field" placeholder="Switchport mode access">
+                        <input type="text" id="vlanAccessVlanInput" class="input-field" placeholder="Switchport access vlan">
+                        <input type="text" id="vlanTrunkAllowedInput" class="input-field" placeholder="Switchport trunk allowed vlan">
+                        <input type="text" id="noVlanInput" class="input-field" placeholder="No vlan">
+                        <input type="text" id="nativeVlanInput" class="input-field" placeholder="Switchport trunk native vlan">
+                    </div>
                     <button type="button" onclick="toggleNATFields()">Configurar NAT</button><br>
-                    <button type="button" onclick="toggleDHCPFields()">Configurar DHCP</button><br>
-                    <button style="display: none;" id="confirmConfigButton" onclick="confirmConfig()">Confirmar Configuración</button>
+                    <button type="button" onclick="toggleDHCPFields()">Configurar DHCPv4</button><br>
+                    <button type="button" onclick="toggleDHCPv6Fields_se()">Configurar DHCPv6 sin estado</button><br>
+                    <button type="button" onclick="toggleDHCPv6Fields()">Configurar DHCPv6 con estado</button><br>
+                    <button type="button" onclick="toggleVLANFields()">Configurar VLAN</button><br>
+                    <button type="button" onclick="applyAllConfigurations()">Aplicar todas las configuraciones</button><br>
                 </form>
             </div>
         </div>
