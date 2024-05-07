@@ -1,0 +1,29 @@
+
+{
+    "devices": [
+        {
+            "key": "192.168.10.3",
+            "type": "Switch",
+            "marca": "Cisco",
+            "int_ip":"g0/0-192.10.1",
+            "modelo": "Router",
+            "cpu_usada":"80%",
+            "estado_contrato":"Activo",
+            "version":"1.2",
+            "elegibilidad_act":"Elegibilidad",
+            "puertos_disponibles":"G0/1"
+        },
+        {
+            "key": "192.168.10.5",
+            "type": "Switch",
+            "marca": "Cisco",
+            "int_ip":"g0/0-192.10.4",
+            "modelo": "Router",
+            "cpu_usada":"80%",
+            "estado_contrato":"No activo",
+            "version":"1.2",
+            "elegibilidad_act":"Elegibilidad",
+            "puertos_disponibles":"G0/2"
+        }
+    ]
+}

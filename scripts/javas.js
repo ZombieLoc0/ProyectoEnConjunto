@@ -36,11 +36,11 @@ function submitForm() {
         console.log("Respuesta del servidor:", data);
         setTimeout(function() {
             window.location.href = "main.html"; // Redirige después de 5 segundos
-        }, 5000);
+        }, 2000);
     })
     .catch(error => {
         console.error("Error en la solicitud:", error.message);
-        loader.style.display = "none"; // Ocultar el loader en caso de error
+        loader.style.display = "none";
     });
 }
 function dimeNodo(nodo){
@@ -52,9 +52,10 @@ function applyAllConfigurations() {
     var hostname = document.getElementById("hostnameInput").value.trim();
     var ipDomainName = document.getElementById("ipDomainNameInput").value.trim();
     var motd = document.getElementById("motdInput").value.trim();
-    var natConfig = document.getElementById("natInput").value.trim();
+    //var natConfig = document.getElementById("natInput").value.trim();
     var poolName = document.getElementById("poolNameInput").value.trim();
     var dhcpRange = document.getElementById("dhcpRangeInput").value.trim();
+    var dhcpDR = document.getElementById("dhcpDefaultRInput").value.trim();
     var specificIP = document.getElementById("specificIPInput").value.trim();
     var vlanNumber = document.getElementById("vlanNumberInput").value.trim();
     var vlanName = document.getElementById("vlanNameInput").value.trim();
@@ -64,28 +65,30 @@ function applyAllConfigurations() {
     var vlanTrunkAllowed = document.getElementById("vlanTrunkAllowedInput").value.trim();
     var noVlan = document.getElementById("noVlanInput").value.trim();
     var nativeVlan = document.getElementById("nativeVlanInput").value.trim();
+    var poolNamev6 = document.getElementById("poolNamev6Input").value.trim();
 
-    // Construir el comando
     var command = "";
     if (hostname !== "") {
         command += "hostname " + hostname + ", ";
     }
     if (ipDomainName !== "") {
-        command += "ip domain-name " + ipDomainName + ", ";
+        command += "ip domain name " + ipDomainName + ", ";
     }
     if (motd !== "") {
         command += "banner motd #" + motd + "#, ";
     }
-    if (natConfig !== "") {
+    /*if (natConfig !== "") {
         command += "access-list 1 permit " + natConfig + ", ";
-    }
+    }*/
     if (specificIP !== "") {
         command += "ip dhcp excluded-address " + specificIP + ", ";
     }
     if (poolName !== "" && dhcpRange !== "") {
-        command += "ip dhcp pool " + poolName + ", network " + dhcpRange + ", ";
+        command += "ip dhcp pool " + poolName + ", network " + dhcpRange + ", default router " + dhcpDR;
     }
-
+    if(poolNamev6 = "") {
+        command += ""
+    }
     if (vlanNumber !== "") {
         command += "vlan " + vlanNumber + ", ";
     }
@@ -101,7 +104,6 @@ function applyAllConfigurations() {
     if (nativeVlan !== "") {
         command += "switchport trunk native vlan " + nativeVlan + ", ";
     }
-
     if (command.endsWith(", ")) {
         command = command.slice(0, -2);
     }
