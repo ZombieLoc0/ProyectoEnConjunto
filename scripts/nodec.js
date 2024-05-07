@@ -1,5 +1,5 @@
 
-function init() {
+function diagrama() {
     var $ = go.GraphObject.make;
 
     var myDiagram =
@@ -12,7 +12,7 @@ function init() {
             // Definir las plantillas para los nodos y enlaces
             myDiagram.nodeTemplate =
         $(go.Node, "Auto", // Utiliza la función $ de GoJS para crear un nuevo objeto de nodo (go.Node)
-        { click: function(e, node) { handleClick(node); applyAllConfigurations(node) } }, // Agregar evento de clic al nodo, la e es el evento
+        { click: function(e, node) { handleClick(node); dimeNodo(node)} }, // Agregar evento de clic al nodo, la e es el evento
             $(go.Panel, "Vertical",  // Usar un Panel Vertical para colocar la imagen y el texto uno debajo del otro
                 $(go.Picture,  // Usar Picture en lugar de Shape para mostrar imágenes
                     {
@@ -70,12 +70,10 @@ myDiagram.linkTemplate =
 );
 
 // Función para manejar el evento de clic en el nodo
-// Función para manejar el evento de clic en el nodo
 function handleClick(node) {
     var data = node.data; // Obtener los datos del nodo
     console.log("Clic en el nodo con ID:", data.key);
     // Restablecer el comando
-    var command = "";
     // Realizar acciones adicionales según sea necesario
     // Obtener el elemento HTML donde se mostrará la información del nodo
     var nodeInfoElement = document.getElementById('nodeInfo');

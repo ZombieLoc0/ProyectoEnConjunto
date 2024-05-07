@@ -1,3 +1,5 @@
+var data = null;
+var key = null;
 function submitForm() {
     var ip = document.getElementById("ipInput").value;
     var username = document.getElementById("usernameInput").value;
@@ -41,8 +43,12 @@ function submitForm() {
         loader.style.display = "none"; // Ocultar el loader en caso de error
     });
 }
+function dimeNodo(nodo){
+    data=nodo.data;
+    key=data.key;
+}
 
-function applyAllConfigurations(node) {
+function applyAllConfigurations() {
     var hostname = document.getElementById("hostnameInput").value.trim();
     var ipDomainName = document.getElementById("ipDomainNameInput").value.trim();
     var motd = document.getElementById("motdInput").value.trim();
@@ -58,7 +64,6 @@ function applyAllConfigurations(node) {
     var vlanTrunkAllowed = document.getElementById("vlanTrunkAllowedInput").value.trim();
     var noVlan = document.getElementById("noVlanInput").value.trim();
     var nativeVlan = document.getElementById("nativeVlanInput").value.trim();
-    var datos = node.data;
 
     // Construir el comando
     var command = "";
@@ -102,7 +107,7 @@ function applyAllConfigurations(node) {
     }
 
     var configData = {
-        ip: datos.key,
+        ip: key,
         command: command
     };
 
@@ -212,59 +217,3 @@ function openTab(evt, tabName) {
     document.getElementById(tabName).style.display = "block";
     evt.currentTarget.classList.add("active");
 }
-
-
-
-/*var request = require('request');
-
-var myJSONObject = {...};
-request({
-    url: "http://joshiahchoi.com/myjson",
-    method: "POST",
-    json: true,
-    body: myJSONObject
-    }, function (error, response, body{
-        console.log(response);
-});
-
-from flask import request, Flask, jsonify
-from json import loads
-from ConexionTopologia import device_configuration, discover
-
-server = Flask(__name__)
-
-@server.route("/set-connection", methods=["POST"])
-def query_and_discovery():
-    conn = request.get_json()
-    print(conn)
-
-    discover.create_conection(loads(conn))
-
-    return "Recibido", 201
-
-@server.route("/send-config", methods=["POST"])
-def set_configuration():
-    newConfig = request.get_json()
-    
-    device_configuration.send_configuration(newConfig['ip'], newConfig['commands'])
-
-    print(newConfig)
-
-    return "Recibido", 201
-
-if __name__ == "__main__":
-    server.run(debug=True)
-
-    
-    
-    import requests
-    import json
-    
-    caca = {'ip':'10.10.69.1', 'username': 'test', 'password': 'test'}
-    
-    commands = {'ip':'10.10.69.1','commands':"hostname Router1,ip domain name test.mx, int f0/0, ip add 10.10.69.19"}
-    
-    print(requests.post("http://127.0.0.1:5000/set-connection",json= json.dumps(caca)))
-    
-    print(requests.post("http://127.0.0.1:5000/send-config",json= commands))
-    */
