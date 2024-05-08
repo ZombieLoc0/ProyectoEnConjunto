@@ -295,8 +295,8 @@ body {
 }
 
 .loader {
-    border: 16px solid #f3f3f3; /* Light grey */
-    border-top: 16px solid #3498db; /* Blue */
+    border: 16px solid #f3f3f3;
+    border-top: 16px solid #3498db;
     border-radius: 50%;
     width: 120px;
     height: 120px;
@@ -319,8 +319,8 @@ body {
     color: #0c0338;
     backdrop-filter: blur(5px);
     text-align: center;
-    max-height: 500px; /* Establecer la altura máxima */
-    overflow-y: auto; /* Agregar barra de desplazamiento vertical */
+    max-height: 500px;
+    overflow-y: auto;
 }
 
 .device-config:hover {
@@ -334,8 +334,6 @@ body {
         margin-top: 10px;
     }
 }
-
-
 
 .input-field {
     width: calc(100% - 90px);
@@ -371,7 +369,6 @@ body {
     justify-content: center;
 }
 
-/* Alinear botones al centro en dispositivos móviles */
 @media screen and (max-width: 600px) {
     .device-config form button {
         width: 100%;
