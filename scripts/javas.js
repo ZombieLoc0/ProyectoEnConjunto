@@ -213,3 +213,58 @@ function openTab(evt, tabName) {
     document.getElementById(tabName).style.display = "block";
     evt.currentTarget.classList.add("active");
 }
+
+function applySwitchConfigurations() {
+    var switchHostname = document.getElementById("switchHostnameInput").value.trim();
+    var switchIpDomainName = document.getElementById("switchIPDomainNameInput").value.trim();
+    var switchMotd = document.getElementById("switchMotdInput").value.trim();
+
+    var switchCommand = "";
+
+    if (switchHostname !== "") {
+        switchCommand += "hostname " + switchHostname + ", ";
+    }
+    if (switchIpDomainName !== "") {
+        switchCommand += "ip domain name " + switchIpDomainName + ", ";
+    }
+    if (switchMotd !== "") {
+        switchCommand += "banner motd #" + switchMotd + "#, ";
+    }
+
+    var switchConfigData = {
+        ip: key,
+        command: switchCommand
+    };
+
+    fetch("http://localhost:5000/send-config", {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(switchConfigData)
+    })
+    .then(response => response.json())
+    .then(data => {
+        console.log(data.message);
+    })
+    .catch(error => {
+        console.error('Error al enviar la configuración del switch:', error);
+    });
+
+    document.getElementById("switchConfigForm").reset();
+}
+
+function openSwitchConfigTab(evt, tabName) {
+    var switchTabcontent = document.getElementsByClassName("switchTabcontent");
+    for (var i = 0; i < switchTabcontent.length; i++) {
+        switchTabcontent[i].style.display = "none";
+    }
+
+    var switchTablinks = document.getElementsByClassName("switchTablinks");
+    for (var i = 0; i < switchTablinks.length; i++) {
+        switchTablinks[i].classList.remove("active");
+    }
+
+    document.getElementById(tabName).style.display = "block";
+    evt.currentTarget.classList.add("active");
+}
