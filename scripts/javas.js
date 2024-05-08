@@ -66,6 +66,8 @@ function applyAllConfigurations() {
     var noVlan = document.getElementById("noVlanInput").value.trim();
     var nativeVlan = document.getElementById("nativeVlanInput").value.trim();
     var poolNamev6 = document.getElementById("poolNamev6Input").value.trim();
+    var addressP = document.getElementById("prefixInput").value.trim();
+    var DNSv6 = document.getElementById("serverDNSInput").value.trim();
 
     var command = "";
     if (hostname !== "") {
@@ -86,8 +88,8 @@ function applyAllConfigurations() {
     if (poolName !== "" && dhcpRange !== "") {
         command += "ip dhcp pool " + poolName + ", network " + dhcpRange + ", default router " + dhcpDR;
     }
-    if(poolNamev6 = "") {
-        command += ""
+    if(poolNamev6 !== "") {
+        command += "ipv6 unicast-routing, " + "ipv6 dhcp pool " + poolNamev6 + ", address prefix " + addressP + ", dns-server " + DNSv6 + ", ";
     }
     if (vlanNumber !== "") {
         command += "vlan " + vlanNumber + ", ";
