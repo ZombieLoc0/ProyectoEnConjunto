@@ -25,8 +25,8 @@
     <div class="sidebar">
         <div class="tab">
             <button class="tablinks" onclick="openTab(event, 'deviceInfo')">Información del dispositivo</button>
-            <button class="tablinks" onclick="openTab(event, 'routerConfig')">Configuraciones del Router</button>
-            <button class="tablinks" onclick="openTab(event, 'switchConfig')">Configuraciones del Switch</button>
+            <button class="tablinks" onclick="openTab(event, 'routerConfig', 'Router')">Configuraciones del Router</button>
+            <button class="tablinks" onclick="openTab(event, 'switchConfig', 'Switch')">Configuraciones del Switch</button>
         </div>
         <div id="deviceInfo" class="tabcontent">
             <button class="close-btn" onclick="closeDeviceInfo()">x</button>
@@ -40,7 +40,6 @@
             <div class="device-config">
                 <h3>Configuración del Router</h3>
                 <form id="routerConfigForm">
-                    <!-- Campos específicos para la configuración del router -->
                     <input type="text" id="hostnameInput" class="input-field" placeholder="Hostname">
                     <input type="text" id="ipDomainNameInput" class="input-field" placeholder="IP Domain Name">
                     <input type="text" id="motdInput" class="input-field" placeholder="Mensaje del día">                                        
@@ -96,11 +95,9 @@
             <div class="device-config">
                 <h3>Configuración del Switch</h3>
                 <form id="switchConfigForm">
-                    <!-- Campos específicos para la configuración del switch -->
                     <input type="text" id="switchHostnameInput" class="input-field" placeholder="Hostname">
                     <input type="text" id="switchIPDomainNameInput" class="input-field" placeholder="IP Domain Name">
                     <input type="text" id="switchMotdInput" class="input-field" placeholder="Mensaje del día">
-                    <!-- Agrega aquí los campos adicionales para la configuración del switch -->
                 </form>
             </div>
         </div>

@@ -48,6 +48,15 @@ function dimeNodo(nodo){
     key=data.key;
 }
 
+function limpiarFormulario() {
+    document.getElementById("routerConfigForm").reset();
+    document.getElementById("vlanFields").style.display = "none";
+    document.getElementById("natFields").style.display = "none";
+    document.getElementById("dhcpFields").style.display = "none";
+    document.getElementById("dhcpv6Fields-se").style.display = "none";
+    document.getElementById("dhcpv6Fields").style.display = "none";
+}
+
 function applyAllConfigurations() {
     var hostname = document.getElementById("hostnameInput").value.trim();
     var ipDomainName = document.getElementById("ipDomainNameInput").value.trim();
@@ -129,6 +138,8 @@ function applyAllConfigurations() {
     .catch(error => {
         console.error('Error al enviar la configuración:', error);
     });
+
+    limpiarFormulario();
 }
 
 function toggleVLANFields() {
