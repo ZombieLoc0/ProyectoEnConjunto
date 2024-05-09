@@ -70,6 +70,7 @@ myDiagram.linkTemplate =
 );
 
 // Función para manejar el evento de clic en el nodo
+// Función para manejar el evento de clic en el nodo
 function handleClick(node) {
     var data = node.data; // Obtener los datos del nodo
     console.log("Clic en el nodo con ID:", data.key);
@@ -92,8 +93,26 @@ function handleClick(node) {
     `;
     // Insertar la información del nodo en el elemento HTML
     nodeInfoElement.innerHTML = nodeInfoHTML;
+
+    // Mostrar el formulario de configuración adecuado según el tipo de nodo
+    if (data.type === 'Router') {
+        showRouterConfigForm();
+    } else if (data.type === 'Switch') {
+        showSwitchConfigForm();
+    }
 }
-   
+
+// Función para mostrar el formulario de configuración del router
+function showRouterConfigForm() {
+    document.getElementById("routerConfig").style.display = "block";
+    document.getElementById("switchConfig").style.display = "none"; // Ocultar el formulario del switch si está visible
+}
+
+// Función para mostrar el formulario de configuración del switch
+function showSwitchConfigForm() {
+    document.getElementById("routerConfig").style.display = "none"; // Ocultar el formulario del router si está visible
+    document.getElementById("switchConfig").style.display = "block";
+}   
 
 // Cargar datos del diagrama desde la API
 fetch('http://localhost:3000/data') // Cambia la URL según sea necesario

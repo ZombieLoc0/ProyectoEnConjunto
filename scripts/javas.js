@@ -48,6 +48,15 @@ function dimeNodo(nodo){
     key=data.key;
 }
 
+function limpiarFormulario() {
+    document.getElementById("routerConfigForm").reset();
+    document.getElementById("vlanFields").style.display = "none";
+    document.getElementById("natFields").style.display = "none";
+    document.getElementById("dhcpFields").style.display = "none";
+    document.getElementById("dhcpv6Fields-se").style.display = "none";
+    document.getElementById("dhcpv6Fields").style.display = "none";
+}
+
 function applyAllConfigurations() {
     var hostname = document.getElementById("hostnameInput").value.trim();
     var ipDomainName = document.getElementById("ipDomainNameInput").value.trim();
@@ -66,6 +75,8 @@ function applyAllConfigurations() {
     var noVlan = document.getElementById("noVlanInput").value.trim();
     var nativeVlan = document.getElementById("nativeVlanInput").value.trim();
     var poolNamev6 = document.getElementById("poolNamev6Input").value.trim();
+    var addressP = document.getElementById("prefixInput").value.trim();
+    var DNSv6 = document.getElementById("serverDNSInput").value.trim();
 
     var command = "";
     if (hostname !== "") {
@@ -86,8 +97,8 @@ function applyAllConfigurations() {
     if (poolName !== "" && dhcpRange !== "") {
         command += "ip dhcp pool " + poolName + ", network " + dhcpRange + ", default router " + dhcpDR;
     }
-    if(poolNamev6 = "") {
-        command += ""
+    if(poolNamev6 !== "") {
+        command += "ipv6 unicast-routing, " + "ipv6 dhcp pool " + poolNamev6 + ", address prefix " + addressP + ", dns-server " + DNSv6 + ", ";
     }
     if (vlanNumber !== "") {
         command += "vlan " + vlanNumber + ", ";
@@ -127,6 +138,8 @@ function applyAllConfigurations() {
     .catch(error => {
         console.error('Error al enviar la configuración:', error);
     });
+
+    limpiarFormulario();
 }
 
 function toggleVLANFields() {
@@ -174,35 +187,16 @@ function toggleDHCPv6Fields() {
     }
 }
 
+function closeDeviceInfo() {
+    document.getElementById("deviceInfo").style.display = "none";
+}
 
-const mapContainer = document.querySelector('.map-container');
-const mapImage = document.getElementById('mapImage');
+function closeRouterConfig() {
+    document.getElementById("routerConfig").style.display = "none";
+}
 
-let isDragging = false;
-let startX, startY, offsetX = 0, offsetY = 0;
-
-mapImage.addEventListener('mousedown', (e) => {
-    isDragging = true;
-    startX = e.clientX - mapImage.offsetLeft;
-    startY = e.clientY - mapImage.offsetTop;
-});
-
-document.addEventListener('mouseup', () => {
-    isDragging = false;
-});
-
-mapContainer.addEventListener('mousemove', (e) => {
-    if (isDragging) {
-        e.preventDefault();
-        let x = e.clientX - startX;
-        let y = e.clientY - startY;
-        setPosition(x, y);
-    }
-});
-
-function setPosition(x, y) {
-    mapImage.style.left = x + 'px';
-    mapImage.style.top = y + 'px';
+function closeSwitchConfig() {
+    document.getElementById("switchConfig").style.display = "none";
 }
 
 function openTab(evt, tabName) {
@@ -214,6 +208,61 @@ function openTab(evt, tabName) {
     var tablinks = document.getElementsByClassName("tablinks");
     for (var i = 0; i < tablinks.length; i++) {
         tablinks[i].classList.remove("active");
+    }
+
+    document.getElementById(tabName).style.display = "block";
+    evt.currentTarget.classList.add("active");
+}
+
+function applySwitchConfigurations() {
+    var switchHostname = document.getElementById("switchHostnameInput").value.trim();
+    var switchIpDomainName = document.getElementById("switchIPDomainNameInput").value.trim();
+    var switchMotd = document.getElementById("switchMotdInput").value.trim();
+
+    var switchCommand = "";
+
+    if (switchHostname !== "") {
+        switchCommand += "hostname " + switchHostname + ", ";
+    }
+    if (switchIpDomainName !== "") {
+        switchCommand += "ip domain name " + switchIpDomainName + ", ";
+    }
+    if (switchMotd !== "") {
+        switchCommand += "banner motd #" + switchMotd + "#, ";
+    }
+
+    var switchConfigData = {
+        ip: key,
+        command: switchCommand
+    };
+
+    fetch("http://localhost:5000/send-config", {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(switchConfigData)
+    })
+    .then(response => response.json())
+    .then(data => {
+        console.log(data.message);
+    })
+    .catch(error => {
+        console.error('Error al enviar la configuración del switch:', error);
+    });
+
+    document.getElementById("switchConfigForm").reset();
+}
+
+function openSwitchConfigTab(evt, tabName) {
+    var switchTabcontent = document.getElementsByClassName("switchTabcontent");
+    for (var i = 0; i < switchTabcontent.length; i++) {
+        switchTabcontent[i].style.display = "none";
+    }
+
+    var switchTablinks = document.getElementsByClassName("switchTablinks");
+    for (var i = 0; i < switchTablinks.length; i++) {
+        switchTablinks[i].classList.remove("active");
     }
 
     document.getElementById(tabName).style.display = "block";

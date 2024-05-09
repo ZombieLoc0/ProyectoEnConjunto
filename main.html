@@ -25,17 +25,21 @@
     <div class="sidebar">
         <div class="tab">
             <button class="tablinks" onclick="openTab(event, 'deviceInfo')">Información del dispositivo</button>
-            <button class="tablinks" onclick="openTab(event, 'deviceConfig')">Configuraciones del dispositivo</button>
+            <button class="tablinks" onclick="openTab(event, 'routerConfig', 'Router')">Configuraciones del Router</button>
+            <button class="tablinks" onclick="openTab(event, 'switchConfig', 'Switch')">Configuraciones del Switch</button>
         </div>
         <div id="deviceInfo" class="tabcontent">
+            <button class="close-btn" onclick="closeDeviceInfo()">x</button>
             <div class="device-info">
                 <div id="nodeInfo" class="node-info"></div>
                 <div id="routerInfo" class="router-info"></div>
             </div>
         </div>
-        <div id="deviceConfig" class="tabcontent" style="display: none;">
+        <div id="routerConfig" class="tabcontent" style="display: none;">
+            <button class="close-btn" onclick="closeRouterConfig()">x</button>
             <div class="device-config">
-                <form id="configForm">
+                <h3>Configuración del Router</h3>
+                <form id="routerConfigForm">
                     <input type="text" id="hostnameInput" class="input-field" placeholder="Hostname">
                     <input type="text" id="ipDomainNameInput" class="input-field" placeholder="IP Domain Name">
                     <input type="text" id="motdInput" class="input-field" placeholder="Mensaje del día">                                        
@@ -64,7 +68,7 @@
                         <input type="text" id="prefixInput" class="input-field" placeholder="Dirección Prefix">
                         <input type="text" id="serverDNSInput" class="input-field" placeholder="DNS server">
                         <input type="text" id="domainNAMEInput" class="input-field" placeholder="Nombre del dominio">
-                        <input type="text" id="rangeInput" class="input-field" placeholder="Rango DHCPv6">
+                        <input type="text" id="interfaceDHCPv6Input" class="input-field" placeholder="Interfaz a aplicar">
                     </div>
                     <div id="vlanFields" style="display: none;">
                         <p>VLAN</p>
@@ -83,6 +87,18 @@
                     <button type="button" onclick="toggleDHCPv6Fields()">Configurar DHCPv6 con estado</button><br>
                     <button type="button" onclick="toggleVLANFields()">Configurar VLAN</button><br>
                     <button type="button" onclick="applyAllConfigurations()">Aplicar todas las configuraciones</button><br>
+                </form>
+            </div>
+        </div>
+        <div id="switchConfig" class="tabcontent" style="display: none;">
+            <button class="close-btn" onclick="closeSwitchConfig()">x</button>
+            <div class="device-config">
+                <h3>Configuración del Switch</h3>
+                <form id="switchConfigForm">
+                    <input type="text" id="switchHostnameInput" class="input-field" placeholder="Hostname">
+                    <input type="text" id="switchIPDomainNameInput" class="input-field" placeholder="IP Domain Name">
+                    <input type="text" id="switchMotdInput" class="input-field" placeholder="Mensaje del día">
+                    <button type="button" onclick="applySwitchConfigurations()">Aplicar todas las configuraciones</button><br>
                 </form>
             </div>
         </div>
