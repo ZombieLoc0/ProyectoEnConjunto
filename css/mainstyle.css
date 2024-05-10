@@ -7,14 +7,29 @@
     font-family: "Poppins", sans-serif;
 }
 
+
 body {
     display: flex;
     justify-content: space-between;
     min-height: 100vh;
-    background: url("../images/bck.jpg");
-    background-size: cover;
+    background: linear-gradient(45deg, #00d5ff, #152179, #190952, #00d5ff);
+    background-size: 400% 400%;
+    animation: gradientAnimation 5s ease infinite;
     background-position: center;
 }
+
+@keyframes gradientAnimation {
+    0% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
 
 .header {
     position: fixed;
@@ -124,7 +139,7 @@ body {
 }
 
 .map-container:hover {
-    border-color:#0c0338; 
+    border-color:#00d5ff; 
 }
 
 .map-container img {
@@ -136,7 +151,7 @@ body {
 }
 
 .device-info {
-    background-color: transparent;
+    background-color: #f9f9f9;
     border-radius: 10px;
     border: 4px solid rgba(0, 0, 0, 0.250);
     padding: 20px;
@@ -144,11 +159,11 @@ body {
     color: #0c0338;
     backdrop-filter: blur(5px);
     text-align: center;
-    margin-top: 20px;
+    margin-top: 38px;
 }
 
 .device-info:hover {
-    border-color:#0c0338; 
+    border-color:#00d5ff; 
 }
 
 .device-info-list {
@@ -291,12 +306,12 @@ body {
     color: #0c0338;
     backdrop-filter: blur(5px);
     text-align: center;
-    max-height: 500px;
+    max-height: 263px;
     overflow-y: auto;
 }
 
 .device-config:hover {
-    border-color: #0c0338; 
+    border-color: #00d5ff; 
 }
 
 /* Aplicar estilos solo en dispositivos móviles */
@@ -349,10 +364,9 @@ body {
 }
 
 .close-btn {
-    top: 10px;
     right: 10px;
     border: none;
-    color: black;
+    color: #00d5ff;
     font-size: 20px;
     cursor: pointer;
     background: transparent;

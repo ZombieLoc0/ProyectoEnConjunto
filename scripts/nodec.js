@@ -80,7 +80,7 @@ function handleClick(node) {
     mapContainer.style.transition = 'width 1s ease, margin-left 1s ease'; // Transición suave para el ancho y el margen izquierdo
 
     // Modificar el tamaño y posición del contenedor de mapa al hacer clic en el nodo
-    mapContainer.style.width = '80%'; // Reducir el ancho al 80%
+    mapContainer.style.width = '95%'; // Reducir el ancho al 80%
     mapContainer.style.marginLeft = '5%'; // Desplazar a la izquierda
     mainContent.style.marginLeft = 'auto'; // Centrar el contenido principal
 
@@ -90,13 +90,13 @@ function handleClick(node) {
     var nodeInfoHTML = `
         <h2>Información del Dispositivo</h2>
         <ul>
-            <li><strong>ID:</strong> ${data.key}</li>
-            <li><strong>Versión:</strong> ${data.version}</li>
-            <li><strong>Tipo:</strong> ${data.type}</li>
-            <li><strong>Cpu Usada:</strong> ${data.cpu_usada}</li>
-            <li><strong>Modelo:</strong> ${data.modelo}</li>
-            <li><strong>elegibilidad_act:</strong> ${data.elegibilidad_act}</li>
-            <li><strong>Puertos disponibles:</strong> ${data.puertos_disponibles}</li>
+            <strong>ID:</strong> ${data.key}</li><br>
+            <strong>Versión:</strong> ${data.version}</li><br>
+            <strong>Tipo:</strong> ${data.type}</li><br>
+            <strong>Cpu Usada:</strong> ${data.cpu_usada}</li><br>
+            <strong>Modelo:</strong> ${data.modelo}</li><br>
+            <strong>elegibilidad_act:</strong> ${data.elegibilidad_act}</li><br>
+            <strong>Puertos disponibles:</strong> ${data.puertos_disponibles}</li>
         </ul>
     `;
     // Insertar la información del nodo en el elemento HTML
