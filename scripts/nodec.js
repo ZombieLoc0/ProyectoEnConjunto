@@ -74,8 +74,16 @@ myDiagram.linkTemplate =
 function handleClick(node) {
     var data = node.data; // Obtener los datos del nodo
     console.log("Clic en el nodo con ID:", data.key);
-    // Restablecer el comando
-    // Realizar acciones adicionales según sea necesario
+    var mapContainer = document.querySelector('.map-container');
+    var mainContent = document.querySelector('.main-content');
+
+    mapContainer.style.transition = 'width 1s ease, margin-left 1s ease'; // Transición suave para el ancho y el margen izquierdo
+
+    // Modificar el tamaño y posición del contenedor de mapa al hacer clic en el nodo
+    mapContainer.style.width = '80%'; // Reducir el ancho al 80%
+    mapContainer.style.marginLeft = '5%'; // Desplazar a la izquierda
+    mainContent.style.marginLeft = 'auto'; // Centrar el contenido principal
+
     // Obtener el elemento HTML donde se mostrará la información del nodo
     var nodeInfoElement = document.getElementById('nodeInfo');
     // Crear una cadena con la información del nodo
@@ -97,8 +105,10 @@ function handleClick(node) {
     // Mostrar el formulario de configuración adecuado según el tipo de nodo
     if (data.type === 'Router') {
         showRouterConfigForm();
+        showDeviceInfo();
     } else if (data.type === 'Switch') {
         showSwitchConfigForm();
+        showDeviceInfo();
     }
 }
 
@@ -114,6 +124,9 @@ function showSwitchConfigForm() {
     document.getElementById("switchConfig").style.display = "block";
 }   
 
+function showDeviceInfo() {
+    document.getElementById("deviceInfo").style.display = "block";
+}  
 // Cargar datos del diagrama desde la API
 fetch('http://localhost:3000/data') // Cambia la URL según sea necesario
     .then(response => response.json())

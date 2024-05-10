@@ -23,7 +23,12 @@
         <div id="myDiagramDiv" class="map-container"></div>
     </div>
     <div class="sidebar">
-        <div id="deviceInfo" class="tabcontent" style="display: none;">
+        <div class="tab" style="display: none;">
+            <button class="tablinks" onclick="openTab(event, 'deviceInfo')">Información del dispositivo</button>
+            <button class="tablinks" onclick="openTab(event, 'routerConfig', 'Router')">Configuraciones del Router</button>
+            <button class="tablinks" onclick="openTab(event, 'switchConfig', 'Switch')">Configuraciones del Switch</button>
+        </div>
+        <div id="deviceInfo" class="tabcontent">
             <button class="close-btn" onclick="closeDeviceInfo()">x</button>
             <div class="device-info">
                 <div id="nodeInfo" class="node-info"></div>
