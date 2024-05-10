@@ -7,14 +7,29 @@
     font-family: "Poppins", sans-serif;
 }
 
+
 body {
     display: flex;
     justify-content: space-between;
     min-height: 100vh;
-    background: url("../images/bck.jpg");
-    background-size: cover;
+    background: linear-gradient(45deg, #00d5ff, #152179, #190952, #00d5ff);
+    background-size: 400% 400%;
+    animation: gradientAnimation 5s ease infinite;
     background-position: center;
 }
+
+@keyframes gradientAnimation {
+    0% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
 
 .header {
     position: fixed;
@@ -61,11 +76,10 @@ body {
 }
 
 .main-content {
-    width: 70%;
+    width: 100%;
     padding: 20px;
     box-sizing: border-box;
     position: relative;
-    overflow: hidden; 
     margin-top: 60px;
     margin-left: 20px;
     margin-right: auto;
@@ -121,10 +135,11 @@ body {
     border: 4px solid rgba(0, 0, 0, 0.250);
     backdrop-filter: blur(5px);
     transition: border-color 1s ease;
+    margin-left: 150px;
 }
 
 .map-container:hover {
-    border-color:#0c0338; 
+    border-color:#00d5ff; 
 }
 
 .map-container img {
@@ -132,39 +147,11 @@ body {
     top: 0;
     left: 0;
     -webkit-user-drag: none;
-    user-select: none; 
+    user-select: none;
 }
-
-.configurations-dropdown select {
-    width: 300px;
-    font-size: 16px;
-    font-weight: 600;
-    color: white;
-    cursor: pointer;
-    margin: 10px;
-    height: 30px;
-    margin-top: 20px;
-    text-align:center;
-    border: none;
-    background-size: 300% 100%;
-    border-radius: 10px;
-    transition: all .4s ease-in-out;
-    background-image: linear-gradient(to right, #23146b, #1e4ccb, #6595de, #d1d9f2);
-    box-shadow: 0 2px 15px 0 rgba(17, 17, 93, 0.75);
-}
-
-.configurations-dropdown select:hover {
-    background-position: 100% 0;
-    color: #0c0338;
-}
-
-.configurations-dropdown select:focus {
-    outline: none;
-}
-
 
 .device-info {
-    background-color: transparent;
+    background-color: #f9f9f9;
     border-radius: 10px;
     border: 4px solid rgba(0, 0, 0, 0.250);
     padding: 20px;
@@ -172,11 +159,11 @@ body {
     color: #0c0338;
     backdrop-filter: blur(5px);
     text-align: center;
-    margin-top: 20px;
+    margin-top: 38px;
 }
 
 .device-info:hover {
-    border-color:#0c0338; 
+    border-color:#00d5ff; 
 }
 
 .device-info-list {
@@ -295,8 +282,8 @@ body {
 }
 
 .loader {
-    border: 16px solid #f3f3f3; /* Light grey */
-    border-top: 16px solid #3498db; /* Blue */
+    border: 16px solid #f3f3f3;
+    border-top: 16px solid #3498db;
     border-radius: 50%;
     width: 120px;
     height: 120px;
@@ -319,12 +306,12 @@ body {
     color: #0c0338;
     backdrop-filter: blur(5px);
     text-align: center;
-    max-height: 500px; /* Establecer la altura máxima */
-    overflow-y: auto; /* Agregar barra de desplazamiento vertical */
+    max-height: 263px;
+    overflow-y: auto;
 }
 
 .device-config:hover {
-    border-color: #0c0338; 
+    border-color: #00d5ff; 
 }
 
 /* Aplicar estilos solo en dispositivos móviles */
@@ -334,8 +321,6 @@ body {
         margin-top: 10px;
     }
 }
-
-
 
 .input-field {
     width: calc(100% - 90px);
@@ -371,7 +356,6 @@ body {
     justify-content: center;
 }
 
-/* Alinear botones al centro en dispositivos móviles */
 @media screen and (max-width: 600px) {
     .device-config form button {
         width: 100%;
@@ -380,10 +364,9 @@ body {
 }
 
 .close-btn {
-    top: 10px;
     right: 10px;
     border: none;
-    color: black;
+    color: #00d5ff;
     font-size: 20px;
     cursor: pointer;
     background: transparent;

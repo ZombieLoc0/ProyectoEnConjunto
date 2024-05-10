@@ -77,6 +77,11 @@ function applyAllConfigurations() {
     var poolNamev6 = document.getElementById("poolNamev6Input").value.trim();
     var addressP = document.getElementById("prefixInput").value.trim();
     var DNSv6 = document.getElementById("serverDNSInput").value.trim();
+    var interfacev6 = document.getElementById("interfaceDHCPv6Input").value.trim();
+    var poolNamev6 = document.getElementById("poolNamev6Input").value.trim();
+    var addressP = document.getElementById("prefixInput").value.trim();
+    var DNSv6 = document.getElementById("serverDNSInput").value.trim();
+    var interfacev6 = document.getElementById("interfaceDHCPv6Input").value.trim();
 
     var command = "";
     if (hostname !== "") {
@@ -98,7 +103,7 @@ function applyAllConfigurations() {
         command += "ip dhcp pool " + poolName + ", network " + dhcpRange + ", default router " + dhcpDR;
     }
     if(poolNamev6 !== "") {
-        command += "ipv6 unicast-routing, " + "ipv6 dhcp pool " + poolNamev6 + ", address prefix " + addressP + ", dns-server " + DNSv6 + ", ";
+        command += "ipv6 unicast-routing, " + "ipv6 dhcp pool " + poolNamev6 + ", address prefix " + addressP + ", dns-server " + DNSv6 + ", exit" + ", interface" + interfacev6  + ", ipv6 dhcp server " + poolNamev6 + ", ipv6 nd managed-config-flag ";
     }
     if (vlanNumber !== "") {
         command += "vlan " + vlanNumber + ", ";

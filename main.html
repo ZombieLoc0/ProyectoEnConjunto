@@ -23,7 +23,7 @@
         <div id="myDiagramDiv" class="map-container"></div>
     </div>
     <div class="sidebar">
-        <div class="tab">
+        <div class="tab" style="display: none;">
             <button class="tablinks" onclick="openTab(event, 'deviceInfo')">Información del dispositivo</button>
             <button class="tablinks" onclick="openTab(event, 'routerConfig', 'Router')">Configuraciones del Router</button>
             <button class="tablinks" onclick="openTab(event, 'switchConfig', 'Switch')">Configuraciones del Switch</button>
@@ -61,6 +61,7 @@
                         <input type="text" id="prefixInput-se" class="input-field" placeholder="Dirección Prefix">
                         <input type="text" id="serverDNSInput-se" class="input-field" placeholder="DNS server">
                         <input type="text" id="domainNAMEInput-se" class="input-field" placeholder="Nombre del dominio">
+                        <input type="text" id="interfaceDHCPv6Input-se" class="input-field" placeholder="Interfaz a aplicar">
                     </div>
                     <div id="dhcpv6Fields" style="display: none;">
                         <p>DHCPv6 con estado</p>

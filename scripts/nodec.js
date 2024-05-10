@@ -1,4 +1,4 @@
-
+var id= null;
 function diagrama() {
     var $ = go.GraphObject.make;
 
@@ -12,7 +12,7 @@ function diagrama() {
             // Definir las plantillas para los nodos y enlaces
             myDiagram.nodeTemplate =
         $(go.Node, "Auto", // Utiliza la función $ de GoJS para crear un nuevo objeto de nodo (go.Node)
-        { click: function(e, node) { handleClick(node); dimeNodo(node)} }, // Agregar evento de clic al nodo, la e es el evento
+        { click: function(e, node) { handleClick(node); dimeNodo(node); agregarDatosDesdeConfJson(id)} }, // Agregar evento de clic al nodo, la e es el evento
             $(go.Panel, "Vertical",  // Usar un Panel Vertical para colocar la imagen y el texto uno debajo del otro
                 $(go.Picture,  // Usar Picture en lugar de Shape para mostrar imágenes
                     {
@@ -74,31 +74,52 @@ myDiagram.linkTemplate =
 function handleClick(node) {
     var data = node.data; // Obtener los datos del nodo
     console.log("Clic en el nodo con ID:", data.key);
-    // Restablecer el comando
-    // Realizar acciones adicionales según sea necesario
+    id=data.key
+    var mapContainer = document.querySelector('.map-container');
+    var mainContent = document.querySelector('.main-content');
+
+    mapContainer.style.transition = 'width 1s ease, margin-left 1s ease'; // Transición suave para el ancho y el margen izquierdo
+
+    // Modificar el tamaño y posición del contenedor de mapa al hacer clic en el nodo
+    mapContainer.style.width = '95%'; // Reducir el ancho al 80%
+    mapContainer.style.marginLeft = '5%'; // Desplazar a la izquierda
+    mainContent.style.marginLeft = 'auto'; // Centrar el contenido principal
+
     // Obtener el elemento HTML donde se mostrará la información del nodo
     var nodeInfoElement = document.getElementById('nodeInfo');
     // Crear una cadena con la información del nodo
     var nodeInfoHTML = `
-        <h2>Información del Dispositivo</h2>
-        <ul>
-            <li><strong>ID:</strong> ${data.key}</li>
-            <li><strong>Versión:</strong> ${data.version}</li>
-            <li><strong>Tipo:</strong> ${data.type}</li>
-            <li><strong>Cpu Usada:</strong> ${data.cpu_usada}</li>
-            <li><strong>Modelo:</strong> ${data.modelo}</li>
-            <li><strong>elegibilidad_act:</strong> ${data.elegibilidad_act}</li>
-            <li><strong>Puertos disponibles:</strong> ${data.puertos_disponibles}</li>
-        </ul>
-    `;
+    <h2>Información del Dispositivo</h2>
+    <ul>
+        <li><strong>ID:</strong> ${data.key}</li>
+        <li><strong>Versión:</strong> ${data.version}</li>
+        <li><strong>Tipo:</strong> ${data.type}</li>
+        <li><strong>Cpu Usada:</strong> ${data.cpu}</li>
+        <li><strong>Flash:</strong>Total: ${data.flash.size} Libre: ${data.flash.free}</li>
+        <li><strong>Ram:</strong>Total: ${data.ram.size} Libre: ${data.ram.free}</li>
+        <li><strong>Modelo:</strong> ${data.model}</li>
+        <li><strong>Interfaces:<strong></li>
+
+    </ul>
+`;
+     // Iterar sobre los elementos del array int_ips y agregarlos al HTML
+     data.int_ips.forEach(function(interfaceData) {
+        nodeInfoHTML += `<li>${interfaceData.interface}: ${interfaceData.ip_address}</li>`;
+    });
+    // Cerrar las etiquetas UL
+    nodeInfoHTML += `
+    </ul>
+    </ul>`;
     // Insertar la información del nodo en el elemento HTML
     nodeInfoElement.innerHTML = nodeInfoHTML;
 
     // Mostrar el formulario de configuración adecuado según el tipo de nodo
     if (data.type === 'Router') {
         showRouterConfigForm();
+        showDeviceInfo();
     } else if (data.type === 'Switch') {
         showSwitchConfigForm();
+        showDeviceInfo();
     }
 }
 
@@ -114,6 +135,38 @@ function showSwitchConfigForm() {
     document.getElementById("switchConfig").style.display = "block";
 }   
 
+function showDeviceInfo() {
+    document.getElementById("deviceInfo").style.display = "block";
+}  
+
+function agregarDatosDesdeConfJson(id) {
+    // Realizar una solicitud fetch para obtener los datos de conf.json
+    fetch('http://localhost:3000/conf') // Cambia la URL según sea necesario
+        .then(response => response.json())
+        .then(data => {
+            // Verificar si la clave id existe en los datos
+            if (data.hasOwnProperty(id)) {
+                var nodeInfoElement = document.getElementById('nodeInfo');
+                var confData = data[id];
+
+                // Crear una cadena con la información de conf.json
+                var confDataHTML = `
+                    <h2>Información de conf.json</h2>
+                    <ul>
+                        <li><strong>Versión 1:</strong> ${confData.version1}</li>
+                        <li><strong>Versión 2:</strong> ${confData.version2}</li>
+                    </ul>
+                `;
+                // Insertar la información de conf.json en el elemento HTML
+                nodeInfoElement.innerHTML += confDataHTML;
+            } else {
+                console.error(`La clave ${id} no existe en conf.json`);
+            }
+        })
+        .catch(error => {
+            console.error('Error al obtener los datos de conf.json:', error);
+        });
+}
 // Cargar datos del diagrama desde la API
 fetch('http://localhost:3000/data') // Cambia la URL según sea necesario
     .then(response => response.json())
