@@ -1,5 +1,4 @@
-//server.js
-
+//server.js .
 //API para recibir,modificar y enviar json
 const express = require('express');
 const cors = require('cors');
