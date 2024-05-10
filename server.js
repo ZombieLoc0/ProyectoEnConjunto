@@ -5,7 +5,6 @@ const cors = require('cors');
 const path = require('path');
 var fs = require('fs');
 //var numero = document.getElementById("numero").value.trim();
-
 const app = express();
 const port = 3000;
 
