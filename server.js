@@ -13,7 +13,6 @@ const port = 3000;
 app.use(cors());
 app.use(express.json()); // Middleware para analizar el cuerpo de la solicitud como JSON
 
-
 // Ruta para servir el archivo data.json
 app.get('/conf', (req, res) => {
     try {
@@ -66,7 +65,6 @@ app.get('/data', (req, res) => {
 
         // Actualizar el JSON con los enlaces únicos
         jsonData.links = uniqueLinks;
-
         res.json(jsonData);
     } catch (error) {
         console.error('Error reading data.json:', error);
@@ -96,13 +94,22 @@ app.post('/update-data', (req, res) => {
 // Middleware para parsear el cuerpo de la solicitud como JSON
 app.use(bodyParser.json());
 
+let numeroRecibido=null;
 // Endpoint POST para recibir un número
 app.post('/numero', (req, res) => {
     const numero = req.body.numero;
+    numeroRecibido=numero;
     console.log("Número recibido:", numero);
     res.send('Número recibido correctamente.');
 });
-
+// Endpoint GET para obtener el número recibido
+app.get('/numero', (req, res) => {
+    if (numeroRecibido !== null) {
+        res.json({ numero: numeroRecibido });
+    } else {
+        res.status(404).json({ error: 'No se ha recibido ningún número aún.' });
+    }
+});
 
 // Función para eliminar enlaces duplicados, considerando enlaces invertidos como duplicados
 function removeDuplicateLinks(links) {

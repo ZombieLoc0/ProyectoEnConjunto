@@ -1,5 +1,12 @@
 var id= null;
+var data = null;
+var key = null;
+function NodoVersion(nodo){
+    data=nodo.data;
+    key=data.key;
+}
 function diagrama() {
+    console.log("se llamo a la funcion")
     var $ = go.GraphObject.make;
 
     var myDiagram =
@@ -12,7 +19,7 @@ function diagrama() {
             // Definir las plantillas para los nodos y enlaces
             myDiagram.nodeTemplate =
         $(go.Node, "Auto", // Utiliza la función $ de GoJS para crear un nuevo objeto de nodo (go.Node)
-        { click: function(e, node) { handleClick(node); dimeNodo(node); agregarDatosDesdeConfJson(id)} }, // Agregar evento de clic al nodo, la e es el evento
+        { click: function(e, node) { handleClick(node); dimeNodo(node); agregarDatosDesdeConfJson(id); NodoVersion(node);} }, // Agregar evento de clic al nodo, la e es el evento
             $(go.Panel, "Vertical",  // Usar un Panel Vertical para colocar la imagen y el texto uno debajo del otro
                 $(go.Picture,  // Usar Picture en lugar de Shape para mostrar imágenes
                     {
@@ -144,7 +151,31 @@ function showDeviceInfo() {
 function showPhoneNumber() {
     document.getElementById("phoneInput").style.display = "block";
 }
-
+// Función para aplicar una versión
+function aplicarVersion(versionText) {
+    // Guardar el texto de la versión en una variable
+    var versionSeleccionada = versionText;
+    console.log('Versión seleccionada:', versionSeleccionada);
+    var versionData = {
+        ip: key,
+        command: versionSeleccionada
+    };
+    console.log(versionData);
+    fetch("http://localhost:5000/send-config", {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(versionData)
+    })
+    .then(response => response.json())
+    .then(data => {
+        console.log(data.message);
+    })
+    .catch(error => {
+        console.error('Error al enviar la configuración:', error);
+    });
+}
 
 
 function agregarDatosDesdeConfJson(id) {
@@ -158,15 +189,28 @@ function agregarDatosDesdeConfJson(id) {
                 var confData = data[id];
 
                 // Crear una cadena con la información de conf.json
-                var confDataHTML = `
-                    <h2>Información de conf.json</h2>
-                    <ul>
-                        <li><strong>Versión 1:</strong> ${confData.version1}</li>
-                        <li><strong>Versión 2:</strong> ${confData.version2}</li>
-                    </ul>
-                `;
+                var confDataHTML = `<h2>Versiones</h2><ul>`;
+                        
+                // Iterar sobre las versiones y agregarlas a la lista HTML
+                Object.keys(confData).forEach(key => {
+                    // Verificar si la clave es una versión (comienza con "version")
+                    if (key.startsWith('version')) {
+                        confDataHTML += `<li><strong>${key}:</strong> ${confData[key]} <button class="input-field">Aplicar versión</button></li>`;
+                    }
+                });
+
+                confDataHTML += `</ul>`;
+                
                 // Insertar la información de conf.json en el elemento HTML
                 nodeInfoElement.innerHTML += confDataHTML;
+
+                // Asignar los manejadores de eventos a los botones de "Aplicar versión"
+                var buttons = document.querySelectorAll('.input-field');
+                buttons.forEach(button => {
+                    button.addEventListener('click', function() {
+                        aplicarVersion(this.previousSibling.textContent.trim());
+                    });
+                });
             } else {
                 console.error(`La clave ${id} no existe en conf.json`);
             }
@@ -174,11 +218,12 @@ function agregarDatosDesdeConfJson(id) {
         .catch(error => {
             console.error('Error al obtener los datos de conf.json:', error);
         });
-}
+        }
 // Cargar datos del diagrama desde la API
 fetch('http://localhost:3000/data') // Cambia la URL según sea necesario
     .then(response => response.json())
     .then(data => {
         myDiagram.model = new go.GraphLinksModel(data.nodes, data.links);
     });
+
 }
