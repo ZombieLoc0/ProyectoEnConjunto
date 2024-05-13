@@ -1,5 +1,9 @@
 {
   "nodes": [
+        {
+            "key":"1",
+            "type":"NAT"
+        },
       {
           "key": "192.168.1.1",
           "type": "Router",
