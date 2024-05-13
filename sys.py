@@ -5,11 +5,8 @@ import json
 HOST = '192.168.1.9'
 PORT = 514
 
-# Número de teléfono predeterminado
-default_phone_number = '+523334707958'
-
 # Función para enviar mensajes usando la API de Twilio
-def enviarMensajes(mensaje, numero_destino=default_phone_number):
+def enviarMensajes(mensaje):
     # Código para enviar mensajes Twilio
     # Importa el módulo Twilio para interactuar con su API
     from twilio.rest import Client
@@ -25,7 +22,7 @@ def enviarMensajes(mensaje, numero_destino=default_phone_number):
     message = client.messages.create(
         body=mensaje,
         from_='+14015194259', # Número de teléfono desde el cual se enviará el mensaje (tu número de Twilio)
-        to=numero_destino    # Número de teléfono al cual se enviará el mensaje (el destinatario)
+        to='+523334707958'    # Número de teléfono al cual se enviará el mensaje (el destinatario)
     )
 
     # Maneja la respuesta exitosa imprimiendo el SID del mensaje
@@ -53,12 +50,6 @@ def parse_syslog_message(data):
 
     # Llamar a la función enviarMensajes dos veces
     enviarMensajes(json.dumps(json_obj))
-
-    # Obtener el número de teléfono del mensaje si está presente
-    numero = t3.split()[-1]
-    if numero.startswith('+'):
-        # Si se encuentra un número de teléfono válido en el mensaje, usarlo como el destino
-        enviarMensajes(json.dumps(json_obj), numero_destino=numero)
 
     return json_obj
     

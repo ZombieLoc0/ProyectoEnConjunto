@@ -173,10 +173,36 @@ function closeSwitchConfig() {
     document.getElementById("switchConfig").style.display = "none";
 }
 
-function closePhoneInput() {
-    document.getElementById("phoneInput").style.display = "none";
-}
+const inputNumero = document.getElementById('phoneNumber');
 
+document.querySelector('#phoneForm button').addEventListener('click', function() {
+    const numero = inputNumero.value;
+
+    fetch("http://localhost:3000/numero", {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ numero: numero })
+    })
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('Error al enviar el número.');
+        }
+        return response.text();
+    })
+    .then(data => {
+        console.log(data); // Muestra el mensaje de respuesta del servidor
+    })
+    .catch(error => {
+        console.error('Error:', error);
+    });
+});
+
+// Función para cerrar el formulario
+function closePhoneInput() {
+    document.getElementById('phoneInput').style.display = 'none';
+}
 
 function openTab(evt, tabName) {
     var tabcontent = document.getElementsByClassName("tabcontent");

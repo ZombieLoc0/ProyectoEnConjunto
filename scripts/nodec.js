@@ -117,9 +117,11 @@ function handleClick(node) {
     if (data.type === 'Router') {
         showRouterConfigForm();
         showDeviceInfo();
+        showPhoneNumber();
     } else if (data.type === 'Switch') {
         showSwitchConfigForm();
         showDeviceInfo();
+        showPhoneNumber();
     }
 }
 
@@ -137,7 +139,13 @@ function showSwitchConfigForm() {
 
 function showDeviceInfo() {
     document.getElementById("deviceInfo").style.display = "block";
-}  
+} 
+
+function showPhoneNumber() {
+    document.getElementById("phoneInput").style.display = "block";
+}
+
+
 
 function agregarDatosDesdeConfJson(id) {
     // Realizar una solicitud fetch para obtener los datos de conf.json
