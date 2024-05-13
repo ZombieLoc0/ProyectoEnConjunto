@@ -17,7 +17,7 @@ if response.status_code == 200:
 else:
     print("Error al obtener el número:", response.status_code)
 
-# Función para enviar mensajes usando la API de Twilio
+"""# Función para enviar mensajes usando la API de Twilio
 def enviarMensajes(mensaje):
     # Código para enviar mensajes Twilio
     # Importa el módulo Twilio para interactuar con su API
@@ -74,4 +74,4 @@ with socket.socket(socket.AF_INET, socket.SOCK_DGRAM) as s:
     while True:
         data, addr = s.recvfrom(1024)
         json_string = json.dumps(parse_syslog_message(data))
-        print(json_string)
+        print(json_string)"""
