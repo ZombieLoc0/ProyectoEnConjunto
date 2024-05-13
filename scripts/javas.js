@@ -173,6 +173,11 @@ function closeSwitchConfig() {
     document.getElementById("switchConfig").style.display = "none";
 }
 
+function closePhoneInput() {
+    document.getElementById("phoneInput").style.display = "none";
+}
+
+
 function openTab(evt, tabName) {
     var tabcontent = document.getElementsByClassName("tabcontent");
     for (var i = 0; i < tabcontent.length; i++) {

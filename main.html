@@ -8,7 +8,7 @@
     <script src="https://unpkg.com/gojs/release/go.js"></script>
     <script src="scripts/nodec.js"></script>
     <script src="scripts/javas.js"></script>
-    <script src="server.js"></script>
+    <script src="scripts/server.js"></script>
 </head>
 <body onload="diagrama()">
     <header class="header">
@@ -29,7 +29,7 @@
             <button class="tablinks" onclick="openTab(event, 'switchConfig', 'Switch')">Configuraciones del Switch</button>
         </div>
         <div id="deviceInfo" class="tabcontent">
-            <button class="close-btn" onclick="closeDeviceInfo()">x</button>
+            <button class="close-btn-device" onclick="closeDeviceInfo()">x</button>
             <div class="device-info">
                 <div id="nodeInfo" class="node-info"></div>
                 <div id="routerInfo" class="router-info"></div>
@@ -95,6 +95,16 @@
                     </div>
                     <button type="button" onclick="toggleVLANFields()">Configurar VLAN</button><br>
                     <button type="button" onclick="applySwitchConfigurations()">Aplicar todas las configuraciones</button><br>
+                </form>
+            </div>
+        </div>
+        <div id="phoneInput" class="tabcontent" style="display: none;">
+            <button class="close-btn" onclick="closePhoneInput()">x</button>
+            <div class="device-config">
+                <h3>Ingrese su número de teléfono</h3>
+                <form id="phoneForm">
+                    <input type="text" id="phoneNumber" class="input-field" placeholder="Ejemplo: +523334707958">
+                    <button type="button" onclick="sendPhoneNumber()">Enviar</button>
                 </form>
             </div>
         </div>
