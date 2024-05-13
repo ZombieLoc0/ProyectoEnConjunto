@@ -4,6 +4,18 @@ import json
 
 HOST = '192.168.1.9'
 PORT = 514
+# URL del endpoint GET
+url = 'http://localhost:3000/numero'
+
+# Realizar solicitud GET al endpoint
+response = requests.get(url)
+
+# Verificar si la solicitud fue exitosa
+if response.status_code == 200:
+    # Imprimir la respuesta del servidor
+    print("Número obtenido:", response.text)
+else:
+    print("Error al obtener el número:", response.status_code)
 
 # Función para enviar mensajes usando la API de Twilio
 def enviarMensajes(mensaje):

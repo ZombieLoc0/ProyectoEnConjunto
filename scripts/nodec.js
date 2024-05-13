@@ -27,7 +27,7 @@ function diagrama() {
                             case "Router": return "images/router.png";
                             case "Switch": return "images/switch.png";
                             case "Multicapa": return "images/multicapa.png";
-                            //case "PC": return "images/pc.png";
+                            case "NAT": return "images/nat.png";
                             //default: return ".png";  // Imagen por defecto
                         }
                     })),

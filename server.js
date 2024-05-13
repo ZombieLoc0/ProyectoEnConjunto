@@ -92,6 +92,15 @@ app.post('/update-data', (req, res) => {
     }
 });
 
+// Middleware para parsear el cuerpo de la solicitud como JSON
+app.use(bodyParser.json());
+
+// Endpoint POST para recibir un número
+app.post('/numero', (req, res) => {
+    const numero = req.body.numero;
+    console.log("Número recibido:", numero);
+    res.send('Número recibido correctamente.');
+});
 
 
 // Función para eliminar enlaces duplicados, considerando enlaces invertidos como duplicados
