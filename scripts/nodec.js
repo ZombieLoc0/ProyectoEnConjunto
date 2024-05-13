@@ -81,7 +81,7 @@ function handleClick(node) {
     mapContainer.style.transition = 'width 1s ease, margin-left 1s ease'; // Transición suave para el ancho y el margen izquierdo
 
     // Modificar el tamaño y posición del contenedor de mapa al hacer clic en el nodo
-    mapContainer.style.width = '95%'; // Reducir el ancho al 80%
+    mapContainer.style.width = '50%'; // Reducir el ancho al 80%
     mapContainer.style.marginLeft = '5%'; // Desplazar a la izquierda
     mainContent.style.marginLeft = 'auto'; // Centrar el contenido principal
 

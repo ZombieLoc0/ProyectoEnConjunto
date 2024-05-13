@@ -173,12 +173,38 @@ function closeSwitchConfig() {
     document.getElementById("switchConfig").style.display = "none";
 }
 
+function closePhoneInput() {
+    document.getElementById("phoneInput").style.display = "none";
+}
+
+function openTab(evt, tabName) {
+    var tabcontent = document.getElementsByClassName("tabcontent");
+    for (var i = 0; i < tabcontent.length; i++) {
+        tabcontent[i].style.display = "none";
+    }
+
+    var tablinks = document.getElementsByClassName("tablinks");
+    for (var i = 0; i < tablinks.length; i++) {
+        tablinks[i].classList.remove("active");
+    }
+
+    document.getElementById(tabName).style.display = "block";
+    evt.currentTarget.classList.add("active");
+}
+
+// Obtener referencia al input de número
 const inputNumero = document.getElementById('phoneNumber');
 
-document.querySelector('#phoneForm button').addEventListener('click', function() {
+// Escuchar el evento de submit del formulario
+document.getElementById('phoneForm').addEventListener('submit', function(event) {
+    // Evitar que el formulario se envíe de forma predeterminada
+    event.preventDefault();
+    
+    // Obtener el valor del número del input
     const numero = inputNumero.value;
 
-    fetch("http://localhost:3000/numero", {
+    // Hacer la solicitud POST al endpoint
+    fetch('http://localhost:3000/numero', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
@@ -199,25 +225,25 @@ document.querySelector('#phoneForm button').addEventListener('click', function()
     });
 });
 
-// Función para cerrar el formulario
-function closePhoneInput() {
-    document.getElementById('phoneInput').style.display = 'none';
+function sendPhoneNumber() {
+    const phoneNumber = document.getElementById('phoneNumber').value;
+
+    fetch('http://localhost:3000/numero', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ numero: phoneNumber })
+    })
+    .then(response => response.json())
+    .then(data => {
+        console.log(data.message);
+    })
+    .catch(error => {
+        console.error('Error al enviar el número:', error);
+    });
 }
 
-function openTab(evt, tabName) {
-    var tabcontent = document.getElementsByClassName("tabcontent");
-    for (var i = 0; i < tabcontent.length; i++) {
-        tabcontent[i].style.display = "none";
-    }
-
-    var tablinks = document.getElementsByClassName("tablinks");
-    for (var i = 0; i < tablinks.length; i++) {
-        tablinks[i].classList.remove("active");
-    }
-
-    document.getElementById(tabName).style.display = "block";
-    evt.currentTarget.classList.add("active");
-}
 
 function applySwitchConfigurations() {
     var switchHostname = document.getElementById("switchHostnameInput").value.trim();
