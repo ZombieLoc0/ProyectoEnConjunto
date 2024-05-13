@@ -8,7 +8,7 @@
     <script src="https://unpkg.com/gojs/release/go.js"></script>
     <script src="scripts/nodec.js"></script>
     <script src="scripts/javas.js"></script>
-    <script src="server.js"></script>
+    <script src="scripts/server.js"></script>
 </head>
 <body onload="diagrama()">
     <header class="header">
@@ -29,7 +29,7 @@
             <button class="tablinks" onclick="openTab(event, 'switchConfig', 'Switch')">Configuraciones del Switch</button>
         </div>
         <div id="deviceInfo" class="tabcontent">
-            <button class="close-btn" onclick="closeDeviceInfo()">x</button>
+            <button class="close-btn-device" onclick="closeDeviceInfo()">x</button>
             <div class="device-info">
                 <div id="nodeInfo" class="node-info"></div>
                 <div id="routerInfo" class="router-info"></div>
@@ -71,22 +71,10 @@
                         <input type="text" id="domainNAMEInput" class="input-field" placeholder="Nombre del dominio">
                         <input type="text" id="interfaceDHCPv6Input" class="input-field" placeholder="Interfaz a aplicar">
                     </div>
-                    <div id="vlanFields" style="display: none;">
-                        <p>VLAN</p>
-                        <input type="text" id="vlanNumberInput" class="input-field" placeholder="Número de VLAN">
-                        <input type="text" id="vlanNameInput" class="input-field" placeholder="Nombre de VLAN">
-                        <input type="text" id="vlanInterfaceInput" class="input-field" placeholder="Rango de interfaces">
-                        <input type="text" id="vlanAccessInput" class="input-field" placeholder="Switchport mode access">
-                        <input type="text" id="vlanAccessVlanInput" class="input-field" placeholder="Switchport access vlan">
-                        <input type="text" id="vlanTrunkAllowedInput" class="input-field" placeholder="Switchport trunk allowed vlan">
-                        <input type="text" id="noVlanInput" class="input-field" placeholder="No vlan">
-                        <input type="text" id="nativeVlanInput" class="input-field" placeholder="Switchport trunk native vlan">
-                    </div>
                     <button type="button" onclick="toggleNATFields()">Configurar NAT</button><br>
                     <button type="button" onclick="toggleDHCPFields()">Configurar DHCPv4</button><br>
                     <button type="button" onclick="toggleDHCPv6Fields_se()">Configurar DHCPv6 sin estado</button><br>
                     <button type="button" onclick="toggleDHCPv6Fields()">Configurar DHCPv6 con estado</button><br>
-                    <button type="button" onclick="toggleVLANFields()">Configurar VLAN</button><br>
                     <button type="button" onclick="applyAllConfigurations()">Aplicar todas las configuraciones</button><br>
                 </form>
             </div>
@@ -99,7 +87,24 @@
                     <input type="text" id="switchHostnameInput" class="input-field" placeholder="Hostname">
                     <input type="text" id="switchIPDomainNameInput" class="input-field" placeholder="IP Domain Name">
                     <input type="text" id="switchMotdInput" class="input-field" placeholder="Mensaje del día">
+                    <div id="vlanFields" style="display: none;">
+                        <p>VLAN</p>
+                        <input type="text" id="vlanNumberInput" class="input-field" placeholder="Número de VLAN">
+                        <input type="text" id="vlanNameInput" class="input-field" placeholder="Nombre de VLAN">
+                        <input type="text" id="vlanInterfaceInput" class="input-field" placeholder="Rango de interfaces">
+                    </div>
+                    <button type="button" onclick="toggleVLANFields()">Configurar VLAN</button><br>
                     <button type="button" onclick="applySwitchConfigurations()">Aplicar todas las configuraciones</button><br>
+                </form>
+            </div>
+        </div>
+        <div id="phoneInput" class="tabcontent" style="display: block;">
+            <button class="close-btn" onclick="closePhoneInput()">x</button>
+            <div class="device-config">
+                <h3>Ingrese su número de teléfono</h3>
+                <form id="phoneForm" onsubmit="sendPhoneNumber(event)">
+                    <input type="text" id="phoneInput" class="input-field" placeholder="Ejemplo: +523334707958">
+                    <button type="submit">Enviar</button>
                 </form>
             </div>
         </div>
