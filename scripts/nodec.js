@@ -22,25 +22,26 @@ function handleClick(node) {
     var nodeInfoHTML = `
     <h2>Información del Dispositivo</h2>
     <ul>
-        <li><strong>ID:</strong> ${data.key}</li>
-        <li><strong>Versión:</strong> ${data.version}</li>
-        <li><strong>Tipo:</strong> ${data.type}</li>
-        <li><strong>Cpu Usada:</strong> ${data.cpu}</li>
-        <li><strong>Flash:</strong>Total: ${data.flash.size} Libre: ${data.flash.free}</li>
-        <li><strong>Ram:</strong>Total: ${data.ram.size} Libre: ${data.ram.free}</li>
-        <li><strong>Modelo:</strong> ${data.model}</li>
-        <li><strong>Interfaces:<strong></li>
+        <strong>Hostname: </strong> ${data.hostname}<br>
+        <strong>Versión: </strong> ${data.version}<br>
+        <strong>Tipo: </strong> ${data.type}<br>
+        <strong>Cpu Usada: </strong> ${data.cpu}<br>
+        <strong>Flash: </strong>Total: ${data.flash.size} <br> Libre: ${data.flash.free}<br>
+        <strong>Ram: </strong>Total: ${data.ram.size} <br> Libre: ${data.ram.free}<br>
+        <strong>Modelo: </strong> ${data.model}<br>
+        <strong>Interfaces: </strong><br>
+            <ul class="interfaces-list" style = "display: none;">`; // Añadir una clase al UL para poder seleccionarlo fácilmente
 
-    </ul>
-`;
      // Iterar sobre los elementos del array int_ips y agregarlos al HTML
      data.int_ips.forEach(function(interfaceData) {
         nodeInfoHTML += `<li>${interfaceData.interface}: ${interfaceData.ip_address}</li>`;
     });
     // Cerrar las etiquetas UL
     nodeInfoHTML += `
+            </ul>
+        </li>
     </ul>
-    </ul>`;
+    <button class="interfaces-btn" "interfaces-btn" onclick="toggleInterfaces()">Mostrar/Ocultar Interfaces</button>`; // Agregar un botón para mostrar/ocultar interfaces
     // Insertar la información del nodo en el elemento HTML
     nodeInfoElement.innerHTML = nodeInfoHTML;
 
@@ -53,6 +54,16 @@ function handleClick(node) {
         showSwitchConfigForm();
         showDeviceInfo();
         showPhoneNumber();
+    }
+}
+// Función para mostrar u ocultar las interfaces
+function toggleInterfaces() {
+    var interfacesList = document.querySelector('.interfaces-list'); // Seleccionar la lista de interfaces
+
+    if (interfacesList.style.display === 'none') {
+        interfacesList.style.display = 'block'; // Mostrar las interfaces si están ocultas
+    } else {
+        interfacesList.style.display = 'none'; // Ocultar las interfaces si están visibles
     }
 }
 
@@ -193,13 +204,13 @@ function agregarDatosDesdeConfJson(id) {
                 var confData = data[id];
 
                 // Crear una cadena con la información de conf.json
-                var confDataHTML = `<h2>Versiones</h2><ul>`;
+                var confDataHTML = `<h2 class = "tversiones">Versiones</h2><ul>`;
                         
                 // Iterar sobre las versiones y agregarlas a la lista HTML
                 Object.keys(confData).forEach(key => {
                     // Verificar si la clave es una versión (comienza con "version")
                     if (key.startsWith('version')) {
-                        confDataHTML += `<li><strong>${key}:</strong> ${confData[key]} <button class="versions">Aplicar versión</button></li>`;
+                        confDataHTML += `<li><strong>${key}:</strong> ${confData[key]}<button class="versions">Aplicar versión</button></li>`;
                     }
                 });
 
