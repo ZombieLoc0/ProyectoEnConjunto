@@ -4,21 +4,18 @@ import json
 
 HOST = '192.168.1.9'
 PORT = 514
-# URL del endpoint GET
-url = 'http://localhost:3000/numero'
 
-# Realizar solicitud GET al endpoint
-response = requests.get(url)
+# URL del servidor Node.js donde está el endpoint GET
+url = 'http://localhost:3000/numero'  # Reemplaza 'localhost' y 'puerto' con la dirección y puerto de tu servidor
 
-# Verificar si la solicitud fue exitosa
-if response.status_code == 200:
-    # Imprimir la respuesta del servidor
-    print("Número obtenido:", response.text)
-else:
-    print("Error al obtener el número:", response.status_code)
 
-"""# Función para enviar mensajes usando la API de Twilio
+# Función para enviar mensajes usando la API de Twilio
 def enviarMensajes(mensaje):
+    # Realizar la solicitud GET al servidor Node.js
+    response = requests.get(url)
+    # Obtener el número del cuerpo de la respuesta
+    numero_recibido = response.json()['numero']
+    print("Número recibido:", numero_recibido)
     # Código para enviar mensajes Twilio
     # Importa el módulo Twilio para interactuar con su API
     from twilio.rest import Client
@@ -34,7 +31,7 @@ def enviarMensajes(mensaje):
     message = client.messages.create(
         body=mensaje,
         from_='+14015194259', # Número de teléfono desde el cual se enviará el mensaje (tu número de Twilio)
-        to='+523334707958'    # Número de teléfono al cual se enviará el mensaje (el destinatario)
+        to=numero_recibido    # Número de teléfono al cual se enviará el mensaje (el destinatario)
     )
 
     # Maneja la respuesta exitosa imprimiendo el SID del mensaje
@@ -74,4 +71,4 @@ with socket.socket(socket.AF_INET, socket.SOCK_DGRAM) as s:
     while True:
         data, addr = s.recvfrom(1024)
         json_string = json.dumps(parse_syslog_message(data))
-        print(json_string)"""
+        print(json_string)
