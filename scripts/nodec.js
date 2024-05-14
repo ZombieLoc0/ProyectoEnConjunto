@@ -195,7 +195,7 @@ function agregarDatosDesdeConfJson(id) {
                 Object.keys(confData).forEach(key => {
                     // Verificar si la clave es una versión (comienza con "version")
                     if (key.startsWith('version')) {
-                        confDataHTML += `<li><strong>${key}:</strong> ${confData[key]} <button class="input-field">Aplicar versión</button></li>`;
+                        confDataHTML += `<li><strong>${key}:</strong> ${confData[key]} <button class="versions">Aplicar versión</button></li>`;
                     }
                 });
 
@@ -205,7 +205,7 @@ function agregarDatosDesdeConfJson(id) {
                 nodeInfoElement.innerHTML += confDataHTML;
 
                 // Asignar los manejadores de eventos a los botones de "Aplicar versión"
-                var buttons = document.querySelectorAll('.input-field');
+                var buttons = document.querySelectorAll('.versions');
                 buttons.forEach(button => {
                     button.addEventListener('click', function() {
                         aplicarVersion(this.previousSibling.textContent.trim());

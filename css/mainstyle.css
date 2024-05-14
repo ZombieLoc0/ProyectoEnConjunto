@@ -332,6 +332,16 @@ body {
     box-sizing: border-box;
 }
 
+.versions{
+        width: calc(100% - 90px);
+        padding: 3px;
+        margin: 8px 0;
+        display: inline-block;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        box-sizing: border-box;
+}
+
 .device-config button {
     background-color: #1d0d6b;
     color: white;
