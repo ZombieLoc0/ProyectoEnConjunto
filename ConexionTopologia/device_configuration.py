@@ -4,22 +4,35 @@ def create_commands_lists(commands_string):
     commands = commands_string.split(',')
     return commands
 
-def send_configuration(ip, commands):
-    myConn = {
-        'device_type': 'cisco_ios',
-        'ip': ip,
-        'username': 'test',
-        'password': 'test',
-        'secret': 'test',
-        'port': 22,
-    }
-    commands_lists = create_commands_lists(commands)
+def send_config(sesion, commands):
+    comm_lists = create_commands_lists(commands)
 
     try:
-        conn = nm.ConnectHandler(**myConn)
+        conn = nm.ConnectHandler(**sesion)
     except:
-        print(f"error al conectarse al dispositivo: {ip}")
+        print('No se pudo establecer la conexion')
+        return None
+    try:      
+        conn.send_config_set(comm_lists)
+    except:
+        print('Error a mandar la configuracion')
+        return None
+
     try:
-        conn.send_config_set(commands_lists)
+        run = conn.send_command('show run')
     except:
-        print(f"error al mandar la configuracion")
+        print(f'Error al mostrar running config')
+        return None
+    
+    version = 'version'
+
+    if sesion['ip'] in device_ver_control:
+        device_ver_control[sesion['ip']] += 1
+    else:
+        device_ver_control[sesion['ip']] = 1
+    
+    version += str(device_ver_control[sesion['ip']])
+
+    return {version:run}
+
+device_ver_control = dict()
