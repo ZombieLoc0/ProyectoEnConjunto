@@ -5,7 +5,6 @@ const cors = require('cors');
 const path = require('path');
 var fs = require('fs');
 const bodyParser = require('body-parser');
-//var numero = document.getElementById("numero").value.trim();
 const app = express();
 const port = 3000;
 
@@ -85,6 +84,7 @@ app.post('/update-data', (req, res) => {
 
         // Envía los datos recibidos como respuesta a través de la ruta GET /data
         res.redirect(303, '/data');
+        
     } catch (error) {
         console.error('Error al escribir en data.json:', error);
         res.status(400).json({ error: 'Error al escribir en data.json' });
