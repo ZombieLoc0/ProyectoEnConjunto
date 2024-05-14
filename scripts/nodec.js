@@ -1,82 +1,6 @@
 var id= null;
 var data = null;
 var key = null;
-function NodoVersion(nodo){
-    data=nodo.data;
-    key=data.key;
-}
-function diagrama() {
-    console.log("se llamo a la funcion")
-    var $ = go.GraphObject.make;
-
-    var myDiagram =
-    $(go.Diagram, "myDiagramDiv",
-        {
-                initialContentAlignment: go.Spot.Center,  //establece que el contenido del diagrama se alinee al centro del área del diagrama.
-                "undoManager.isEnabled": true //se habilita esta funcionalidad de deshacer y rehacer en el diagrama.
-        });
-
-            // Definir las plantillas para los nodos y enlaces
-            myDiagram.nodeTemplate =
-        $(go.Node, "Auto", // Utiliza la función $ de GoJS para crear un nuevo objeto de nodo (go.Node)
-        { click: function(e, node) { handleClick(node); dimeNodo(node); agregarDatosDesdeConfJson(id); NodoVersion(node);} }, // Agregar evento de clic al nodo, la e es el evento
-            $(go.Panel, "Vertical",  // Usar un Panel Vertical para colocar la imagen y el texto uno debajo del otro
-                $(go.Picture,  // Usar Picture en lugar de Shape para mostrar imágenes
-                    {
-                        margin: 50,
-                        width: 50,
-                        height: 50,
-                        imageStretch: go.GraphObject.Uniform  // La imagen se debe estirar uniformemente para ajustarse al tamaño del nodo.
-                    },
-                    new go.Binding("source", "type", function(type) {
-                        // Mapear el tipo de nodo al archivo de imagen correspondiente
-                        switch (type) {
-                            case "Router": return "images/router.png";
-                            case "Switch": return "images/switch.png";
-                            case "Multicapa": return "images/multicapa.png";
-                            case "NAT": return "images/nat.png";
-                            //default: return ".png";  // Imagen por defecto
-                        }
-                    })),
-                $(go.TextBlock, { margin: 8 }, new go.Binding("text"))  // , "key" También dentro del Panel Vertical, se define un objeto go.TextBlock que se utiliza para mostrar el texto (la clave del nodo).
-            )
-        );
-
-// Definir la plantilla personalizada para los enlaces
-myDiagram.linkTemplate =
-    $(go.Link,)
-    .add(
-        $(go.Shape,
-        { stroke: "#1e4ccb", strokeWidth: 1.5 })
-    )
-    .add(
-        $(go.Shape,
-        {
-            geometryString: "M0,0 10,0 10,6 0,6 z",
-            stroke: null,
-            fill: "red",
-            scale: 0.7,
-            toArrow: "Circle"
-        })
-    )
-    .add(
-        $(go.Shape,
-        {
-            geometryString: "M0,0 10,0 10,6 0,6 z",
-            stroke: null,
-            fill: "red",
-            scale: 0.7,
-            fromArrow: "Circle"
-        }),
-    $(go.TextBlock, // Etiqueta de texto en el lado "from"
-    { segmentOffset: new go.Point(-50, -10), textAlign: "center" },
-    new go.Binding("text", "t1")),
-    $(go.TextBlock, // Etiqueta de texto en el lado "to"
-    { segmentOffset: new go.Point(50, 10), textAlign: "center" },
-    new go.Binding("text", "t2"))
-);
-
-// Función para manejar el evento de clic en el nodo
 // Función para manejar el evento de clic en el nodo
 function handleClick(node) {
     var data = node.data; // Obtener los datos del nodo
@@ -176,8 +100,88 @@ function aplicarVersion(versionText) {
         console.error('Error al enviar la configuración:', error);
     });
 }
+function NodoVersion(nodo){
+    data=nodo.data;
+    key=data.key;
+}
+function diagrama() {
+    console.log("se llamo a la funcion")
+    var $ = go.GraphObject.make;
 
+    var myDiagram =
+    $(go.Diagram, "myDiagramDiv",
+        {
+                initialContentAlignment: go.Spot.Center,  //establece que el contenido del diagrama se alinee al centro del área del diagrama.
+                "undoManager.isEnabled": true //se habilita esta funcionalidad de deshacer y rehacer en el diagrama.
+        });
 
+            // Definir las plantillas para los nodos y enlaces
+            myDiagram.nodeTemplate =
+        $(go.Node, "Auto", // Utiliza la función $ de GoJS para crear un nuevo objeto de nodo (go.Node)
+        { click: function(e, node) { handleClick(node); dimeNodo(node); agregarDatosDesdeConfJson(id); NodoVersion(node);} }, // Agregar evento de clic al nodo, la e es el evento
+            $(go.Panel, "Vertical",  // Usar un Panel Vertical para colocar la imagen y el texto uno debajo del otro
+                $(go.Picture,  // Usar Picture en lugar de Shape para mostrar imágenes
+                    {
+                        margin: 50,
+                        width: 50,
+                        height: 50,
+                        imageStretch: go.GraphObject.Uniform  // La imagen se debe estirar uniformemente para ajustarse al tamaño del nodo.
+                    },
+                    new go.Binding("source", "type", function(type) {
+                        // Mapear el tipo de nodo al archivo de imagen correspondiente
+                        switch (type) {
+                            case "Router": return "images/router.png";
+                            case "Switch": return "images/switch.png";
+                            case "Multicapa": return "images/multicapa.png";
+                            case "NAT": return "images/nat.png";
+                            //default: return ".png";  // Imagen por defecto
+                        }
+                    })),
+                $(go.TextBlock, { margin: 8 }, new go.Binding("text"))  // , "key" También dentro del Panel Vertical, se define un objeto go.TextBlock que se utiliza para mostrar el texto (la clave del nodo).
+            )
+        );
+
+// Definir la plantilla personalizada para los enlaces
+myDiagram.linkTemplate =
+    $(go.Link,)
+    .add(
+        $(go.Shape,
+        { stroke: "#1e4ccb", strokeWidth: 1.5 })
+    )
+    .add(
+        $(go.Shape,
+        {
+            geometryString: "M0,0 10,0 10,6 0,6 z",
+            stroke: null,
+            fill: "red",
+            scale: 0.7,
+            toArrow: "Circle"
+        })
+    )
+    .add(
+        $(go.Shape,
+        {
+            geometryString: "M0,0 10,0 10,6 0,6 z",
+            stroke: null,
+            fill: "red",
+            scale: 0.7,
+            fromArrow: "Circle"
+        }),
+    $(go.TextBlock, // Etiqueta de texto en el lado "from"
+    { segmentOffset: new go.Point(-50, -10), textAlign: "center" },
+    new go.Binding("text", "t1")),
+    $(go.TextBlock, // Etiqueta de texto en el lado "to"
+    { segmentOffset: new go.Point(50, 10), textAlign: "center" },
+    new go.Binding("text", "t2"))
+);
+// Cargar datos del diagrama desde la API
+fetch('http://localhost:3000/data') // Cambia la URL según sea necesario
+    .then(response => response.json())
+    .then(data => {
+        myDiagram.model = new go.GraphLinksModel(data.nodes, data.links);
+    });
+}
+// Función para manejar el evento de clic en el nodo
 function agregarDatosDesdeConfJson(id) {
     // Realizar una solicitud fetch para obtener los datos de conf.json
     fetch('http://localhost:3000/conf') // Cambia la URL según sea necesario
@@ -219,11 +223,3 @@ function agregarDatosDesdeConfJson(id) {
             console.error('Error al obtener los datos de conf.json:', error);
         });
         }
-// Cargar datos del diagrama desde la API
-fetch('http://localhost:3000/data') // Cambia la URL según sea necesario
-    .then(response => response.json())
-    .then(data => {
-        myDiagram.model = new go.GraphLinksModel(data.nodes, data.links);
-    });
-
-}
